@@ -769,6 +769,8 @@ public class AOJilterHandler implements JilterHandler {
     }
 
     /**
+     * TODO: Strip any of the typical spamassassin headers, so that procmail will not default to deliverying if spamassassin fails and doesn't modify the headers
+     *       (Prevent spam with spamassassin headers from falling through)
      * TODO: Check for X-Loop here instead of procmail for more performance.
      * TODO: Reenable header in other parts of this code to activate this method.
      */
