@@ -99,6 +99,12 @@ public class Notifier implements Runnable {
                         msg.setSubject(notice.getSubject());
                         msg.setFrom(new InternetAddress(notice.getFrom()));
                         msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                        // Set a high priority
+                        msg.setHeader("X-Priority", "1");
+                        //msg.setHeader("Priority", "Urgent");
+                        //msg.setHeader("Importance", "High");
+                        //msg.setHeader("X-MSMail-Priority", "High");
+                        // Set content
                         msg.setText(notice.getMessage());
                         msg.setSentDate(new Date(notice.getNoticeTimeMillis()));
                         if(log.isDebugEnabled()) log.debug("Created Message");

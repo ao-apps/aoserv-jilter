@@ -31,7 +31,7 @@ public class AOJilterHandler implements JilterHandler {
     /**
      * When <code>true</code>, notices will be sent but emails will not be stopped.
      */
-    public static final boolean NOTIFY_ONLY_MODE = true;
+    public static final boolean NOTIFY_ONLY_MODE = false;
 
     /**
      * Outbound emails to these addresses are never limited and are never added to counters.
@@ -739,7 +739,7 @@ public class AOJilterHandler implements JilterHandler {
                 if(notifyNow) {
                     // Build summary message
                     StringBuilder message = new StringBuilder();
-                    message.append("email limit reached\n"
+                    message.append("email ").append(mode.name().toLowerCase()).append(" limit reached\n"
                                  + "    address....: ").append(address).append("\n"
                                  + "    package....: ").append(packageName).append("\n"
                                  + "    burst......: ").append(emailLimit.getBurst()).append(" emails\n"
@@ -755,7 +755,7 @@ public class AOJilterHandler implements JilterHandler {
                             configuration.getSmtpServer(),
                             configuration.getEmailSummaryFrom(),
                             configuration.getEmailSummaryTo(),
-                            "email limit reached for "+packageName,
+                            "email " + mode.name().toLowerCase() + " limit reached for "+packageName,
                             messageString
                         )
                     );
