@@ -23,6 +23,8 @@ import org.apache.commons.logging.LogFactory;
 /**
  * What does a forwarding look like?  It appears that a forwarding is accepted like any other address as local.  Then sendmail performs
  * the forwarding without a milter check on the way out.
+ * 
+ * TODO: EmailAttachmentType filters - go into .zip, .tar, .tgz, .tar.gz, ..., too.
  *
  * @author  AO Industries, Inc.
  */
