@@ -48,6 +48,7 @@ public class Notifier implements Runnable {
         }
     }
 
+    @Override
     public void run() {
         while(true) {
             try {
@@ -111,7 +112,7 @@ public class Notifier implements Runnable {
                         Transport.send(msg);
                         if(log.isDebugEnabled()) log.debug("Called Transport.send(Message)");
                     } catch(MessagingException err) {
-                        err.printStackTrace();
+                        log.error(null, err);
                     }
                 }
             }
