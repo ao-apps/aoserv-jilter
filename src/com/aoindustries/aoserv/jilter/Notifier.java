@@ -43,7 +43,7 @@ public class Notifier implements Runnable {
                 noticeQueue.notify();
             } else {
                 // Create thread if not yet running
-                (queueThread = new Thread(new Notifier())).start();
+                (queueThread = new Thread(new Notifier(), "Notifier")).start();
             }
         }
     }

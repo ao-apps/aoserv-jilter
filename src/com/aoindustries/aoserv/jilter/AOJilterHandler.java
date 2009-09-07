@@ -122,7 +122,7 @@ public class AOJilterHandler implements JilterHandler {
     /**
      * Gets the counter for the provided mode and package or <code>null</code> if it is not limited.
      */
-    public static EmailCounter getCounter(JilterConfiguration configuration, String packageName, CounterMode mode) {
+    static EmailCounter getCounter(JilterConfiguration configuration, String packageName, CounterMode mode) {
         switch(mode) {
             case IN : return getInCounter(configuration, packageName);
             case OUT : return getOutCounter(configuration, packageName);
@@ -185,6 +185,7 @@ public class AOJilterHandler implements JilterHandler {
         auth_type = null;
     }
 
+    @Override
     public int getSupportedProcesses() {
         return PROCESS_CONNECT | /*PROCESS_HELO |*/ PROCESS_ENVFROM | PROCESS_ENVRCPT /*| PROCESS_HEADER | PROCESS_BODY */;
     }
@@ -202,6 +203,7 @@ public class AOJilterHandler implements JilterHandler {
      *
      * TODO: Verify against realtime blacklists.
      */
+    @Override
     public JilterStatus connect(String hostname, InetAddress hostaddr, Properties properties) {
         if(log.isTraceEnabled()) {
             trace("connect:");
@@ -242,6 +244,7 @@ public class AOJilterHandler implements JilterHandler {
     /**
      * This method is currently disabled by <code>getSupportedProcesses</code> and should not be called by sendmail.
      */
+    @Override
     public JilterStatus helo(String helohost, Properties properties) {
         if(log.isTraceEnabled()) {
             trace("helo:");
@@ -261,6 +264,7 @@ public class AOJilterHandler implements JilterHandler {
      * TODO: Verify that against SPF / PTR / MX records.
      * TODO: Don't allow outbound to send for an address that doesn't match the IP for the customer (virtual hosting IP enforcement)
      */
+    @Override
     public JilterStatus envfrom(String[] argv, Properties properties) {
         if(log.isTraceEnabled()) {
             trace("envfrom:");
@@ -336,6 +340,7 @@ public class AOJilterHandler implements JilterHandler {
      *   </LI>
      * </OL>
      */
+    @Override
     public JilterStatus envrcpt(String[] argv, Properties properties) {
         try {
             if(log.isTraceEnabled()) {
@@ -776,6 +781,7 @@ public class AOJilterHandler implements JilterHandler {
      * TODO: Check for X-Loop here instead of procmail for more performance.
      * TODO: Reenable header in other parts of this code to activate this method.
      */
+    @Override
     public JilterStatus header(String headerf, String headerv) {
         if(log.isTraceEnabled()) {
             trace("header:");
@@ -787,6 +793,7 @@ public class AOJilterHandler implements JilterHandler {
         return status;
     }
 
+    @Override
     public JilterStatus eoh() {
         if(log.isTraceEnabled()) {
             trace("eoh:");
@@ -801,6 +808,7 @@ public class AOJilterHandler implements JilterHandler {
      * TODO: Limit inbox size here
      * TODO: Reenable body in other parts of this code to activate this method.
      */
+    @Override
     public JilterStatus body(ByteBuffer bodyp) {
         if(log.isTraceEnabled()) {
             trace("body:");
@@ -810,6 +818,7 @@ public class AOJilterHandler implements JilterHandler {
         return status;
     }
 
+    @Override
     public JilterStatus eom(JilterEOMActions eomActions, Properties properties) {
         if(log.isTraceEnabled()) {
             trace("eom:");
@@ -819,6 +828,7 @@ public class AOJilterHandler implements JilterHandler {
         return status;
     }
 
+    @Override
     public JilterStatus abort() {
         if(log.isTraceEnabled()) {
             trace("abort:");
@@ -828,6 +838,7 @@ public class AOJilterHandler implements JilterHandler {
         return status;
     }
 
+    @Override
     public JilterStatus close() {
         try {
             if(log.isTraceEnabled()) {
@@ -842,6 +853,7 @@ public class AOJilterHandler implements JilterHandler {
         return status;
     }
 
+    @Override
     public int getRequiredModifications() {
         if(log.isTraceEnabled()) {
             trace("getRequiredModifications:");

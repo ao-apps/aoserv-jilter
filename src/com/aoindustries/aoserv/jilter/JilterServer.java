@@ -35,7 +35,7 @@ public class JilterServer {
             try {
                 start();
                 break;
-            } catch(IOException err) {
+            } catch(Exception err) {
                 log.error(null, err);
                 try {
                     Thread.sleep(10000);
