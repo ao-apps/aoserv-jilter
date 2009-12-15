@@ -49,69 +49,69 @@ public class AOJilterHandler implements JilterHandler {
     private static final Log log = LogFactory.getLog(AOJilterHandler.class);
 
     /**
-     * Keeps a cache of the inbound email counters on a per-package basis
+     * Keeps a cache of the inbound email counters on a per-business basis
      */
     private static final Map<String,EmailCounter> counterInCache = new HashMap<String,EmailCounter>();
 
     /**
-     * Gets the inbound email counter for the provided package, or <code>null</code> if its inbound
+     * Gets the inbound email counter for the provided business, or <code>null</code> if its inbound
      * email is not limited.
      */
-    public static EmailCounter getInCounter(JilterConfiguration configuration, String packageName) {
-        EmailLimit emailLimit = configuration.getEmailInLimit(packageName);
+    public static EmailCounter getInCounter(JilterConfiguration configuration, String accounting) {
+        EmailLimit emailLimit = configuration.getEmailInLimit(accounting);
         if(emailLimit==null) return null;
         synchronized(counterInCache) {
-            EmailCounter emailCounter = counterInCache.get(packageName);
+            EmailCounter emailCounter = counterInCache.get(accounting);
             // Recreate if doesn't exist or settings changed
             if(emailCounter==null || !emailCounter.getEmailLimit().equals(emailLimit)) {
-                emailCounter = new EmailCounter(packageName, emailLimit);
-                counterInCache.put(packageName, emailCounter);
+                emailCounter = new EmailCounter(accounting, emailLimit);
+                counterInCache.put(accounting, emailCounter);
             }
             return emailCounter;
         }
     }
 
     /**
-     * Keeps a cache of the outbound email counters on a per-package basis
+     * Keeps a cache of the outbound email counters on a per-business basis
      */
     private static final Map<String,EmailCounter> counterOutCache = new HashMap<String,EmailCounter>();
 
     /**
-     * Gets the outbound email counter for the provided package, or <code>null</code> if its outbound
+     * Gets the outbound email counter for the provided business, or <code>null</code> if its outbound
      * email is not limited.
      */
-    public static EmailCounter getOutCounter(JilterConfiguration configuration, String packageName) {
-        EmailLimit emailLimit = configuration.getEmailOutLimit(packageName);
+    public static EmailCounter getOutCounter(JilterConfiguration configuration, String accounting) {
+        EmailLimit emailLimit = configuration.getEmailOutLimit(accounting);
         if(emailLimit==null) return null;
         synchronized(counterOutCache) {
-            EmailCounter emailCounter = counterOutCache.get(packageName);
+            EmailCounter emailCounter = counterOutCache.get(accounting);
             // Recreate if doesn't exist or settings changed
             if(emailCounter==null || !emailCounter.getEmailLimit().equals(emailLimit)) {
-                emailCounter = new EmailCounter(packageName, emailLimit);
-                counterOutCache.put(packageName, emailCounter);
+                emailCounter = new EmailCounter(accounting, emailLimit);
+                counterOutCache.put(accounting, emailCounter);
             }
             return emailCounter;
         }
     }
 
     /**
-     * Keeps a cache of the relay email counters on a per-package basis
+     * Keeps a cache of the relay email counters on a per-business basis
      */
     private static final Map<String,EmailCounter> counterRelayCache = new HashMap<String,EmailCounter>();
 
     /**
-     * Gets the relay email counter for the provided package, or <code>null</code> if its relay
+     * Gets the relay email counter for the provided business, or <code>null</code> if its relay
      * email is not limited.
      */
-    public static EmailCounter getRelayCounter(JilterConfiguration configuration, String packageName) {
-        EmailLimit emailLimit = configuration.getEmailRelayLimit(packageName);
+    public static EmailCounter getRelayCounter(JilterConfiguration configuration, String accounting) {
+        EmailLimit emailLimit = configuration.getEmailRelayLimit(accounting);
         if(emailLimit==null) return null;
         synchronized(counterRelayCache) {
-            EmailCounter emailCounter = counterRelayCache.get(packageName);
+            EmailCounter emailCounter = counterRelayCache.get(accounting);
             // Recreate if doesn't exist or settings changed
             if(emailCounter==null || !emailCounter.getEmailLimit().equals(emailLimit)) {
-                emailCounter = new EmailCounter(packageName, emailLimit);
-                counterRelayCache.put(packageName, emailCounter);
+                emailCounter = new EmailCounter(accounting, emailLimit);
+                counterRelayCache.put(accounting, emailCounter);
             }
             return emailCounter;
         }
@@ -120,13 +120,13 @@ public class AOJilterHandler implements JilterHandler {
     private enum CounterMode { IN, OUT, RELAY }
 
     /**
-     * Gets the counter for the provided mode and package or <code>null</code> if it is not limited.
+     * Gets the counter for the provided mode and business or <code>null</code> if it is not limited.
      */
-    static EmailCounter getCounter(JilterConfiguration configuration, String packageName, CounterMode mode) {
+    static EmailCounter getCounter(JilterConfiguration configuration, String accounting, CounterMode mode) {
         switch(mode) {
-            case IN : return getInCounter(configuration, packageName);
-            case OUT : return getOutCounter(configuration, packageName);
-            case RELAY : return getRelayCounter(configuration, packageName);
+            case IN : return getInCounter(configuration, accounting);
+            case OUT : return getOutCounter(configuration, accounting);
+            case RELAY : return getRelayCounter(configuration, accounting);
             default : throw new IllegalArgumentException("Unexpected mode: "+mode);
         }
     }
@@ -649,14 +649,14 @@ public class AOJilterHandler implements JilterHandler {
             return false;
         }
 
-        // Determine the package name from the domain
-        String packageName = configuration.getPackageName(domain);
-        if(packageName==null) {
+        // Determine the business name from the domain
+        String accounting = configuration.getBusiness(domain);
+        if(accounting==null) {
             // Other filters should catch this, return false
             return false;
         }
 
-        EmailCounter counter = getCounter(configuration, packageName, mode);
+        EmailCounter counter = getCounter(configuration, accounting, mode);
         if(counter==null) {
             // Not limited, return false
             return false;
@@ -674,7 +674,7 @@ public class AOJilterHandler implements JilterHandler {
             if(lastDecrementTime>currentTimeMillis) {
                 if((lastDecrementTime-currentTimeMillis) > (5*60*1000)) {
                     // System time changed, reset counter
-                    if(log.isWarnEnabled()) log.warn("lastDecrementTime>currentTime, system time reset? resetting packageName="+packageName);
+                    if(log.isWarnEnabled()) log.warn("lastDecrementTime>currentTime, system time reset? resetting accounting="+accounting);
                     counter.reset(currentTimeMillis);
                 }
             } else {
@@ -748,7 +748,7 @@ public class AOJilterHandler implements JilterHandler {
                     StringBuilder message = new StringBuilder();
                     message.append("email ").append(mode.name().toLowerCase()).append(" limit reached\n"
                                  + "    address....: ").append(address).append("\n"
-                                 + "    package....: ").append(packageName).append("\n"
+                                 + "    accounting.: ").append(accounting).append("\n"
                                  + "    burst......: ").append(emailLimit.getBurst()).append(" emails\n"
                                  + "    rate.......: ").append(emailLimit.getRate()).append(" emails/second\n"
                                  + "    next notice: ").append(notifyDelayMinutes).append(notifyDelayMinutes==1 ? " minute\n":" minutes\n");
@@ -762,14 +762,14 @@ public class AOJilterHandler implements JilterHandler {
                             configuration.getSmtpServer(),
                             configuration.getEmailSummaryFrom(),
                             configuration.getEmailSummaryTo(),
-                            "email " + mode.name().toLowerCase() + " limit reached for "+packageName,
+                            "email " + mode.name().toLowerCase() + " limit reached for "+accounting,
                             messageString
                         )
                     );
                 }
 
                 // Return that it is limited
-                if(log.isInfoEnabled()) log.info("email limit exceeded: packageName="+packageName);
+                if(log.isInfoEnabled()) log.info("email limit exceeded: accounting="+accounting);
                 return NOTIFY_ONLY_MODE ? false : true;
             }
         }

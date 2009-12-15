@@ -8,13 +8,13 @@ package com.aoindustries.aoserv.jilter;
 import com.aoindustries.aoserv.jilter.config.EmailLimit;
 
 /**
- * Keeps track of the number of emails for one package and direction (in, out, relay).
+ * Keeps track of the number of emails for one business and direction (in, out, relay).
  *
  * @author  AO Industries, Inc.
  */
 public class EmailCounter {
 
-    private final String packageName;
+    private final String accounting;
     private final EmailLimit emailLimit;
 
     private int emailCount;
@@ -22,14 +22,14 @@ public class EmailCounter {
     private int notifyDelayMinutes;
     private long lastNotifyTime;
 
-    public EmailCounter(String packageName, EmailLimit emailLimit) {
-        this.packageName = packageName;
+    public EmailCounter(String accounting, EmailLimit emailLimit) {
+        this.accounting = accounting;
         this.emailLimit = emailLimit;
         reset(System.currentTimeMillis());
     }
 
-    public String getPackageName() {
-        return packageName;
+    public String getAccounting() {
+        return accounting;
     }
     
     public EmailLimit getEmailLimit() {
