@@ -1,10 +1,10 @@
-package com.aoindustries.aoserv.jilter;
-
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.aoserv.jilter;
+
 import com.aoindustries.aoserv.jilter.config.EmailLimit;
 import com.aoindustries.aoserv.jilter.config.JilterConfiguration;
 import com.sendmail.jilter.JilterEOMActions;
@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class AOJilterHandler implements JilterHandler {
     private static final String[] noLimitToAddresses = {
         "aoserv@aoindustries.com",
         "2054542556@tmomail.net",
-        "2514584757@tmomail.net",
+        //"2514584757@tmomail.net",
         "support@aoindustries.com"
     };
 
@@ -191,11 +192,11 @@ public class AOJilterHandler implements JilterHandler {
     }
 
     private void trace(String message) {
-        log.trace(System.identityHashCode(this)+ ": " + message);
+        if(log.isTraceEnabled()) log.trace(System.identityHashCode(this)+ ": " + message);
     }
 
     private void debug(String message) {
-        log.debug(System.identityHashCode(this)+ ": " + message);
+        if(log.isDebugEnabled()) log.debug(System.identityHashCode(this)+ ": " + message);
     }
 
     /**
@@ -601,6 +602,17 @@ public class AOJilterHandler implements JilterHandler {
     }
 
     /**
+     * Strips characters between first plus (at position >= 1) and the first @ symbol.
+     */
+    private static String stripPlusAddress(String address) {
+        int plusPos = address.indexOf('+', 1);
+        if(plusPos==-1) return address;
+        int atPos = address.indexOf('@');
+        if(plusPos>atPos) return address;
+        return address.substring(0, plusPos)+address.substring(atPos);
+    }
+
+    /**
      * Determines if the provided to address is one that should not be limited.
      *
      * @see  #noLimitToAddresses
@@ -615,9 +627,11 @@ public class AOJilterHandler implements JilterHandler {
             && parsedTo.charAt(parsedTo.length()-1)=='>'
         ) parsedTo = parsedTo.substring(1, parsedTo.length()-1);
 
+        parsedTo = stripPlusAddress(parsedTo);
+        
         // Case-insensitive match
         for(int c=0;c<noLimitToAddresses.length;c++) {
-            if(noLimitToAddresses[c].equalsIgnoreCase(to)) return true;
+            if(noLimitToAddresses[c].equalsIgnoreCase(parsedTo)) return true;
         }
         return false;
     }
@@ -635,6 +649,8 @@ public class AOJilterHandler implements JilterHandler {
             && address.charAt(0)=='<'
             && address.charAt(address.length()-1)=='>'
         ) address = address.substring(1, address.length()-1);
+
+        address = stripPlusAddress(address);
 
         // Find the last @ in the address
         int atPos = address.lastIndexOf('@');
@@ -746,7 +762,7 @@ public class AOJilterHandler implements JilterHandler {
                 if(notifyNow) {
                     // Build summary message
                     StringBuilder message = new StringBuilder();
-                    message.append("email ").append(mode.name().toLowerCase()).append(" limit reached\n"
+                    message.append("email ").append(mode.name().toLowerCase(Locale.ENGLISH)).append(" limit reached\n"
                                  + "    address....: ").append(address).append("\n"
                                  + "    accounting.: ").append(accounting).append("\n"
                                  + "    burst......: ").append(emailLimit.getBurst()).append(" emails\n"
@@ -762,7 +778,7 @@ public class AOJilterHandler implements JilterHandler {
                             configuration.getSmtpServer(),
                             configuration.getEmailSummaryFrom(),
                             configuration.getEmailSummaryTo(),
-                            "email " + mode.name().toLowerCase() + " limit reached for "+accounting,
+                            "email " + mode.name().toLowerCase(Locale.ENGLISH) + " limit reached for "+accounting,
                             messageString
                         )
                     );
@@ -897,6 +913,8 @@ public class AOJilterHandler implements JilterHandler {
             && parsedFrom.charAt(parsedFrom.length()-1)=='>'
         ) parsedFrom = parsedFrom.substring(1, parsedFrom.length()-1);
 
+        parsedFrom = stripPlusAddress(parsedFrom);
+
         // Find the last @ in the address
         int atPos = parsedFrom.lastIndexOf('@');
         if(atPos==-1) return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address "+from+" must contain both address and domain in the form address@domain, the symbol @ was not found."});
@@ -910,7 +928,7 @@ public class AOJilterHandler implements JilterHandler {
         Set<String> addresses = configuration.getAddresses(domain);
         if(addresses==null) return JilterStatus.makeCustomStatus("550", "5.1.8", new String[] {"The from address "+from+" is not allowed. This server does not receive email for "+domain});
 
-        if(!addresses.contains(address.toLowerCase())) return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address "+from+" does not exist on this server."});
+        if(!addresses.contains(address.toLowerCase(Locale.ENGLISH))) return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address "+from+" does not exist on this server."});
 
         return null;
     }
@@ -929,6 +947,8 @@ public class AOJilterHandler implements JilterHandler {
             && parsedTo.charAt(0)=='<'
             && parsedTo.charAt(parsedTo.length()-1)=='>'
         ) parsedTo = parsedTo.substring(1, parsedTo.length()-1);
+
+        parsedTo = stripPlusAddress(parsedTo);
 
         // Find the last @ in the address
         int atPos = parsedTo.lastIndexOf('@');
@@ -952,7 +972,7 @@ public class AOJilterHandler implements JilterHandler {
         ) return null;
 
         // Look for an exact match
-        boolean found = addresses.contains(address.toLowerCase());
+        boolean found = addresses.contains(address.toLowerCase(Locale.ENGLISH));
 
         // Also accept wildcards
         if(!found) found = addresses.contains("");
