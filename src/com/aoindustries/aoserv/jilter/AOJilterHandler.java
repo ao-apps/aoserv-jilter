@@ -608,6 +608,7 @@ public class AOJilterHandler implements JilterHandler {
         int plusPos = address.indexOf('+', 1);
         if(plusPos==-1) return address;
         int atPos = address.indexOf('@');
+        if(atPos==-1) return address;
         if(plusPos>atPos) return address;
         return address.substring(0, plusPos)+address.substring(atPos);
     }
