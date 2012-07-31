@@ -480,9 +480,7 @@ public class AOJilterHandler implements JilterHandler {
 
                     // Make sure from address is a valid address on this machine
                     if(status==null) {
-                        // if(!isHostAddrLocal || configuration.getRestrictOutboundEmail()) status = checkFromIsLocal();
-                        // Changed to not restrict relay
-                        if(configuration.getRestrictOutboundEmail()) status = checkFromIsLocal();
+                        if(!isHostAddrLocal || configuration.getRestrictOutboundEmail()) status = checkFromIsLocal();
                     }
 
                     // Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP
@@ -545,9 +543,7 @@ public class AOJilterHandler implements JilterHandler {
 
                     // Make sure from address is a valid address on this machine
                     if(status==null) {
-                        // status = checkFromIsLocal();
-                        // Changed to not restrict relay
-                        if(configuration.getRestrictOutboundEmail()) status = checkFromIsLocal();
+                        status = checkFromIsLocal();
                     }
 
                     // Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP
