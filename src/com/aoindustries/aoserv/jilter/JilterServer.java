@@ -53,12 +53,13 @@ public class JilterServer {
             if(!started) {
                 try {
                     System.out.print("Starting JilterServer: ");
-                    String ipAddress = JilterConfiguration.getJilterConfiguration().getPrimaryIP();
+					JilterConfiguration config = JilterConfiguration.getJilterConfiguration();
+                    String ipAddress = config.getListenIP();
                     new Thread(
                         new SimpleJilterServer(
                             new InetSocketAddress(
                                 ipAddress,
-                                JilterConfiguration.MILTER_PORT
+                                config.getListenPort()
                             ),
                             AOJilterHandler.class.getName()
                         ),
@@ -67,17 +68,11 @@ public class JilterServer {
                     started = true;
                     System.out.println("Done");
                 } catch(ClassNotFoundException err) {
-                    IOException ioErr = new IOException("ClassNotFoundException");
-                    ioErr.initCause(err);
-                    throw ioErr;
+                    throw new IOException("ClassNotFoundException", err);
                 } catch(InstantiationException err) {
-                    IOException ioErr = new IOException("InstantiationException");
-                    ioErr.initCause(err);
-                    throw ioErr;
+                    throw new IOException("InstantiationException", err);
                 } catch(IllegalAccessException err) {
-                    IOException ioErr = new IOException("IllegalAccessException");
-                    ioErr.initCause(err);
-                    throw ioErr;
+                    throw new IOException("IllegalAccessException", err);
                 }
             }
         }
