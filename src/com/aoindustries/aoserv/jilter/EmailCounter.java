@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -12,7 +12,7 @@ import com.aoindustries.aoserv.jilter.config.EmailLimit;
  *
  * @author  AO Industries, Inc.
  */
-public class EmailCounter {
+final public class EmailCounter {
 
     private final String accounting;
     private final EmailLimit emailLimit;

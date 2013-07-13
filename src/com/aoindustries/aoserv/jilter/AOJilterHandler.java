@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -52,7 +52,7 @@ public class AOJilterHandler implements JilterHandler {
     /**
      * Keeps a cache of the inbound email counters on a per-business basis
      */
-    private static final Map<String,EmailCounter> counterInCache = new HashMap<String,EmailCounter>();
+    private static final Map<String,EmailCounter> counterInCache = new HashMap<>();
 
     /**
      * Gets the inbound email counter for the provided business, or <code>null</code> if its inbound
@@ -75,7 +75,7 @@ public class AOJilterHandler implements JilterHandler {
     /**
      * Keeps a cache of the outbound email counters on a per-business basis
      */
-    private static final Map<String,EmailCounter> counterOutCache = new HashMap<String,EmailCounter>();
+    private static final Map<String,EmailCounter> counterOutCache = new HashMap<>();
 
     /**
      * Gets the outbound email counter for the provided business, or <code>null</code> if its outbound
@@ -98,7 +98,7 @@ public class AOJilterHandler implements JilterHandler {
     /**
      * Keeps a cache of the relay email counters on a per-business basis
      */
-    private static final Map<String,EmailCounter> counterRelayCache = new HashMap<String,EmailCounter>();
+    private static final Map<String,EmailCounter> counterRelayCache = new HashMap<>();
 
     /**
      * Gets the relay email counter for the provided business, or <code>null</code> if its relay
@@ -363,36 +363,39 @@ public class AOJilterHandler implements JilterHandler {
             boolean isFromLocal;
             boolean isFromAuth;
             boolean isFromEsmtp;
-            if("local".equals(mail_mailer) /*|| "cyrusv2".equals(mail_mailer)*/) {
-                // It is "local" if the hostaddr is one of the IP addresses of this machine
-                // It is "auth" if the hostaddr is not one of the IP addresses of this machine - whether they are actually logged in is checked below
-                boolean isLocalIP = isHostAddrLocal();
-                if(isLocalIP) {
-                    isFromLocal = true;
-                    isFromAuth = false;
-                    isFromEsmtp = false;
-                } else {
-                    boolean isRelayAllowed = isHostAddrRelayingAllowed();
-                    if(isRelayAllowed) {
-                        isFromLocal = false;
-                        isFromAuth = false;
-                        isFromEsmtp = true;
-                    } else {
-                        isFromLocal = false;
-                        isFromAuth = true;
-                        isFromEsmtp = false;
-                    }
-                }
-            } else if("esmtp".equals(mail_mailer)) {
-                // If is "esmtp" if not authenticated
-                isFromLocal = false;
-                isFromAuth = auth_authen!=null && auth_authen.length()>0;
-                isFromEsmtp = !isFromAuth;
-            } else {
-                JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: "+mail_mailer});
-                if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-                return status;
-            }
+			switch (mail_mailer) {
+				case "local":
+					// It is "local" if the hostaddr is one of the IP addresses of this machine
+					// It is "auth" if the hostaddr is not one of the IP addresses of this machine - whether they are actually logged in is checked below
+					boolean isLocalIP = isHostAddrLocal();
+					if(isLocalIP) {
+						isFromLocal = true;
+						isFromAuth = false;
+						isFromEsmtp = false;
+					} else {
+						boolean isRelayAllowed = isHostAddrRelayingAllowed();
+						if(isRelayAllowed) {
+							isFromLocal = false;
+							isFromAuth = false;
+							isFromEsmtp = true;
+						} else {
+							isFromLocal = false;
+							isFromAuth = true;
+							isFromEsmtp = false;
+						}
+					}
+					break;
+				case "esmtp":
+					// If is "esmtp" if not authenticated
+					isFromLocal = false;
+					isFromAuth = auth_authen!=null && auth_authen.length()>0;
+					isFromEsmtp = !isFromAuth;
+					break;
+				default:
+					JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: "+mail_mailer});
+					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+					return status;
+			}
             boolean isToLocal = "local".equals(rcpt_mailer);
             boolean isToEsmtp = "esmtp".equals(rcpt_mailer);
 
