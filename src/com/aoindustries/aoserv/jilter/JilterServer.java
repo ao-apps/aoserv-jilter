@@ -41,6 +41,8 @@ public class JilterServer {
                     Thread.sleep(10000);
                 } catch(InterruptedException err2) {
                     log.warn(null, err2);
+					// Restore the interrupted status
+					Thread.currentThread().interrupt();
                 }
             }
         }

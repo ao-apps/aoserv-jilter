@@ -69,6 +69,8 @@ public class Notifier implements Runnable {
                 Thread.sleep(10*1000);
             } catch(InterruptedException err) {
                 if(log.isWarnEnabled()) log.warn(null, err);
+				// Restore the interrupted status
+				Thread.currentThread().interrupt();
             }
         }
     }
