@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2011, 2018 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -41,8 +41,6 @@ public class JilterServer {
                     Thread.sleep(10000);
                 } catch(InterruptedException err2) {
                     log.warn(null, err2);
-					// Restore the interrupted status
-					Thread.currentThread().interrupt();
                 }
             }
         }
