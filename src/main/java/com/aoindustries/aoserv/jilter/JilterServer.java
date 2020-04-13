@@ -32,6 +32,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+// TODO: Convert to standard Java logging without log4j
 
 /**
  * Runs the jilter server on the primary IP of this machine.
