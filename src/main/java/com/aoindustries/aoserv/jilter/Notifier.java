@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2013, 2018 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2018, 2020 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -81,10 +81,9 @@ public class Notifier implements Runnable {
         // Don't send email when null or empty
         if(smtpServer!=null && (smtpServer=smtpServer.trim()).length()>0) {
             // Try to send to each recipient separately
-            String[] tos = notice.getTo().split(",");
-            for(int c=0;c<tos.length;c++) {
-                String to = tos[c].trim();
-                if(to.length()>0) {
+            for(String to : notice.getTo().split(",")) {
+				to = to.trim();
+                if(!to.isBlank()) {
                     try {
                         if(log.isDebugEnabled()) {
                             log.debug("smtpServer="+smtpServer);

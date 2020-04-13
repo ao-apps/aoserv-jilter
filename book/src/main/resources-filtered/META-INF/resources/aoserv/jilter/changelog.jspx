@@ -60,9 +60,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 						Thanks again to <ao:a href="https://github.com/prakma">prakma</ao:a>
 						for <ao:a href="https://github.com/prakma/postfix-jilter/issues/1">getting jilter into the central repository</ao:a>.
 					</li>
-					<!-- TODO:
 					<li>Updated to Java 8 coding standards.</li>
-					-->
 				</ul>
 			</changelog:release>
 		</c:if>

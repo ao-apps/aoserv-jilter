@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2013 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2020 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -634,8 +634,8 @@ public class AOJilterHandler implements JilterHandler {
         parsedTo = stripPlusAddress(parsedTo);
         
         // Case-insensitive match
-        for(int c=0;c<noLimitToAddresses.length;c++) {
-            if(noLimitToAddresses[c].equalsIgnoreCase(parsedTo)) return true;
+        for(String noLimitToAddress : noLimitToAddresses) {
+            if(noLimitToAddress.equalsIgnoreCase(parsedTo)) return true;
         }
         return false;
     }
@@ -790,7 +790,7 @@ public class AOJilterHandler implements JilterHandler {
 
                 // Return that it is limited
                 if(log.isInfoEnabled()) log.info("email limit exceeded: accounting="+accounting);
-                return NOTIFY_ONLY_MODE ? false : true;
+                return !NOTIFY_ONLY_MODE;
             }
         }
     }

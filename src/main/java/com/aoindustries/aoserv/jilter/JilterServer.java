@@ -36,12 +36,14 @@ public class JilterServer {
             try {
                 start();
                 break;
-            } catch(Exception err) {
-                log.error(null, err);
+			} catch(ThreadDeath td) {
+				throw td;
+            } catch(Throwable t) {
+                log.error(null, t);
                 try {
                     Thread.sleep(10000);
-                } catch(InterruptedException err2) {
-                    log.warn(null, err2);
+                } catch(InterruptedException e) {
+                    log.warn(null, e);
                 }
             }
         }

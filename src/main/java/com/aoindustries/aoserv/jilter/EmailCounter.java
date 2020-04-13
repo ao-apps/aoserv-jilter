@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2013 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2020 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -68,7 +68,7 @@ final public class EmailCounter {
         } else {
             emailCount-=decrementCount;
             // Is this timed right?
-            lastDecrementTime = lastDecrementTime + (long)((decrementCount * 1000L) / emailLimit.getRate());
+            lastDecrementTime += (long)((decrementCount * 1000L) / emailLimit.getRate());
         }
     }
 
