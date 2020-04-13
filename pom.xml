@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+aoserv-jilter - Mail filter for the AOServ Platform.
+Copyright (C) 2020  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of aoserv-jilter.
+
+aoserv-jilter is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoserv-jilter is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.7.2-POST-SNAPSHOT</version>
+		<relativePath>../../ao-oss-parent/pom.xml</relativePath>
+	</parent>
+
+	<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.84.1-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<properties>
+		<javadoc.breadcrumbs><![CDATA[<a target="_top" href="https://aoindustries.com/aoserv/">AOServ</a>
+/ <a target="_top" href="${project.url}">${shortTitle}</a>]]></javadoc.breadcrumbs>
+		<shortTitle>Jilter</shortTitle>
+		<description.html><![CDATA[Mail filter for the <a target="_top" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
+	</properties>
+
+	<name>AOServ Jilter</name>
+	<url>https://aoindustries.com/aoserv/jilter/</url>
+	<description>Mail filter for the AOServ Platform.</description>
+	<inceptionYear>2007</inceptionYear>
+
+	<scm>
+		<connection>scm:git:git://github.com/aoindustries/aoserv-jilter.git</connection>
+		<developerConnection>scm:git:git@github.com:aoindustries/aoserv-jilter.git</developerConnection>
+		<url>https://github.com/aoindustries/aoserv-jilter</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/aoindustries/aoserv-jilter/issues</url>
+	</issueManagement>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<links>
+								<link>${javadoc.link.javase}</link>
+								<!-- Java EE -->
+								<link>${javadoc.link.javaee}</link>
+								<!-- Direct -->
+								<link>https://aoindustries.com/ao-lang/apidocs/</link>
+								<link>https://aoindustries.com/aoserv/jilter/config/apidocs/</link>
+								<link>https://commons.apache.org/proper/commons-logging/apidocs/</link>
+								<link>https://logging.apache.org/log4j/1.2/apidocs/</link>
+								<link>http://sendmail-jilter.sourceforge.net/apidocs/</link>
+							</links>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Java EE -->
+			<dependency>
+				<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><version>1.6.2</version>
+			</dependency>
+			<!-- Direct -->
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.1.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.84.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId><artifactId>log4j</artifactId><version>1.2.17</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.prakma</groupId><artifactId>postfix-jilter</artifactId><version>0.1</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.mail</groupId><artifactId>mail</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- Transitive -->
+			<dependency>
+				<groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-collections</artifactId><version>1.0.0${POST-SNAPSHOT}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- Java EE -->
+		<dependency>
+			<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
+		</dependency>
+		<!-- Direct -->
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId><artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.prakma</groupId><artifactId>postfix-jilter</artifactId><version>0.1</version>
+		</dependency>
+	</dependencies>
+</project>

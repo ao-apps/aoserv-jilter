@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+aoserv-jilter - Mail filter for the AOServ Platform.
+Copyright (C) 2020  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of aoserv-jilter.
+
+aoserv-jilter is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoserv-jilter is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.7.2-POST-SNAPSHOT</version>
+		<relativePath>../../../ao-oss-parent/pom.xml</relativePath>
+	</parent>
+
+	<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-book</artifactId><version>1.84.1-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<properties>
+		<!-- These values are copied from the project being documented -->
+		<documented.artifactId>aoserv-jilter</documented.artifactId>
+		<documented.name>AOServ Jilter</documented.name>
+		<documented.shortTitle>Jilter</documented.shortTitle>
+		<documented.description>Mail filter for the AOServ Platform.</documented.description>
+
+		<description.html><![CDATA[Documentation for <a target="_top" href="${project.url}">${documented.name}</a> in <a target="_top" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
+	</properties>
+
+	<name>AOServ Jilter Book</name>
+	<url>https://aoindustries.com/aoserv/jilter/</url>
+	<description>Documentation for AOServ Jilter in SemanticCMS format.</description>
+	<inceptionYear>2007</inceptionYear>
+
+	<scm>
+		<connection>scm:git:git://github.com/aoindustries/aoserv-jilter.git</connection>
+		<developerConnection>scm:git:git@github.com:aoindustries/aoserv-jilter.git</developerConnection>
+		<url>https://github.com/aoindustries/aoserv-jilter</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/aoindustries/aoserv-jilter/issues</url>
+	</issueManagement>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Java EE -->
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>javaee-web-api-bom</artifactId><version>6.0.1${POST-SNAPSHOT}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- Java EE -->
+		<dependency>
+			<groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId><artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId><artifactId>jstl-impl</artifactId>
+		</dependency>
+		<!-- Direct -->
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-badges</artifactId><version>1.3.0${POST-SNAPSHOT}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-taglib</artifactId><version>5.0.0${POST-SNAPSHOT}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.semanticcms</groupId><artifactId>semanticcms-changelog-taglib</artifactId><version>1.2.1${POST-SNAPSHOT}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.12.0${POST-SNAPSHOT}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.semanticcms</groupId><artifactId>semanticcms-section-taglib</artifactId><version>1.7.0${POST-SNAPSHOT}</version>
+		</dependency>
+		<!-- Dependency for dependencyversion-maven-plugin only -->
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.84.1-SNAPSHOT</version>
+			<type>pom</type>
+			<scope>provided</scope>
+			<optional>true</optional>
+			<exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
+		</dependency>
+	</dependencies>
+</project>

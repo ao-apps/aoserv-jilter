@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+aoserv-jilter - Mail filter for the AOServ Platform.
+Copyright (C) 2020  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of aoserv-jilter.
+
+aoserv-jilter is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoserv-jilter is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
+-->
+<jsp:root
+	xmlns:ao="https://aoindustries.com/ao-taglib/"
+	xmlns:core="https://semanticcms.com/core/taglib/"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:section="https://semanticcms.com/section/taglib/"
+	version="2.1"
+>
+	<jsp:directive.page language="java" pageEncoding="UTF-8" />
+	<jsp:directive.page session="false" />
+	<core:page
+		title="@{documented.name}"
+		description="@{documented.description}"
+		datePublished="2020-04-13T12:04:48-05:00"
+	>
+		<core:child page="changelog.jspx" />
+		<core:child page="apidocs/index.jspx" />
+		<header>
+			<ao:include
+				page="/ao-badges/badges.inc.jspx"
+				arg.projectStatus="current-stable"
+				arg.managementStatus="production"
+				arg.packagingStatus="active"
+				arg.javaseVersion="@{documented.javase.version}"
+				arg.license="lgpl-3.0"
+			/>
+		</header>
+		<p>
+			Mail filter for the <core:link book="/" page="/aoserv/index.jspx" />.
+		</p>
+		<section:nav label="Project Links">
+			<ul>
+				<li><core:link page="index.jspx">Project Home</core:link></li>
+				<li><core:link page="changelog.jspx">Changelog</core:link></li>
+				<li><core:link page="apidocs/index.jspx">API Docs</core:link></li>
+				<li><ao:a href="https://search.maven.org/artifact/${ao:encodeURIComponent('@{project.groupId}')}/${ao:encodeURIComponent('@{documented.artifactId}')}">Maven Central Repository</ao:a></li>
+				<li><ao:a href="@{project.scm.url}">GitHub</ao:a></li>
+			</ul>
+		</section:nav>
+		<section:section label="Modules">
+			<ul>
+				<li><core:link book="/aoserv/jilter/config" page="/index.jspx" /></li>
+			</ul>
+		</section:section>
+	</core:page>
+</jsp:root>
