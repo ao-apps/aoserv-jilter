@@ -100,7 +100,7 @@ public class Notifier implements Runnable {
             // Try to send to each recipient separately
             for(String to : notice.getTo().split(",")) {
 				to = to.trim();
-                if(!to.isBlank()) {
+                if(!to.isEmpty()) {
                     try {
                         if(log.isDebugEnabled()) {
                             log.debug("smtpServer="+smtpServer);
