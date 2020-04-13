@@ -37,6 +37,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 	>
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
+		<core:child book="/aoserv/jilter/config" page="/index.jspx" />
 		<header>
 			<ao:include
 				page="/ao-badges/badges.inc.jspx"
