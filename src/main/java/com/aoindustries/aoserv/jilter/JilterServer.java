@@ -1,11 +1,12 @@
 /*
- * Copyright 2007-2011, 2018 by AO Industries, Inc.,
+ * Copyright 2007-2011, 2018, 2020 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 package com.aoindustries.aoserv.jilter;
 
 import com.aoindustries.aoserv.jilter.config.JilterConfiguration;
+import com.aoindustries.exception.WrappedException;
 import com.sendmail.jilter.samples.standalone.SimpleJilterServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -61,18 +62,26 @@ public class JilterServer {
                                 ipAddress,
                                 config.getListenPort()
                             ),
-                            AOJilterHandler.class.getName()
+							() -> {
+								try {
+									return new AOJilterHandler();
+								} catch(IOException e) {
+									throw new WrappedException(e);
+								}
+							}
                         ),
                         "JilterServer listening on "+ipAddress
                     ).start();
                     started = true;
                     System.out.println("Done");
-                } catch(ClassNotFoundException err) {
-                    throw new IOException("ClassNotFoundException", err);
-                } catch(InstantiationException err) {
-                    throw new IOException("InstantiationException", err);
-                } catch(IllegalAccessException err) {
-                    throw new IOException("IllegalAccessException", err);
+				} catch(WrappedException e) {
+					Throwable cause = e.getCause();
+					if(cause instanceof IOException) {
+						throw (IOException)cause;
+					}
+                    throw new IOException(e);
+                } catch(ReflectiveOperationException e) {
+                    throw new IOException(e);
                 }
             }
         }
