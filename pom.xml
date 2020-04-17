@@ -73,7 +73,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 							<links>
 								<link>${javadoc.link.javase}</link>
 								<!-- Java EE -->
-								<link>${javadoc.link.javaee}</link>
+								<link>${javadoc.link.javamail}</link><!-- Must be before javaeeApi -->
 								<!-- Direct -->
 								<link>https://aoindustries.com/ao-lang/apidocs/</link>
 								<link>https://aoindustries.com/aoserv/jilter/config/apidocs/</link>
