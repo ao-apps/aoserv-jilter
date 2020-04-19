@@ -25,7 +25,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.7.2-POST-SNAPSHOT</version>
+		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.8.0-SNAPSHOT</version>
 		<relativePath>../../ao-oss-parent/pom.xml</relativePath>
 	</parent>
 
@@ -33,14 +33,14 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 	<packaging>bundle</packaging>
 
 	<properties>
-		<javadoc.breadcrumbs><![CDATA[<a target="_top" href="https://aoindustries.com/aoserv/">AOServ</a>
-/ <a target="_top" href="${project.url}">${shortTitle}</a>]]></javadoc.breadcrumbs>
+		<javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ</a>
+/ <a target="${javadoc.target}" href="${project.url}">${shortTitle}</a>]]></javadoc.breadcrumbs>
 		<shortTitle>Jilter</shortTitle>
-		<description.html><![CDATA[Mail filter for the <a target="_top" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
+		<description.html><![CDATA[Mail filter for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
 		<javadoc.modules><![CDATA[<div style="float:left; margin: 0 1em">
 			<h2 style="margin-top: 0em">Modules</h2>
 			<ul>
-				<li><a target="_top" href="https://aoindustries.com/aoserv/jilter/config/">AOServ Jilter Config</a></li>
+				<li><a target="${javadoc.target}" href="https://aoindustries.com/aoserv/jilter/config/">AOServ Jilter Config</a></li>
 			</ul>
 		</div>]]></javadoc.modules>
 	</properties>
