@@ -23,7 +23,6 @@
 package com.aoindustries.aoserv.jilter;
 
 import com.aoindustries.aoserv.jilter.config.JilterConfiguration;
-import com.aoindustries.exception.WrappedException;
 import com.sendmail.jilter.samples.standalone.SimpleJilterServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -82,24 +81,12 @@ public class JilterServer {
                                 ipAddress,
                                 config.getListenPort()
                             ),
-							() -> {
-								try {
-									return new AOJilterHandler();
-								} catch(IOException e) {
-									throw new WrappedException(e);
-								}
-							}
+							AOJilterHandler.class.getName()
                         ),
                         "JilterServer listening on "+ipAddress
                     ).start();
                     started = true;
                     System.out.println("Done");
-				} catch(WrappedException e) {
-					Throwable cause = e.getCause();
-					if(cause instanceof IOException) {
-						throw (IOException)cause;
-					}
-                    throw new IOException(e);
                 } catch(ReflectiveOperationException e) {
                     throw new IOException(e);
                 }

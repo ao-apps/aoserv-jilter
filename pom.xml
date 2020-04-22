@@ -62,6 +62,14 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		<url>https://github.com/aoindustries/aoserv-jilter/issues</url>
 	</issueManagement>
 
+	<repositories>
+		<!-- See http://stackoverflow.com/questions/1164043/maven-how-to-include-jars-which-are-not-available-in-reps-into-a-j2ee-project -->
+		<repository>
+			<id>project-repository</id>
+			<url>file://${project.basedir}/repository</url>
+		</repository>
+	</repositories>
+
 	<profiles>
 		<profile>
 			<id>release</id>
@@ -108,12 +116,9 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>log4j</groupId><artifactId>log4j</artifactId><version>1.2.17</version>
 			</dependency>
 			<dependency>
-				<groupId>com.github.prakma</groupId><artifactId>postfix-jilter</artifactId><version>0.1</version>
-				<exclusions>
-					<exclusion>
-						<groupId>javax.mail</groupId><artifactId>mail</artifactId>
-					</exclusion>
-				</exclusions>
+				<!-- See http://sendmail-jilter.sourceforge.net/ -->
+				<!-- Installed with mvn install:install-file -Dfile=jilter-1.2.jar -DgroupId=com.sendmail -DartifactId=jilter -Dversion=1.2 -Dpackaging=jar -DlocalRepositoryPath=repository -->
+				<groupId>com.sendmail</groupId><artifactId>jilter</artifactId><version>1.2</version>
 			</dependency>
 			<!-- Transitive -->
 			<dependency>
@@ -144,7 +149,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 			<groupId>log4j</groupId><artifactId>log4j</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.github.prakma</groupId><artifactId>postfix-jilter</artifactId><version>0.1</version>
+			<groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
 		</dependency>
 	</dependencies>
 </project>
