@@ -55,14 +55,14 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>Project moved to GitHub and Maven.</li>
-					<%-- Not using this version due to some as-yet undiagnosed reliability problem in production:
+					<!-- Not using this version due to some as-yet undiagnosed reliability problem in production:
 					<li>
 						Updated for compatibility with <ao:a href="https://github.com/prakma/postfix-jilter/releases/tag/release_0.1">the prakma release</ao:a>
 						of <ao:a href="http://sendmail-jilter.sourceforge.net/">sendmail-jilter</ao:a>.
 						Thanks again to <ao:a href="https://github.com/prakma">prakma</ao:a>
 						for <ao:a href="https://github.com/prakma/postfix-jilter/issues/1">getting jilter into the central repository</ao:a>.
 					</li>
-					--%>
+					-->
 					<li>Updated to Java 8 coding standards.</li>
 				</ul>
 			</changelog:release>
