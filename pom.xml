@@ -25,7 +25,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.8.0-POST-SNAPSHOT</version>
+		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.8.0<!-- -POST-SNAPSHOT --></version>
 		<relativePath>../../ao-oss-parent/pom.xml</relativePath>
 	</parent>
 
@@ -83,11 +83,10 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 								<!-- Java EE -->
 								<link>${javadoc.link.javamail}</link><!-- Must be before javaeeApi -->
 								<!-- Direct -->
-								<link>https://aoindustries.com/ao-lang/apidocs/</link>
 								<link>https://aoindustries.com/aoserv/jilter/config/apidocs/</link>
 								<link>https://commons.apache.org/proper/commons-logging/apidocs/</link>
-								<link>https://logging.apache.org/log4j/1.2/apidocs/</link>
 								<link>http://sendmail-jilter.sourceforge.net/apidocs/</link>
+								<link>https://logging.apache.org/log4j/1.2/apidocs/</link>
 							</links>
 						</configuration>
 					</plugin>
@@ -104,28 +103,28 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<!-- Direct -->
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.2.0${POST-SNAPSHOT}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.84.2${POST-SNAPSHOT}</version>
+				<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.84.2<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId><artifactId>log4j</artifactId><version>1.2.17</version>
 			</dependency>
 			<dependency>
 				<!-- See http://sendmail-jilter.sourceforge.net/ -->
 				<!-- Installed with mvn install:install-file -Dfile=jilter-1.2.jar -DgroupId=com.sendmail -DartifactId=jilter -Dversion=1.2 -Dpackaging=jar -DlocalRepositoryPath=repository -->
 				<groupId>com.sendmail</groupId><artifactId>jilter</artifactId><version>1.2</version>
 			</dependency>
+			<dependency>
+				<groupId>log4j</groupId><artifactId>log4j</artifactId><version>1.2.17</version>
+			</dependency>
 			<!-- Transitive -->
 			<dependency>
 				<groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-collections</artifactId><version>1.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoindustries</groupId><artifactId>ao-collections</artifactId><version>1.0.0<!-- ${POST-SNAPSHOT} --></version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.2.0<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -137,19 +136,16 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<!-- Direct -->
 		<dependency>
-			<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId><artifactId>log4j</artifactId>
+			<groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
+			<groupId>log4j</groupId><artifactId>log4j</artifactId>
 		</dependency>
 	</dependencies>
 </project>
