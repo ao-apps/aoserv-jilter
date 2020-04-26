@@ -37,7 +37,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2020-04-13T12:04:48-05:00"
-		dateModified="2020-04-22T05:31:28-05:00"
+		dateModified="2020-04-25T23:35:30-05:00"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:aoserv-jilter:pom.version}" />
@@ -52,20 +52,29 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>Project moved to GitHub and Maven.</li>
-					<!-- Not using this version due to some as-yet undiagnosed reliability problem in production:
-					<li>
-						Updated for compatibility with <ao:a href="https://github.com/prakma/postfix-jilter/releases/tag/release_0.1">the prakma release</ao:a>
-						of <ao:a href="http://sendmail-jilter.sourceforge.net/">sendmail-jilter</ao:a>.
-						Thanks again to <ao:a href="https://github.com/prakma">prakma</ao:a>
-						for <ao:a href="https://github.com/prakma/postfix-jilter/issues/1">getting jilter into the central repository</ao:a>.
-					</li>
-					-->
-					<li>Updated to Java 8 coding standards.</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.84.2"
+			datePublished="2020-04-25T23:35:30-05:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>Project moved to GitHub and Maven.</li>
+				<!-- Not using this version due to some as-yet undiagnosed reliability problem in production:
+				<li>
+					Updated for compatibility with <ao:a href="https://github.com/prakma/postfix-jilter/releases/tag/release_0.1">the prakma release</ao:a>
+					of <ao:a href="http://sendmail-jilter.sourceforge.net/">sendmail-jilter</ao:a>.
+					Thanks again to <ao:a href="https://github.com/prakma">prakma</ao:a>
+					for <ao:a href="https://github.com/prakma/postfix-jilter/issues/1">getting jilter into the central repository</ao:a>.
+				</li>
+				-->
+				<li>Updated to Java 8 coding standards.</li>
+			</ul>
+		</changelog:release>
 	</core:page>
 </jsp:root>
