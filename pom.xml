@@ -76,6 +76,37 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack.offlinkLinks</id>
+								<phase>generate-sources</phase>
+								<goals><goal>unpack</goal></goals>
+								<configuration>
+									<artifactItems>
+										<!-- Direct -->
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-jilter-config</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/commons-logging/commons-logging</outputDirectory>
+										</artifactItem>
+										<!-- In src/main/javadoc: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
+										<artifactItem>
+											<groupId>log4j</groupId><artifactId>log4j</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/log4j/log4j</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<links>
@@ -83,11 +114,30 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 								<!-- Java EE -->
 								<link>${javadoc.link.javamail}</link><!-- Must be before javaeeApi -->
 								<!-- Direct -->
-								<link>https://aoindustries.com/aoserv/jilter/config/apidocs/</link>
-								<link>https://commons.apache.org/proper/commons-logging/apidocs/</link>
-								<link>http://sendmail-jilter.sourceforge.net/apidocs/</link>
-								<link>https://logging.apache.org/log4j/1.2/apidocs/</link>
+								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId> -->
+								<!-- offlineLink: <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId> -->
+								<!-- offlineLink: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
+								<!-- offlineLink: <groupId>log4j</groupId><artifactId>log4j</artifactId> -->
 							</links>
+							<offlineLinks>
+								<!-- Direct -->
+								<offlineLink>
+									<url>https://aoindustries.com/aoserv/jilter/config/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-jilter-config</location>
+								</offlineLink>
+								<offlineLink>
+									<url>https://commons.apache.org/proper/commons-logging/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/commons-logging/commons-logging</location>
+								</offlineLink>
+								<offlineLink>
+									<url>http://sendmail-jilter.sourceforge.net/apidocs/</url>
+									<location>${project.basedir}/src/main/javadoc/offlineLinks/com.sendmail/jilter</location>
+								</offlineLink>
+								<offlineLink>
+									<url>https://logging.apache.org/log4j/1.2/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/log4j/log4j</location>
+								</offlineLink>
+							</offlineLinks>
 						</configuration>
 					</plugin>
 				</plugins>
