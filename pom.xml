@@ -77,13 +77,22 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+						<dependencies>
+							<dependency>
+								<groupId>com.aoindustries</groupId><artifactId>ao-javadoc-offline</artifactId><version>1.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+							</dependency>
+						</dependencies>
 						<executions>
 							<execution>
-								<id>unpack.offlinkLinks</id>
-								<phase>generate-sources</phase>
-								<goals><goal>unpack</goal></goals>
+								<id>unpack.offlinkLinks</id><phase>generate-sources</phase><goals><goal>unpack</goal></goals>
 								<configuration>
+									<silent>true</silent>
 									<artifactItems>
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>ao-javadoc-offline</artifactId><version>1.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+											<includes>**/element-list, **/package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks</outputDirectory>
+										</artifactItem>
 										<!-- Direct -->
 										<artifactItem>
 											<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId>
@@ -95,7 +104,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/commons-logging/commons-logging</outputDirectory>
 										</artifactItem>
-										<!-- In src/main/javadoc: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
+										<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
 										<artifactItem>
 											<groupId>log4j</groupId><artifactId>log4j</artifactId>
 											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
@@ -109,17 +118,16 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
-							<links>
-								<link>${javadoc.link.javase}</link>
-								<!-- Java EE -->
-								<link>${javadoc.link.javamail}</link><!-- Must be before javaeeApi -->
-								<!-- Direct -->
-								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId> -->
-								<!-- offlineLink: <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId> -->
-								<!-- offlineLink: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
-								<!-- offlineLink: <groupId>log4j</groupId><artifactId>log4j</artifactId> -->
-							</links>
 							<offlineLinks>
+								<offlineLink>
+									<url>${javadoc.link.javase}</url>
+									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/javase/${javase.release}</location>
+								</offlineLink>
+								<!-- Java EE -->
+								<offlineLink>
+									<url>${javadoc.link.javamail}</url><!-- Must be before javadoc.link.javaee -->
+									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/com.sun.mail/javax.mail</location>
+								</offlineLink>
 								<!-- Direct -->
 								<offlineLink>
 									<url>https://aoindustries.com/aoserv/jilter/config/apidocs/</url>
@@ -131,7 +139,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 								</offlineLink>
 								<offlineLink>
 									<url>http://sendmail-jilter.sourceforge.net/apidocs/</url>
-									<location>${project.basedir}/src/main/javadoc/offlineLinks/com.sendmail/jilter</location>
+									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/com.sendmail/jilter</location>
 								</offlineLink>
 								<offlineLink>
 									<url>https://logging.apache.org/log4j/1.2/apidocs/</url>
