@@ -93,6 +93,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/commons-logging/commons-logging</outputDirectory>
 										</artifactItem>
+										<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId> -->
 										<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
 										<artifactItem>
 											<groupId>log4j</groupId><artifactId>log4j</artifactId>
@@ -108,15 +109,6 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<offlineLinks>
-								<offlineLink>
-									<url>${javadoc.link.javase}</url>
-									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/javase/${javase.release}</location>
-								</offlineLink>
-								<!-- Java EE -->
-								<offlineLink>
-									<url>${javadoc.link.javamail}</url><!-- Must be before javadoc.link.javaee -->
-									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/com.sun.mail/javax.mail</location>
-								</offlineLink>
 								<!-- Direct -->
 								<offlineLink>
 									<url>https://aoindustries.com/aoserv/jilter/config/apidocs/</url>
@@ -127,12 +119,21 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 									<location>${project.build.directory}/offlineLinks/commons-logging/commons-logging</location>
 								</offlineLink>
 								<offlineLink>
+									<url>${javadoc.link.javamail}</url>
+									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/com.sun.mail/javax.mail</location>
+								</offlineLink>
+								<offlineLink>
 									<url>http://sendmail-jilter.sourceforge.net/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/com.sendmail/jilter</location>
 								</offlineLink>
 								<offlineLink>
 									<url>https://logging.apache.org/log4j/1.2/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/log4j/log4j</location>
+								</offlineLink>
+								<!-- Java SE -->
+								<offlineLink>
+									<url>${javadoc.link.javase}</url>
+									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/javase/${javase.release}</location>
 								</offlineLink>
 							</offlineLinks>
 						</configuration>
@@ -144,16 +145,15 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- Java EE -->
-			<dependency>
-				<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><version>1.6.2</version>
-			</dependency>
 			<!-- Direct -->
 			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.84.2${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><version>1.6.2</version>
 			</dependency>
 			<dependency>
 				<!-- See http://sendmail-jilter.sourceforge.net/ -->
@@ -177,16 +177,15 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- Java EE -->
-		<dependency>
-			<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
-		</dependency>
 		<!-- Direct -->
 		<dependency>
 			<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
