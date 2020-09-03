@@ -66,13 +66,16 @@ public class Notifier implements Runnable {
     }
 
     @Override
+	@SuppressWarnings({"TooBroadCatch", "UseSpecificCatch", "SleepWhileInLoop"})
     public void run() {
         while(true) {
             try {
                 while(true) {
                     Notice notice;
                     synchronized(noticeQueue) {
-                        while(noticeQueue.isEmpty()) noticeQueue.wait(5*60*1000);
+                        while(noticeQueue.isEmpty()) {
+							noticeQueue.wait(5 * 60 * 1000);
+						}
                         notice = noticeQueue.remove();
                     }
                     sendNotice(notice);
@@ -93,6 +96,7 @@ public class Notifier implements Runnable {
     /**
      * Send email for notification
      */
+	@SuppressWarnings("AssignmentToForLoopParameter")
     private static void sendNotice(Notice notice) {
         String smtpServer = notice.getSmtpServer();
         // Don't send email when null or empty

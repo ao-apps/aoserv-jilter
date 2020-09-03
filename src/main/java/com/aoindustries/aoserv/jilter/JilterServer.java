@@ -42,6 +42,7 @@ public class JilterServer {
 
     private static final Log log = LogFactory.getLog(JilterServer.class);
 
+	@SuppressWarnings({"TooBroadCatch", "UseSpecificCatch", "SleepWhileInLoop"})
     public static void main(String[] args) {
         // Initialize log4j
         BasicConfigurator.configure();
@@ -67,7 +68,8 @@ public class JilterServer {
     }
 
     private static boolean started = false;
-    
+
+	@SuppressWarnings("UseOfSystemOutOrSystemErr")
     public static void start() throws IOException {
         synchronized(System.out) {
             if(!started) {
