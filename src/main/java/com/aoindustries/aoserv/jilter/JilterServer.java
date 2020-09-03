@@ -40,62 +40,62 @@ import org.apache.log4j.Logger;
  */
 public class JilterServer {
 
-    private static final Log log = LogFactory.getLog(JilterServer.class);
+	private static final Log log = LogFactory.getLog(JilterServer.class);
 
 	@SuppressWarnings({"TooBroadCatch", "UseSpecificCatch", "SleepWhileInLoop"})
-    public static void main(String[] args) {
-        // Initialize log4j
-        BasicConfigurator.configure();
-        //Logger.getRootLogger().addAppender(new WriterAppender(new SimpleLayout(), System.err));
-        Logger.getRootLogger().setLevel(Level.INFO);
-        //Category.getRoot().;
+	public static void main(String[] args) {
+		// Initialize log4j
+		BasicConfigurator.configure();
+		//Logger.getRootLogger().addAppender(new WriterAppender(new SimpleLayout(), System.err));
+		Logger.getRootLogger().setLevel(Level.INFO);
+		//Category.getRoot().;
 
-        while(true) {
-            try {
-                start();
-                break;
+		while(true) {
+			try {
+				start();
+				break;
 			} catch(ThreadDeath td) {
 				throw td;
-            } catch(Throwable t) {
-                log.error(null, t);
-                try {
-                    Thread.sleep(10000);
-                } catch(InterruptedException e) {
-                    log.warn(null, e);
-                }
-            }
-        }
-    }
+			} catch(Throwable t) {
+				log.error(null, t);
+				try {
+					Thread.sleep(10000);
+				} catch(InterruptedException e) {
+					log.warn(null, e);
+				}
+			}
+		}
+	}
 
-    private static boolean started = false;
+	private static boolean started = false;
 
 	@SuppressWarnings("UseOfSystemOutOrSystemErr")
-    public static void start() throws IOException {
-        synchronized(System.out) {
-            if(!started) {
-                try {
-                    System.out.print("Starting JilterServer: ");
+	public static void start() throws IOException {
+		synchronized(System.out) {
+			if(!started) {
+				try {
+					System.out.print("Starting JilterServer: ");
 					JilterConfiguration config = JilterConfiguration.getJilterConfiguration();
-                    String ipAddress = config.getListenIP();
-                    new Thread(
-                        new SimpleJilterServer(
-                            new InetSocketAddress(
-                                ipAddress,
-                                config.getListenPort()
-                            ),
+					String ipAddress = config.getListenIP();
+					new Thread(
+						new SimpleJilterServer(
+							new InetSocketAddress(
+								ipAddress,
+								config.getListenPort()
+							),
 							AOJilterHandler.class.getName()
-                        ),
-                        "JilterServer listening on "+ipAddress
-                    ).start();
-                    started = true;
-                    System.out.println("Done");
-                } catch(ReflectiveOperationException e) {
-                    throw new IOException(e);
-                }
-            }
-        }
-    }
+						),
+						"JilterServer listening on "+ipAddress
+					).start();
+					started = true;
+					System.out.println("Done");
+				} catch(ReflectiveOperationException e) {
+					throw new IOException(e);
+				}
+			}
+		}
+	}
 
-    private JilterServer() {
-    }
+	private JilterServer() {
+	}
 }
