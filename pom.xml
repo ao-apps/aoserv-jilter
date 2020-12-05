@@ -50,6 +50,29 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 	<description>Mail filter for the AOServ Platform.</description>
 	<inceptionYear>2007</inceptionYear>
 
+	<licenses>
+		<license>
+			<name>GNU General Lesser Public License (LGPL) version 3.0</name>
+			<url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>AO Industries, Inc.</name>
+		<url>https://aoindustries.com/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>AO Industries, Inc.</name>
+			<email>support@aoindustries.com</email>
+			<url>https://aoindustries.com/</url>
+			<organization>AO Industries, Inc.</organization>
+			<organizationUrl>https://aoindustries.com/</organizationUrl>
+		</developer>
+	</developers>
+
 	<scm>
 		<connection>scm:git:git://github.com/aoindustries/aoserv-jilter.git</connection>
 		<developerConnection>scm:git:git@github.com:aoindustries/aoserv-jilter.git</developerConnection>
