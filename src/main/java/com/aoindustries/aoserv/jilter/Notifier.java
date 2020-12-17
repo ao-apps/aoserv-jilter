@@ -118,8 +118,8 @@ public class Notifier implements Runnable {
 						if(log.isDebugEnabled()) log.debug("Got Session");
 						Message msg=new MimeMessage(session);
 						msg.setSubject(notice.getSubject());
-						msg.setFrom(new InternetAddress(notice.getFrom()));
-						msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+						msg.setFrom(new InternetAddress(notice.getFrom(), true));
+						msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to, true));
 						// Set a high priority
 						msg.setHeader("X-Priority", "1");
 						//msg.setHeader("Priority", "Urgent");
