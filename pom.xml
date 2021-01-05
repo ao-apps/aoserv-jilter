@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoserv-jilter - Mail filter for the AOServ Platform.
-Copyright (C) 2020  AO Industries, Inc.
+Copyright (C) 2020, 2021  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -107,20 +107,20 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 									<artifactItems>
 										<!-- Direct -->
 										<artifactItem>
-											<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId>
-											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><classifier>javadoc</classifier>
+											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-jilter-config</outputDirectory>
 										</artifactItem>
 										<artifactItem>
-											<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId>
-											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><classifier>javadoc</classifier>
+											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/commons-logging/commons-logging</outputDirectory>
 										</artifactItem>
 										<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId> -->
 										<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
 										<artifactItem>
-											<groupId>log4j</groupId><artifactId>log4j</artifactId>
-											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<groupId>log4j</groupId><artifactId>log4j</artifactId><classifier>javadoc</classifier>
+											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/log4j/log4j</outputDirectory>
 										</artifactItem>
 									</artifactItems>
