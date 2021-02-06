@@ -29,7 +29,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		<relativePath>../../ao-oss-parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.84.13</version>
+	<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.84.13-POST-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<properties>
@@ -77,7 +77,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		<connection>scm:git:git://github.com/aoindustries/aoserv-jilter.git</connection>
 		<developerConnection>scm:git:git@github.com:aoindustries/aoserv-jilter.git</developerConnection>
 		<url>https://github.com/aoindustries/aoserv-jilter</url>
-		<tag>aoserv-jilter-1.84.13</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
