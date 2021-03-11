@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2013, 2020  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -69,7 +69,7 @@ public class AOJilterHandler implements JilterHandler {
 	/**
 	 * Keeps a cache of the inbound email counters on a per-business basis
 	 */
-	private static final Map<String,EmailCounter> counterInCache = new HashMap<>();
+	private static final Map<String, EmailCounter> counterInCache = new HashMap<>();
 
 	/**
 	 * Gets the inbound email counter for the provided business, or <code>null</code> if its inbound
@@ -92,7 +92,7 @@ public class AOJilterHandler implements JilterHandler {
 	/**
 	 * Keeps a cache of the outbound email counters on a per-business basis
 	 */
-	private static final Map<String,EmailCounter> counterOutCache = new HashMap<>();
+	private static final Map<String, EmailCounter> counterOutCache = new HashMap<>();
 
 	/**
 	 * Gets the outbound email counter for the provided business, or <code>null</code> if its outbound
@@ -115,7 +115,7 @@ public class AOJilterHandler implements JilterHandler {
 	/**
 	 * Keeps a cache of the relay email counters on a per-business basis
 	 */
-	private static final Map<String,EmailCounter> counterRelayCache = new HashMap<>();
+	private static final Map<String, EmailCounter> counterRelayCache = new HashMap<>();
 
 	/**
 	 * Gets the relay email counter for the provided business, or <code>null</code> if its relay
