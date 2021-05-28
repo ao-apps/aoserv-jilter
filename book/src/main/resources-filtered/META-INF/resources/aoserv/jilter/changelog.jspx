@@ -37,7 +37,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2020-04-13T12:04:48-05:00"
-		dateModified="2021-05-25T18:54:28-05:00"
+		dateModified="2021-05-28T02:11:35-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -49,6 +49,11 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>Updated dependencies.</li>
+					<li>
+						Upgraded to <ao:a href="https://logging.apache.org/log4j/2.x/index.html">Apache Log4j 2</ao:a>
+						via the <ao:a href="https://logging.apache.org/log4j/2.x/log4j-1.2-api/">Log4j 1.2 Bridge</ao:a>.
+						We are using the bridge due to the <code>com.sendmail:jilter</code> dependency requiring the 1.2 API.
+					</li>
 				</ul>
 			</changelog:release>
 		</c:if>

@@ -101,6 +101,20 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		</repository>
 	</repositories>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<usedDependencies>
+						<!-- Runtime Direct -->
+						<dependency>org.apache.logging.log4j:log4j-jul</dependency>
+					</usedDependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<profiles>
 		<profile>
 			<id>offlineLinks</id><activation><file><exists>src/main/java</exists></file></activation>
@@ -127,9 +141,9 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 										<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId> -->
 										<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
 										<artifactItem>
-											<groupId>log4j</groupId><artifactId>log4j</artifactId><classifier>javadoc</classifier>
+											<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><classifier>javadoc</classifier>
 											<includes>element-list, package-list</includes>
-											<outputDirectory>${project.build.directory}/offlineLinks/log4j/log4j</outputDirectory>
+											<outputDirectory>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</outputDirectory>
 										</artifactItem>
 									</artifactItems>
 								</configuration>
@@ -159,7 +173,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 								</offlineLink>
 								<offlineLink>
 									<url>https://logging.apache.org/log4j/1.2/apidocs/</url>
-									<location>${project.build.directory}/offlineLinks/log4j/log4j</location>
+									<location>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</location>
 								</offlineLink>
 								<!-- Java SE -->
 								<offlineLink>
@@ -192,7 +206,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.sendmail</groupId><artifactId>jilter</artifactId><version>1.2</version>
 			</dependency>
 			<dependency>
-				<groupId>log4j</groupId><artifactId>log4j</artifactId><version>1.2.17</version>
+				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.14.1</version>
 			</dependency>
 			<!-- Transitive -->
 			<dependency>
@@ -203,6 +217,13 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.17.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.14.1</version>
+			</dependency>
+			<!-- Runtime Direct -->
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.14.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -222,7 +243,13 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 			<groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId><artifactId>log4j</artifactId>
+			<!-- log4j 1.2 API is required by com.sendmail:jilter -->
+			<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId>
+		</dependency>
+		<!-- Runtime Direct -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 </project>
