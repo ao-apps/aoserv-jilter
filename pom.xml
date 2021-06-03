@@ -25,8 +25,8 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.16.0-SNAPSHOT</version>
-		<relativePath>../../ao-oss-parent/pom.xml</relativePath>
+		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.16.0-SNAPSHOT</version>
+		<relativePath>../../oss/parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.84.22-SNAPSHOT</version>
@@ -42,8 +42,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		<javase.bootclasspath>${javase.bootclasspath.8}</javase.bootclasspath>
 
 		<javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ</a>
-/ <a target="${javadoc.target}" href="${project.url}">${shortTitle}</a>]]></javadoc.breadcrumbs>
-		<shortTitle>Jilter</shortTitle>
+/ <a target="${javadoc.target}" href="${project.url}">Jilter</a>]]></javadoc.breadcrumbs>
 		<description.html><![CDATA[Mail filter for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
 		<javadoc.modules><![CDATA[<div style="float:left; margin: 0 1em">
 			<h2 style="margin-top: 0em">Modules</h2>
@@ -51,6 +50,8 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				<li><a target="${javadoc.target}" href="https://aoindustries.com/aoserv/jilter/config/">AOServ Jilter Config</a></li>
 			</ul>
 		</div>]]></javadoc.modules>
+		<!-- TODO: Remove once moved to oss.aoapps.com -->
+		<google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
 	</properties>
 
 	<name>AOServ Jilter</name>
@@ -92,6 +93,21 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		<system>GitHub Issues</system>
 		<url>https://github.com/aoindustries/aoserv-jilter/issues</url>
 	</issueManagement>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh-aoindustries</id>
+			<name>ossrh-aoindustries</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<!-- Unused for Nexus plugin
+		<repository>
+			<id>ossrh-aoindustries</id>
+			<name>ossrh-aoindustries</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		-->
+	</distributionManagement>
 
 	<repositories>
 		<!-- See http://stackoverflow.com/questions/1164043/maven-how-to-include-jars-which-are-not-available-in-reps-into-a-j2ee-project -->
@@ -165,11 +181,11 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 								</offlineLink>
 								<offlineLink>
 									<url>${javadoc.link.javamail}</url>
-									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/com.sun.mail/javax.mail</location>
+									<location>${project.build.directory}/offlineLinks/com/aoapps/javadoc/offline/com.sun.mail/javax.mail</location>
 								</offlineLink>
 								<offlineLink>
 									<url>http://sendmail-jilter.sourceforge.net/apidocs/</url>
-									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/com.sendmail/jilter</location>
+									<location>${project.build.directory}/offlineLinks/com/aoapps/javadoc/offline/com.sendmail/jilter</location>
 								</offlineLink>
 								<offlineLink>
 									<url>https://logging.apache.org/log4j/1.2/apidocs/</url>
@@ -178,7 +194,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 								<!-- Java SE -->
 								<offlineLink>
 									<url>${javadoc.link.javase}</url>
-									<location>${project.build.directory}/offlineLinks/com/aoindustries/javadoc/offline/javase/${javase.release}</location>
+									<location>${project.build.directory}/offlineLinks/com/aoapps/javadoc/offline/javase/${javase.release}</location>
 								</offlineLink>
 							</offlineLinks>
 						</configuration>
@@ -213,10 +229,10 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-collections</artifactId><version>1.2.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>1.2.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.17.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>4.17.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.14.1</version>
