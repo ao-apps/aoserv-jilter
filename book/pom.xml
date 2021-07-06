@@ -25,7 +25,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.16.0-POST-SNAPSHOT</version>
+		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.16.1-SNAPSHOT</version>
 		<relativePath>../../../oss/parent/pom.xml</relativePath>
 	</parent>
 
@@ -45,6 +45,8 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		<description.html><![CDATA[Documentation for <a target="${javadoc.target}" href="${project.url}">${documented.name}</a> in <a target="${javadoc.target}" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
 		<!-- TODO: Remove once moved to oss.aoapps.com -->
 		<google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
+		<!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
+		<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 	</properties>
 
 	<name>AOServ Jilter Book</name>
@@ -86,21 +88,6 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		<system>GitHub Issues</system>
 		<url>https://github.com/aoindustries/aoserv-jilter/issues</url>
 	</issueManagement>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh-aoindustries</id>
-			<name>ossrh-aoindustries</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<!-- Unused for Nexus plugin
-		<repository>
-			<id>ossrh-aoindustries</id>
-			<name>ossrh-aoindustries</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-		-->
-	</distributionManagement>
 
 	<build>
 		<plugins>
