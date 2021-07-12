@@ -6,6 +6,8 @@
 [![java: &gt;= 8](https://aoindustries.com/ao-badges/java-8.svg)](https://docs.oracle.com/javase/8/docs/api/)
 [![license: LGPL v3](https://aoindustries.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
+[![Build](https://github.com/aoindustries/aoserv-jilter/workflows/Build/badge.svg?branch=master)](https://github.com/aoindustries/aoserv-jilter/actions?query=workflow%3ABuild)
+
 Mail filter for the [AOServ Platform](https://aoindustries.com/aoserv/).
 
 ## Project Links

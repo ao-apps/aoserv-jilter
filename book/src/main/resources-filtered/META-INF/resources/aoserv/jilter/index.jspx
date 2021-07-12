@@ -34,6 +34,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2020-04-13T12:04:48-05:00"
+		dateModified="2021-07-12T13:25:42-05:00"
 	>
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
@@ -46,6 +47,8 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				arg.packagingStatus="active"
 				arg.javaseVersion="@{documented.javase.version}"
 				arg.license="lgpl-3.0"
+				arg.scmUrl="@{project.scm.url}"
+				arg.githubBuildWorkflow="Build"
 			/>
 		</header>
 		<p>
