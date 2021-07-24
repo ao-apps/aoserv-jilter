@@ -37,7 +37,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2020-04-13T12:04:48-05:00"
-		dateModified="2021-06-27T16:13:41-05:00"
+		dateModified="2021-07-24T12:58:41-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -47,23 +47,32 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				artifactId="@{documented.artifactId}"
 				repository="@{nexusUrl}content/repositories/snapshots/"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>Updated dependencies.</li>
-					<li>
-						Upgraded to <ao:a href="https://logging.apache.org/log4j/2.x/index.html">Apache Log4j 2</ao:a>
-						via the <ao:a href="https://logging.apache.org/log4j/2.x/log4j-1.2-api/">Log4j 1.2 Bridge</ao:a>.
-						We are using the bridge due to the <code>com.sendmail:jilter</code> dependency requiring the 1.2 API.
-					</li>
-					<li>
-						Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
-						*-SNAPSHOT versions include <code>module-info.class</code> while releases include the
-						<code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
-						modes, <code>module-info.java</code> does not perform any transitive requires.
-					</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.85.0"
+			datePublished="2021-07-24T12:58:41-05:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>Updated dependencies.</li>
+				<li>
+					Upgraded to <ao:a href="https://logging.apache.org/log4j/2.x/index.html">Apache Log4j 2</ao:a>
+					via the <ao:a href="https://logging.apache.org/log4j/2.x/log4j-1.2-api/">Log4j 1.2 Bridge</ao:a>.
+					We are using the bridge due to the <code>com.sendmail:jilter</code> dependency requiring the 1.2 API.
+				</li>
+				<li>
+					Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
+					*-SNAPSHOT versions include <code>module-info.class</code> while releases include the
+					<code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
+					modes, <code>module-info.java</code> does not perform any transitive requires.
+				</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
