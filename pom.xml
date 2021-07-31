@@ -212,7 +212,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
-							<offlineLinks>
+							<offlineLinks combine.children="append">
 								<!-- Direct -->
 								<offlineLink>
 									<url>https://aoindustries.com/aoserv/jilter/config/apidocs/</url>
@@ -222,22 +222,11 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 									<url>https://commons.apache.org/proper/commons-logging/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/commons-logging/commons-logging</location>
 								</offlineLink>
-								<offlineLink>
-									<url>${javadoc.link.javamail}</url>
-									<location>${project.build.directory}/offlineLinks/com/aoapps/javadoc/offline/com.sun.mail/javax.mail</location>
-								</offlineLink>
-								<offlineLink>
-									<url>http://sendmail-jilter.sourceforge.net/apidocs/</url>
-									<location>${project.build.directory}/offlineLinks/com/aoapps/javadoc/offline/com.sendmail/jilter</location>
-								</offlineLink>
+								<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId> -->
+								<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
 								<offlineLink>
 									<url>https://logging.apache.org/log4j/1.2/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</location>
-								</offlineLink>
-								<!-- Java SE -->
-								<offlineLink>
-									<url>${javadoc.link.javase}</url>
-									<location>${project.build.directory}/offlineLinks/com/aoapps/javadoc/offline/javase/${javase.release}</location>
 								</offlineLink>
 							</offlineLinks>
 						</configuration>
