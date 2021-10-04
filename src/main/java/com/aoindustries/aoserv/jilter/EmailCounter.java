@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2013, 2020  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,7 +29,7 @@ import com.aoindustries.aoserv.jilter.config.EmailLimit;
  *
  * @author  AO Industries, Inc.
  */
-final public class EmailCounter {
+public final class EmailCounter {
 
 	private final String accounting;
 	private final EmailLimit emailLimit;

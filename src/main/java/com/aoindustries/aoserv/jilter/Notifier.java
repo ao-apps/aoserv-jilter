@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2013, 2018, 2020  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2018, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -47,9 +47,9 @@ public class Notifier implements Runnable {
 	private Notifier() {
 	}
 
-	final private static Queue<Notice> noticeQueue = new LinkedList<>();
+	private static final Queue<Notice> noticeQueue = new LinkedList<>();
 
-	static private Thread queueThread;
+	private static Thread queueThread;
 
 	public static void enqueueNotice(Notice notice) {
 		// Add to queue

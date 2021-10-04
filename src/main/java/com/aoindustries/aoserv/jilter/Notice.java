@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2011  AO Industries, Inc.
+ * Copyright (C) 2007-2011, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,12 +29,12 @@ package com.aoindustries.aoserv.jilter;
  */
 public class Notice {
 
-	final private long noticeTimeMillis;
-	final private String smtpServer;
-	final private String from;
-	final private String to;
-	final private String subject;
-	final private String message;
+	private final long noticeTimeMillis;
+	private final String smtpServer;
+	private final String from;
+	private final String to;
+	private final String subject;
+	private final String message;
 
 	public Notice(long noticeTimeMillis, String smtpServer, String from, String to, String subject, String message) {
 		this.noticeTimeMillis = noticeTimeMillis;
