@@ -57,7 +57,7 @@ public class Notifier implements Runnable {
 			noticeQueue.add(notice);
 			if(queueThread!=null) {
 				// Notify thread if already created
-				noticeQueue.notify();
+				noticeQueue.notify(); // notifyAll() not needed: only a single thread waiting
 			} else {
 				// Create thread if not yet running
 				(queueThread = new Thread(new Notifier(), "Notifier")).start();
