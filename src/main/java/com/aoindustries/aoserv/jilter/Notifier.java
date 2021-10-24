@@ -80,10 +80,10 @@ public class Notifier implements Runnable {
 					}
 					sendNotice(notice);
 				}
-			} catch(ThreadDeath TD) {
-				throw TD;
-			} catch(Throwable T) {
-				if(log.isErrorEnabled()) log.error(null, T);
+			} catch(ThreadDeath td) {
+				throw td;
+			} catch(Throwable t) {
+				if(log.isErrorEnabled()) log.error(null, t);
 			}
 			try {
 				Thread.sleep(10*1000);
