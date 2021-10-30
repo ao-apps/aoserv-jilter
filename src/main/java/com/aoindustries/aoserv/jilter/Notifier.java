@@ -68,9 +68,9 @@ public class Notifier implements Runnable {
 	@Override
 	@SuppressWarnings({"TooBroadCatch", "UseSpecificCatch", "SleepWhileInLoop"})
 	public void run() {
-		while(true) {
+		while(!Thread.currentThread().isInterrupted()) {
 			try {
-				while(true) {
+				while(!Thread.currentThread().isInterrupted()) {
 					Notice notice;
 					synchronized(noticeQueue) {
 						while(noticeQueue.isEmpty()) {
@@ -80,6 +80,10 @@ public class Notifier implements Runnable {
 					}
 					sendNotice(notice);
 				}
+			} catch(InterruptedException err) {
+				if(log.isWarnEnabled()) log.warn(null, err);
+				// Restore the interrupted status
+				Thread.currentThread().interrupt();
 			} catch(ThreadDeath td) {
 				throw td;
 			} catch(Throwable t) {
@@ -89,6 +93,8 @@ public class Notifier implements Runnable {
 				Thread.sleep(10*1000);
 			} catch(InterruptedException err) {
 				if(log.isWarnEnabled()) log.warn(null, err);
+				// Restore the interrupted status
+				Thread.currentThread().interrupt();
 			}
 		}
 	}

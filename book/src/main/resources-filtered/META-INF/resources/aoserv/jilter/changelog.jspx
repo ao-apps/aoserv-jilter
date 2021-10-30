@@ -37,7 +37,7 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2020-04-13T12:04:48-05:00"
-		dateModified="2021-07-24T12:58:41-05:00"
+		dateModified="2021-10-29T03:58:47-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -47,7 +47,11 @@ along with aoserv-jilter.  If not, see <http://www.gnu.org/licenses />.
 				artifactId="@{documented.artifactId}"
 				repository="@{nexusUrl}content/repositories/snapshots/"
 				scmUrl="@{project.scm.url}"
-			/>
+			>
+				<ul>
+					<li>Now properly restoring Thread interrupted state on <code>InterruptedException</code>.</li>
+				</ul>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release

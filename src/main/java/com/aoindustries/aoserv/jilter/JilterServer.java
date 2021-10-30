@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2011, 2018, 2020  AO Industries, Inc.
+ * Copyright (C) 2007-2011, 2018, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -50,7 +50,7 @@ public class JilterServer {
 		Logger.getRootLogger().setLevel(Level.INFO);
 		//Category.getRoot().;
 
-		while(true) {
+		while(!Thread.currentThread().isInterrupted()) {
 			try {
 				start();
 				break;
@@ -62,6 +62,8 @@ public class JilterServer {
 					Thread.sleep(10000);
 				} catch(InterruptedException e) {
 					log.warn(null, e);
+					// Restore the interrupted status
+					Thread.currentThread().interrupt();
 				}
 			}
 		}
