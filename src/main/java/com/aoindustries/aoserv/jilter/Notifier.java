@@ -74,7 +74,7 @@ public class Notifier implements Runnable {
 					Notice notice;
 					synchronized(noticeQueue) {
 						while(noticeQueue.isEmpty()) {
-							noticeQueue.wait(5 * 60 * 1000);
+							noticeQueue.wait(5L * 60 * 1000);
 						}
 						notice = noticeQueue.remove();
 					}
@@ -90,7 +90,7 @@ public class Notifier implements Runnable {
 				if(log.isErrorEnabled()) log.error(null, t);
 			}
 			try {
-				Thread.sleep(10*1000);
+				Thread.sleep(10L * 1000);
 			} catch(InterruptedException err) {
 				if(log.isWarnEnabled()) log.warn(null, err);
 				// Restore the interrupted status

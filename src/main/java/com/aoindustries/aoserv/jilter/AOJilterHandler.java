@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * What does a forwarding look like?  It appears that a forwarding is accepted like any other address as local.  Then sendmail performs
  * the forwarding without a milter check on the way out.
- * 
+ *
  * TODO: EmailAttachmentType filters - go into .zip, .tar, .tgz, .tar.gz, ..., too.
  *
  * @author  AO Industries, Inc.
@@ -709,7 +709,7 @@ public class AOJilterHandler implements JilterHandler {
 				log.trace("currentTimeMillis="+currentTimeMillis);
 			}
 			if(lastDecrementTime>currentTimeMillis) {
-				if((lastDecrementTime-currentTimeMillis) > (5*60*1000)) {
+				if((lastDecrementTime - currentTimeMillis) > (5L * 60 * 1000)) {
 					// System time changed, reset counter
 					if(log.isWarnEnabled()) log.warn("lastDecrementTime>currentTime, system time reset? resetting accounting="+accounting);
 					counter.reset(currentTimeMillis);
