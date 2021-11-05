@@ -38,7 +38,10 @@ import org.apache.log4j.Logger;
  *
  * @author  AO Industries, Inc.
  */
-public class JilterServer {
+public abstract class JilterServer {
+
+	/** Make no instances. */
+	private JilterServer() {throw new AssertionError();}
 
 	private static final Log log = LogFactory.getLog(JilterServer.class);
 
@@ -96,8 +99,5 @@ public class JilterServer {
 				}
 			}
 		}
-	}
-
-	private JilterServer() {
 	}
 }

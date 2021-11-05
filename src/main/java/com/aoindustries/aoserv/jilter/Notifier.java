@@ -40,11 +40,12 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author  AO Industries, Inc.
  */
-public class Notifier implements Runnable {
+public final class Notifier implements Runnable {
 
 	private static final Log log = LogFactory.getLog(Notifier.class);
 
 	private Notifier() {
+		// Do nothing
 	}
 
 	private static final Queue<Notice> noticeQueue = new LinkedList<>();
