@@ -117,14 +117,18 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 			<releases>
 				<enabled>false</enabled>
 			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
 		</repository>
 		<!-- See http://stackoverflow.com/questions/1164043/maven-how-to-include-jars-which-are-not-available-in-reps-into-a-j2ee-project -->
 		<repository>
 			<id>project-repository</id>
 			<url>file://${project.basedir}/repository</url>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
 		</repository>
 	</repositories>
 
