@@ -104,9 +104,15 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 	</issueManagement>
 
 	<ciManagement>
+		<system>Jenkins</system>
+		<url>https://jenkins.aoindustries.com/job/ao/job/aoserv/job/jilter/</url>
+	</ciManagement>
+	<!-- Only one allowed in POM:
+	<ciManagement>
 		<system>GitHub Actions</system>
 		<url>https://github.com/ao-apps/aoserv-jilter/actions</url>
 	</ciManagement>
+	-->
 
 	<repositories>
 		<!-- Repository required here, too, so can find parent -->
@@ -206,8 +212,8 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/commons-logging/commons-logging</outputDirectory>
 										</artifactItem>
-										<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId> -->
-										<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
+										<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
+										<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><classifier>javadoc</classifier> -->
 										<artifactItem>
 											<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><classifier>javadoc</classifier>
 											<includes>element-list, package-list</includes>
@@ -231,8 +237,8 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 									<url>https://commons.apache.org/proper/commons-logging/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/commons-logging/commons-logging</location>
 								</offlineLink>
-								<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId> -->
-								<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId> -->
+								<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
+								<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><classifier>javadoc</classifier> -->
 								<offlineLink>
 									<url>https://logging.apache.org/log4j/1.2/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</location>
