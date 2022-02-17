@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2013, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -153,12 +153,12 @@ public class AOJilterHandler implements JilterHandler {
 	JilterConfiguration configuration;
 
 	// connect
-	private String hostname;
+//	private String hostname;
 	private InetAddress hostaddr;
-	private String if_addr;
-	private String server_name;
-	private String if_name;
-	private String daemon_name;
+//	private String if_addr;
+//	private String server_name;
+//	private String if_name;
+//	private String daemon_name;
 
 	// helo
 	//private String helohost;
@@ -166,12 +166,12 @@ public class AOJilterHandler implements JilterHandler {
 	// envfrom
 	private String from;
 	private String auth_authen;
-	private String mail_host;
-	private String auth_ssf;
-	private String message_id;
-	private String mail_addr;
+//	private String mail_host;
+//	private String auth_ssf;
+//	private String message_id;
+//	private String mail_addr;
 	private String mail_mailer;
-	private String auth_type;
+//	private String auth_type;
 
 	public AOJilterHandler() throws IOException {
 		init();
@@ -182,12 +182,12 @@ public class AOJilterHandler implements JilterHandler {
 		configuration = JilterConfiguration.getJilterConfiguration();
 
 		// connect
-		hostname = null;
+//		hostname = null;
 		hostaddr = null;
-		if_addr = null;
-		server_name = null;
-		if_name = null;
-		daemon_name = null;
+//		if_addr = null;
+//		server_name = null;
+//		if_name = null;
+//		daemon_name = null;
 
 		// helo
 		//helohost = null;
@@ -195,12 +195,12 @@ public class AOJilterHandler implements JilterHandler {
 		// envfrom
 		from = null;
 		auth_authen = null;
-		mail_host = null;
-		auth_ssf = null;
-		message_id = null;
-		mail_addr = null;
+//		mail_host = null;
+//		auth_ssf = null;
+//		message_id = null;
+//		mail_addr = null;
 		mail_mailer = null;
-		auth_type = null;
+//		auth_type = null;
 	}
 
 	@Override
@@ -232,12 +232,12 @@ public class AOJilterHandler implements JilterHandler {
 				trace("        "+key+"=\"" + properties.get(key) + "\"");
 			}
 		}
-		this.hostname = hostname;
+//		this.hostname = hostname;
 		this.hostaddr = hostaddr;
-		this.if_addr = properties.getProperty("{if_name}");
-		this.server_name = properties.getProperty("j");
-		this.if_name = properties.getProperty("{if_name}");
-		this.daemon_name = properties.getProperty("{daemon_name}");
+//		this.if_addr = properties.getProperty("{if_name}");
+//		this.server_name = properties.getProperty("j");
+//		this.if_name = properties.getProperty("{if_name}");
+//		this.daemon_name = properties.getProperty("{daemon_name}");
 
 		// Look for deny block
 		String hostIP = hostaddr.getHostAddress();
@@ -296,12 +296,12 @@ public class AOJilterHandler implements JilterHandler {
 		}
 		this.from = argv[0];
 		this.auth_authen = properties.getProperty("{auth_authen}");
-		this.mail_host = properties.getProperty("{mail_host}");
-		this.auth_ssf = properties.getProperty("{auth_ssf}");
-		this.message_id = properties.getProperty("i");
-		this.mail_addr = properties.getProperty("{mail_addr}");
+//		this.mail_host = properties.getProperty("{mail_host}");
+//		this.auth_ssf = properties.getProperty("{auth_ssf}");
+//		this.message_id = properties.getProperty("i");
+//		this.mail_addr = properties.getProperty("{mail_addr}");
 		this.mail_mailer = properties.getProperty("{mail_mailer}");
-		this.auth_type = properties.getProperty("{auth_type}");
+//		this.auth_type = properties.getProperty("{auth_type}");
 
 		JilterStatus status = JilterStatus.SMFIS_CONTINUE;
 		if(log.isTraceEnabled()) trace("envfrom: returning "+status);
