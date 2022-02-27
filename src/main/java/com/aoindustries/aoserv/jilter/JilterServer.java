@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2011, 2018, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2011, 2018, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class JilterServer {
+public final class JilterServer {
 
 	/** Make no instances. */
 	private JilterServer() {throw new AssertionError();}
