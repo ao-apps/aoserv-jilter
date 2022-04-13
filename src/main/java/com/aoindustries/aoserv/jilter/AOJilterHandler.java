@@ -360,262 +360,255 @@ public class AOJilterHandler implements JilterHandler {
 	 */
 	@Override
 	public JilterStatus envrcpt(String[] argv, Properties properties) {
-		try {
-			if(log.isTraceEnabled()) {
-				trace("envrcpt:");
-				for(int c=0;c<argv.length;c++) {
-					trace("    argv["+c+"]=\""+argv[c]+"\"");
-				}
-				trace("    properties:");
-				for(Object key : properties.keySet()) {
-					trace("        "+key+"=\"" + properties.get(key) + "\"");
-				}
+		if(log.isTraceEnabled()) {
+			trace("envrcpt:");
+			for(int c=0;c<argv.length;c++) {
+				trace("    argv["+c+"]=\""+argv[c]+"\"");
 			}
+			trace("    properties:");
+			for(Object key : properties.keySet()) {
+				trace("        "+key+"=\"" + properties.get(key) + "\"");
+			}
+		}
 
-			String to = argv[0];
-			String rcpt_host = properties.getProperty("{rcpt_host}");
-			String rcpt_mailer = properties.getProperty("{rcpt_mailer}");
-			String rcpt_addr = properties.getProperty("{rcpt_addr}");
+		String to = argv[0];
+		String rcpt_host = properties.getProperty("{rcpt_host}");
+		String rcpt_mailer = properties.getProperty("{rcpt_mailer}");
+		String rcpt_addr = properties.getProperty("{rcpt_addr}");
 
-			boolean isFromLocal;
-			boolean isFromAuth;
-			boolean isFromEsmtp;
-			switch (mail_mailer) {
-				case "local":
-					// It is "local" if the hostaddr is one of the IP addresses of this machine
-					// It is "auth" if the hostaddr is not one of the IP addresses of this machine - whether they are actually logged in is checked below
-					boolean isLocalIP = isHostAddrLocal();
-					if(isLocalIP) {
-						isFromLocal = true;
+		boolean isFromLocal;
+		boolean isFromAuth;
+		boolean isFromEsmtp;
+		switch (mail_mailer) {
+			case "local":
+				// It is "local" if the hostaddr is one of the IP addresses of this machine
+				// It is "auth" if the hostaddr is not one of the IP addresses of this machine - whether they are actually logged in is checked below
+				boolean isLocalIP = isHostAddrLocal();
+				if(isLocalIP) {
+					isFromLocal = true;
+					isFromAuth = false;
+					isFromEsmtp = false;
+				} else {
+					boolean isRelayAllowed = isHostAddrRelayingAllowed();
+					if(isRelayAllowed) {
+						isFromLocal = false;
 						isFromAuth = false;
-						isFromEsmtp = false;
+						isFromEsmtp = true;
 					} else {
-						boolean isRelayAllowed = isHostAddrRelayingAllowed();
-						if(isRelayAllowed) {
-							isFromLocal = false;
-							isFromAuth = false;
-							isFromEsmtp = true;
-						} else {
-							isFromLocal = false;
-							isFromAuth = true;
-							isFromEsmtp = false;
-						}
+						isFromLocal = false;
+						isFromAuth = true;
+						isFromEsmtp = false;
 					}
-					break;
-				case "esmtp":
-					// If is "esmtp" if not authenticated
-					isFromLocal = false;
-					isFromAuth = auth_authen!=null && auth_authen.length()>0;
-					isFromEsmtp = !isFromAuth;
-					break;
-				default:
-					JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: "+mail_mailer});
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-			}
-			boolean isToLocal = "local".equals(rcpt_mailer);
-			boolean isToEsmtp = "esmtp".equals(rcpt_mailer);
-
-			if(log.isTraceEnabled()) {
-				trace("envrcpt: isFromLocal="+isFromLocal);
-				trace("envrcpt: isFromAuth="+isFromAuth);
-				trace("envrcpt: isFromEsmtp="+isFromEsmtp);
-				trace("envrcpt: isToLocal="+isToLocal);
-				trace("envrcpt: isToEsmtp="+isToEsmtp);
-			}
-			if(isFromLocal) {
-				if(isToEsmtp) {
-					// Mail going from local to esmtp
-					JilterStatus status = null;
-
-					// Don't allow empty from address
-					if(status==null) {
-						if(from==null || from.length()<2 || from.equals("<>")) {
-							status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"local: Email not accepted with an empty from address."});
-						}
-					}
-
-					// If this ao_server has "restrict_outbound_email" set to true: Make sure from address is a valid address on this machine
-					if(status==null) {
-						if(configuration.getRestrictOutboundEmail()) status = checkFromIsLocal();
-					}
-
-					// Limit as outgoing mail (use noLimitToAddresses)
-					if(status==null) {
-						if(
-							!isNoLimitAddress(to)
-							&& isLimited(CounterMode.OUT, from)
-						) {
-							status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"local: Outgoing email limit reached, throttling additional emails"});
-						}
-					}
-
-					// Otherwise, continue
-					if(status==null) status = JilterStatus.SMFIS_CONTINUE;
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-				} else if(isToLocal) {
-					// Mail going from local to local
-					JilterStatus status = null;
-
-					// Make sure recipient is a valid email address on this machine
-					if(status==null) {
-						status = checkToIsLocal(to);
-					}
-
-					// Otherwise, continue
-					if(status==null) status = JilterStatus.SMFIS_CONTINUE;
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-				} else {
-					JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
 				}
-			} else if(isFromEsmtp) {
-				if(isToEsmtp) {
-					// Mail going from esmtp to esmtp
-					JilterStatus status = null;
-
-					// Make sure hostaddr is one of IP addresses of this machine OR relaying has been allowed from that IP
-					boolean isHostAddrLocal = isHostAddrLocal();
-					boolean isHostAddrRelayingAllowed = isHostAddrRelayingAllowed();
-					if(log.isTraceEnabled()) {
-						trace("envrcpt: isHostAddrLocal="+isHostAddrLocal);
-						trace("envrcpt: isHostAddrRelayingAllowed="+isHostAddrRelayingAllowed);
-					}
-					if(status==null) {
-						if(
-							!isHostAddrLocal
-							&& !isHostAddrRelayingAllowed
-						) status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"esmtp: Relaying from "+hostaddr.getHostAddress()+" denied. Proper authentication required."});
-					}
-
-					// Don't allow empty from address
-					if(status==null) {
-						if(from==null || from.length()<2 || from.equals("<>")) {
-							status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"esmtp: Email not accepted with an empty from address."});
-						}
-					}
-
-					// Make sure from address is a valid address on this machine
-					if(status==null) {
-						if(!isHostAddrLocal || configuration.getRestrictOutboundEmail()) status = checkFromIsLocal();
-					}
-
-					// Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP
-					if(status==null) {
-						if(isHostAddrLocal) {
-							// Limit as outgoing (use noLimitToAddresses)
-							if(
-								!isNoLimitAddress(to)
-								&& isLimited(CounterMode.OUT, from)
-							) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Outgoing email limit reached, throttling additional emails"});
-						} else {
-							// Limit as relay
-							if(isLimited(CounterMode.RELAY, from)) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Relay email limit reached, throttling additional emails"});
-						}
-					}
-
-					// Otherwise, continue
-					if(status==null) status = JilterStatus.SMFIS_CONTINUE;
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-				} else if(isToLocal) {
-					// Mail going from esmtp to local
-					JilterStatus status = null;
-
-					// Make sure recipient is a valid email address on this machine
-					if(status==null) {
-						status = checkToIsLocal(to);
-					}
-
-					// Limit as incoming mail
-					if(status==null) {
-						if(isLimited(CounterMode.IN, to)) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Incoming email limit reached, throttling additional emails"});
-					}
-
-					// Otherwise, continue
-					if(status==null) status = JilterStatus.SMFIS_CONTINUE;
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-				} else {
-					JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-				}
-			} else if(isFromAuth) {
-				if(isToEsmtp) {
-					// Mail going from auth to esmtp
-					JilterStatus status = null;
-
-					// Make sure authenticated
-					if(status==null) {
-						if(auth_authen==null || auth_authen.length()==0) status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"auth: Relaying from "+hostaddr.getHostAddress()+" denied. Proper authentication required."});
-					}
-
-					// Don't allow empty from address
-					if(status==null) {
-						if(from==null || from.length()<2 || from.equals("<>")) {
-							status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"auth: Email not accepted with an empty from address."});
-						}
-					}
-
-					// Make sure from address is a valid address on this machine
-					if(status==null) {
-						status = checkFromIsLocal();
-					}
-
-					// Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP
-					if(status==null) {
-						boolean isHostAddrLocal = isHostAddrLocal();
-						if(isHostAddrLocal) {
-							// Limit as outgoing (use noLimitToAddresses)
-							if(
-								!isNoLimitAddress(to)
-								&& isLimited(CounterMode.OUT, from)
-							) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Outgoing email limit reached, throttling additional emails"});
-						} else {
-							// Limit as relay
-							if(isLimited(CounterMode.RELAY, from)) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Relay email limit reached, throttling additional emails"});
-						}
-					}
-
-					// Otherwise, continue
-					if(status==null) status = JilterStatus.SMFIS_CONTINUE;
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-				} else if(isToLocal) {
-					// Mail going from auth to local
-					JilterStatus status = null;
-
-					// Make sure recipient is a valid email address on this machine
-					if(status==null) {
-						status = checkToIsLocal(to);
-					}
-
-					// Limit as incoming mail
-					if(status==null) {
-						if(isLimited(CounterMode.IN, to)) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Incoming email limit reached, throttling additional emails"});
-					}
-
-					// Otherwise, continue
-					if(status==null) status = JilterStatus.SMFIS_CONTINUE;
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-				} else {
-					JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
-					if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
-					return status;
-				}
-			} else {
+				break;
+			case "esmtp":
+				// If is "esmtp" if not authenticated
+				isFromLocal = false;
+				isFromAuth = auth_authen!=null && auth_authen.length()>0;
+				isFromEsmtp = !isFromAuth;
+				break;
+			default:
 				JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: "+mail_mailer});
 				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
 				return status;
+		}
+		boolean isToLocal = "local".equals(rcpt_mailer);
+		boolean isToEsmtp = "esmtp".equals(rcpt_mailer);
+
+		if(log.isTraceEnabled()) {
+			trace("envrcpt: isFromLocal="+isFromLocal);
+			trace("envrcpt: isFromAuth="+isFromAuth);
+			trace("envrcpt: isFromEsmtp="+isFromEsmtp);
+			trace("envrcpt: isToLocal="+isToLocal);
+			trace("envrcpt: isToEsmtp="+isToEsmtp);
+		}
+		if(isFromLocal) {
+			if(isToEsmtp) {
+				// Mail going from local to esmtp
+				JilterStatus status = null;
+
+				// Don't allow empty from address
+				if(status==null) {
+					if(from==null || from.length()<2 || from.equals("<>")) {
+						status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"local: Email not accepted with an empty from address."});
+					}
+				}
+
+				// If this ao_server has "restrict_outbound_email" set to true: Make sure from address is a valid address on this machine
+				if(status==null) {
+					if(configuration.getRestrictOutboundEmail()) status = checkFromIsLocal();
+				}
+
+				// Limit as outgoing mail (use noLimitToAddresses)
+				if(status==null) {
+					if(
+						!isNoLimitAddress(to)
+						&& isLimited(CounterMode.OUT, from)
+					) {
+						status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"local: Outgoing email limit reached, throttling additional emails"});
+					}
+				}
+
+				// Otherwise, continue
+				if(status==null) status = JilterStatus.SMFIS_CONTINUE;
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
+			} else if(isToLocal) {
+				// Mail going from local to local
+				JilterStatus status = null;
+
+				// Make sure recipient is a valid email address on this machine
+				if(status==null) {
+					status = checkToIsLocal(to);
+				}
+
+				// Otherwise, continue
+				if(status==null) status = JilterStatus.SMFIS_CONTINUE;
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
+			} else {
+				JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
 			}
-		} catch(IOException err) {
-			if(log.isErrorEnabled()) log.error(null, err);
-			JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"java.io.IOException"});
+		} else if(isFromEsmtp) {
+			if(isToEsmtp) {
+				// Mail going from esmtp to esmtp
+				JilterStatus status = null;
+
+				// Make sure hostaddr is one of IP addresses of this machine OR relaying has been allowed from that IP
+				boolean isHostAddrLocal = isHostAddrLocal();
+				boolean isHostAddrRelayingAllowed = isHostAddrRelayingAllowed();
+				if(log.isTraceEnabled()) {
+					trace("envrcpt: isHostAddrLocal="+isHostAddrLocal);
+					trace("envrcpt: isHostAddrRelayingAllowed="+isHostAddrRelayingAllowed);
+				}
+				if(status==null) {
+					if(
+						!isHostAddrLocal
+						&& !isHostAddrRelayingAllowed
+					) status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"esmtp: Relaying from "+hostaddr.getHostAddress()+" denied. Proper authentication required."});
+				}
+
+				// Don't allow empty from address
+				if(status==null) {
+					if(from==null || from.length()<2 || from.equals("<>")) {
+						status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"esmtp: Email not accepted with an empty from address."});
+					}
+				}
+
+				// Make sure from address is a valid address on this machine
+				if(status==null) {
+					if(!isHostAddrLocal || configuration.getRestrictOutboundEmail()) status = checkFromIsLocal();
+				}
+
+				// Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP
+				if(status==null) {
+					if(isHostAddrLocal) {
+						// Limit as outgoing (use noLimitToAddresses)
+						if(
+							!isNoLimitAddress(to)
+							&& isLimited(CounterMode.OUT, from)
+						) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Outgoing email limit reached, throttling additional emails"});
+					} else {
+						// Limit as relay
+						if(isLimited(CounterMode.RELAY, from)) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Relay email limit reached, throttling additional emails"});
+					}
+				}
+
+				// Otherwise, continue
+				if(status==null) status = JilterStatus.SMFIS_CONTINUE;
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
+			} else if(isToLocal) {
+				// Mail going from esmtp to local
+				JilterStatus status = null;
+
+				// Make sure recipient is a valid email address on this machine
+				if(status==null) {
+					status = checkToIsLocal(to);
+				}
+
+				// Limit as incoming mail
+				if(status==null) {
+					if(isLimited(CounterMode.IN, to)) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Incoming email limit reached, throttling additional emails"});
+				}
+
+				// Otherwise, continue
+				if(status==null) status = JilterStatus.SMFIS_CONTINUE;
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
+			} else {
+				JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
+			}
+		} else if(isFromAuth) {
+			if(isToEsmtp) {
+				// Mail going from auth to esmtp
+				JilterStatus status = null;
+
+				// Make sure authenticated
+				if(status==null) {
+					if(auth_authen==null || auth_authen.length()==0) status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"auth: Relaying from "+hostaddr.getHostAddress()+" denied. Proper authentication required."});
+				}
+
+				// Don't allow empty from address
+				if(status==null) {
+					if(from==null || from.length()<2 || from.equals("<>")) {
+						status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"auth: Email not accepted with an empty from address."});
+					}
+				}
+
+				// Make sure from address is a valid address on this machine
+				if(status==null) {
+					status = checkFromIsLocal();
+				}
+
+				// Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP
+				if(status==null) {
+					boolean isHostAddrLocal = isHostAddrLocal();
+					if(isHostAddrLocal) {
+						// Limit as outgoing (use noLimitToAddresses)
+						if(
+							!isNoLimitAddress(to)
+							&& isLimited(CounterMode.OUT, from)
+						) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Outgoing email limit reached, throttling additional emails"});
+					} else {
+						// Limit as relay
+						if(isLimited(CounterMode.RELAY, from)) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Relay email limit reached, throttling additional emails"});
+					}
+				}
+
+				// Otherwise, continue
+				if(status==null) status = JilterStatus.SMFIS_CONTINUE;
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
+			} else if(isToLocal) {
+				// Mail going from auth to local
+				JilterStatus status = null;
+
+				// Make sure recipient is a valid email address on this machine
+				if(status==null) {
+					status = checkToIsLocal(to);
+				}
+
+				// Limit as incoming mail
+				if(status==null) {
+					if(isLimited(CounterMode.IN, to)) status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Incoming email limit reached, throttling additional emails"});
+				}
+
+				// Otherwise, continue
+				if(status==null) status = JilterStatus.SMFIS_CONTINUE;
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
+			} else {
+				JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
+				if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
+				return status;
+			}
+		} else {
+			JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: "+mail_mailer});
 			if(log.isTraceEnabled()) trace("envrcpt: returning "+status);
 			return status;
 		}
@@ -906,7 +899,7 @@ public class AOJilterHandler implements JilterHandler {
 	/**
 	 * Determines if the current hostaddr is local.
 	 */
-	protected boolean isHostAddrLocal() throws IOException {
+	protected boolean isHostAddrLocal() {
 		String hostIP = hostaddr.getHostAddress();
 		return configuration.isLocalIPAddress(hostIP);
 	}
@@ -914,7 +907,7 @@ public class AOJilterHandler implements JilterHandler {
 	/**
 	 * Checks if relaying has been allowed from hostaddr
 	 */
-	protected boolean isHostAddrRelayingAllowed() throws IOException {
+	protected boolean isHostAddrRelayingAllowed() {
 		String hostIP = hostaddr.getHostAddress();
 		return configuration.isAllowRelay(hostIP);
 	}
@@ -924,7 +917,7 @@ public class AOJilterHandler implements JilterHandler {
 	 *
 	 * @return <code>null</code> if passed or <code>JilterStatus</code> for not allowed.
 	 */
-	protected JilterStatus checkFromIsLocal() throws IOException {
+	protected JilterStatus checkFromIsLocal() {
 		String parsedFrom = from;
 
 		// Trim the < and > from the from address
@@ -959,7 +952,7 @@ public class AOJilterHandler implements JilterHandler {
 	 *
 	 * @return <code>null</code> if passed or <code>JilterStatus</code> for not allowed.
 	 */
-	protected JilterStatus checkToIsLocal(String to) throws IOException {
+	protected JilterStatus checkToIsLocal(String to) {
 		String parsedTo = to;
 
 		// Trim the < and > from the to address
