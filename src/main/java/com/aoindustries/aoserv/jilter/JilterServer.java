@@ -20,6 +20,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package com.aoindustries.aoserv.jilter;
 
 import com.aoindustries.aoserv.jilter.config.JilterConfiguration;
