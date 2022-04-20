@@ -30,43 +30,43 @@ package com.aoindustries.aoserv.jilter;
  */
 public class Notice {
 
-	private final long noticeTimeMillis;
-	private final String smtpServer;
-	private final String from;
-	private final String to;
-	private final String subject;
-	private final String message;
+  private final long noticeTimeMillis;
+  private final String smtpServer;
+  private final String from;
+  private final String to;
+  private final String subject;
+  private final String message;
 
-	public Notice(long noticeTimeMillis, String smtpServer, String from, String to, String subject, String message) {
-		this.noticeTimeMillis = noticeTimeMillis;
-		this.smtpServer = smtpServer;
-		this.from = from;
-		this.to = to;
-		this.subject = subject;
-		this.message = message;
-	}
+  public Notice(long noticeTimeMillis, String smtpServer, String from, String to, String subject, String message) {
+    this.noticeTimeMillis = noticeTimeMillis;
+    this.smtpServer = smtpServer;
+    this.from = from;
+    this.to = to;
+    this.subject = subject;
+    this.message = message;
+  }
 
-	public long getNoticeTimeMillis() {
-		return noticeTimeMillis;
-	}
+  public long getNoticeTimeMillis() {
+    return noticeTimeMillis;
+  }
 
-	public String getSmtpServer() {
-		return smtpServer;
-	}
+  public String getSmtpServer() {
+    return smtpServer;
+  }
 
-	public String getFrom() {
-		return from;
-	}
+  public String getFrom() {
+    return from;
+  }
 
-	public String getTo() {
-		return to;
-	}
+  public String getTo() {
+    return to;
+  }
 
-	public String getSubject() {
-		return subject;
-	}
+  public String getSubject() {
+    return subject;
+  }
 
-	public String getMessage() {
-		return message;
-	}
+  public String getMessage() {
+    return message;
+  }
 }

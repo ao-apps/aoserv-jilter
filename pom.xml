@@ -22,331 +22,331 @@ You should have received a copy of the GNU Lesser General Public License
 along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.18.0-SNAPSHOT</version>
-		<relativePath>../../oss/parent/pom.xml</relativePath>
-	</parent>
+  <parent>
+    <groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.18.0-SNAPSHOT</version>
+    <relativePath>../../oss/parent/pom.xml</relativePath>
+  </parent>
 
-	<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.89.0-POST-SNAPSHOT</version>
-	<packaging>bundle</packaging>
+  <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.89.0-POST-SNAPSHOT</version>
+  <packaging>bundle</packaging>
 
-	<properties>
-		<module.name>com.aoindustries.aoserv.jilter</module.name>
-		<!-- TODO: Java 11 once CentOS 5 is gone -->
-		<!-- Java 1.8 -->
-		<javase.version>1.8</javase.version>
-		<javase.release>8</javase.release>
-		<javadoc.link.javase>${javadoc.link.javase.8}</javadoc.link.javase>
-		<!-- This must be set in your ~/.m2/settings.xml when building with JDK < 9 -->
-		<javase.bootclasspath>${javase.bootclasspath.8}</javase.bootclasspath>
+  <properties>
+    <module.name>com.aoindustries.aoserv.jilter</module.name>
+    <!-- TODO: Java 11 once CentOS 5 is gone -->
+    <!-- Java 1.8 -->
+    <javase.version>1.8</javase.version>
+    <javase.release>8</javase.release>
+    <javadoc.link.javase>${javadoc.link.javase.8}</javadoc.link.javase>
+    <!-- This must be set in your ~/.m2/settings.xml when building with JDK < 9 -->
+    <javase.bootclasspath>${javase.bootclasspath.8}</javase.bootclasspath>
 
-		<javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ</a>
+    <javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ</a>
 / <a target="${javadoc.target}" href="${project.url}">Jilter</a>]]></javadoc.breadcrumbs>
-		<description.html><![CDATA[Mail filter for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
-		<javadoc.modules><![CDATA[<div>
-			<h2>Modules</h2>
-			<ul>
-				<li><a target="${javadoc.target}" href="https://aoindustries.com/aoserv/jilter/config/">AOServ Jilter Config</a></li>
-			</ul>
-		</div>]]></javadoc.modules>
-		<!-- TODO: Remove once moved to platform.aoapps.com -->
-		<google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
-		<!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
-		<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-		<!-- SonarQube -->
-		<sonar.projectKey>com.aoapps.platform:aoapps-jilter<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
-		<sonar.organization>ao-apps</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<!-- TODO: Implement tests -->
-		<sonar.coverage.exclusions>**.*</sonar.coverage.exclusions>
-	</properties>
+    <description.html><![CDATA[Mail filter for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
+    <javadoc.modules><![CDATA[<div>
+      <h2>Modules</h2>
+      <ul>
+        <li><a target="${javadoc.target}" href="https://aoindustries.com/aoserv/jilter/config/">AOServ Jilter Config</a></li>
+      </ul>
+    </div>]]></javadoc.modules>
+    <!-- TODO: Remove once moved to platform.aoapps.com -->
+    <google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
+    <!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
+    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+    <!-- SonarQube -->
+    <sonar.projectKey>com.aoapps.platform:aoapps-jilter<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
+    <sonar.organization>ao-apps</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <!-- TODO: Implement tests -->
+    <sonar.coverage.exclusions>**.*</sonar.coverage.exclusions>
+  </properties>
 
-	<name>AOServ Jilter</name>
-	<url>https://aoindustries.com/aoserv/jilter/</url>
-	<description>Mail filter for the AOServ Platform.</description>
-	<inceptionYear>2007</inceptionYear>
+  <name>AOServ Jilter</name>
+  <url>https://aoindustries.com/aoserv/jilter/</url>
+  <description>Mail filter for the AOServ Platform.</description>
+  <inceptionYear>2007</inceptionYear>
 
-	<licenses>
-		<license>
-			<name>GNU General Lesser Public License (LGPL) version 3.0</name>
-			<url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+  <licenses>
+    <license>
+      <name>GNU General Lesser Public License (LGPL) version 3.0</name>
+      <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-	<organization>
-		<name>AO Industries, Inc.</name>
-		<url>https://aoindustries.com/</url>
-	</organization>
+  <organization>
+    <name>AO Industries, Inc.</name>
+    <url>https://aoindustries.com/</url>
+  </organization>
 
-	<developers>
-		<developer>
-			<name>AO Industries, Inc.</name>
-			<email>support@aoindustries.com</email>
-			<url>https://aoindustries.com/</url>
-			<organization>AO Industries, Inc.</organization>
-			<organizationUrl>https://aoindustries.com/</organizationUrl>
-		</developer>
-	</developers>
+  <developers>
+    <developer>
+      <name>AO Industries, Inc.</name>
+      <email>support@aoindustries.com</email>
+      <url>https://aoindustries.com/</url>
+      <organization>AO Industries, Inc.</organization>
+      <organizationUrl>https://aoindustries.com/</organizationUrl>
+    </developer>
+  </developers>
 
-	<scm>
-		<connection>scm:git:git://github.com/ao-apps/aoserv-jilter.git</connection>
-		<developerConnection>scm:git:git@github.com:ao-apps/aoserv-jilter.git</developerConnection>
-		<url>https://github.com/ao-apps/aoserv-jilter</url>
-		<tag>HEAD</tag>
-	</scm>
+  <scm>
+    <connection>scm:git:git://github.com/ao-apps/aoserv-jilter.git</connection>
+    <developerConnection>scm:git:git@github.com:ao-apps/aoserv-jilter.git</developerConnection>
+    <url>https://github.com/ao-apps/aoserv-jilter</url>
+    <tag>HEAD</tag>
+  </scm>
 
-	<issueManagement>
-		<system>GitHub Issues</system>
-		<url>https://github.com/ao-apps/aoserv-jilter/issues</url>
-	</issueManagement>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/ao-apps/aoserv-jilter/issues</url>
+  </issueManagement>
 
-	<ciManagement>
-		<system>Jenkins</system>
-		<url>https://jenkins.aoindustries.com/job/ao/job/aoserv/job/jilter/</url>
-	</ciManagement>
-	<!-- Only one allowed in POM:
-	<ciManagement>
-		<system>GitHub Actions</system>
-		<url>https://github.com/ao-apps/aoserv-jilter/actions</url>
-	</ciManagement>
-	-->
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://jenkins.aoindustries.com/job/ao/job/aoserv/job/jilter/</url>
+  </ciManagement>
+  <!-- Only one allowed in POM:
+  <ciManagement>
+    <system>GitHub Actions</system>
+    <url>https://github.com/ao-apps/aoserv-jilter/actions</url>
+  </ciManagement>
+  -->
 
-	<repositories>
-		<!-- Repository required here, too, so can find parent -->
-		<repository>
-			<id>sonatype-nexus-snapshots-s01</id>
-			<name>Sonatype Nexus Snapshots S01</name>
-			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<checksumPolicy>fail</checksumPolicy>
-			</snapshots>
-		</repository>
-		<!-- See http://stackoverflow.com/questions/1164043/maven-how-to-include-jars-which-are-not-available-in-reps-into-a-j2ee-project -->
-		<repository>
-			<id>project-repository</id>
-			<url>file://${project.basedir}/repository</url>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+  <repositories>
+    <!-- Repository required here, too, so can find parent -->
+    <repository>
+      <id>sonatype-nexus-snapshots-s01</id>
+      <name>Sonatype Nexus Snapshots S01</name>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
+    </repository>
+    <!-- See http://stackoverflow.com/questions/1164043/maven-how-to-include-jars-which-are-not-available-in-reps-into-a-j2ee-project -->
+    <repository>
+      <id>project-repository</id>
+      <url>file://${project.basedir}/repository</url>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
-	<build>
-		<plugins>
-			<!-- Java 1.8: see https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId>
-				<executions>
-					<!-- compile everything to ensure module-info contains right entries -->
-					<execution>
-						<id>default-compile</id>
-						<configuration>
-							<release>9</release>
-						</configuration>
-					</execution>
-					<!-- recompile everything for target VM except the module-info.java -->
-					<execution>
-						<id>base-compile</id><goals><goal>compile</goal></goals>
-						<configuration>
-							<excludes>
-								<exclude>module-info.java</exclude>
-							</excludes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<!-- Java 1.8: generate future-proof modular javadocs -->
-					<source>11</source>
-					<release>11</release>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
-				<configuration>
-					<usedDependencies>
-						<!-- Runtime Direct -->
-						<dependency>org.apache.logging.log4j:log4j-jul</dependency>
-					</usedDependencies>
-					<ignoredDependencies>
-						<!-- No "module-info.java" in some release builds -->
-						<dependency>com.aoapps:ao-collections</dependency>
-					</ignoredDependencies>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-checkstyle-plugin</artifactId>
-				<configuration>
-					<!-- TODO: Clean-up Checkstyle -->
-					<failOnViolation>false</failOnViolation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
-				<configuration>
-					<!-- TODO: Clean-up SpotBugs -->
-					<failOnError>false</failOnError>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+  <build>
+    <plugins>
+      <!-- Java 1.8: see https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <!-- compile everything to ensure module-info contains right entries -->
+          <execution>
+            <id>default-compile</id>
+            <configuration>
+              <release>9</release>
+            </configuration>
+          </execution>
+          <!-- recompile everything for target VM except the module-info.java -->
+          <execution>
+            <id>base-compile</id><goals><goal>compile</goal></goals>
+            <configuration>
+              <excludes>
+                <exclude>module-info.java</exclude>
+              </excludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <!-- Java 1.8: generate future-proof modular javadocs -->
+          <source>11</source>
+          <release>11</release>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+        <configuration>
+          <usedDependencies>
+            <!-- Runtime Direct -->
+            <dependency>org.apache.logging.log4j:log4j-jul</dependency>
+          </usedDependencies>
+          <ignoredDependencies>
+            <!-- No "module-info.java" in some release builds -->
+            <dependency>com.aoapps:ao-collections</dependency>
+          </ignoredDependencies>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <!-- TODO: Clean-up Checkstyle -->
+          <failOnViolation>false</failOnViolation>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
+        <configuration>
+          <!-- TODO: Clean-up SpotBugs -->
+          <failOnError>false</failOnError>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
-	<profiles>
-		<profile>
-			<id>offlineLinks</id><activation><file><exists>src/main/java</exists></file></activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>unpack.offlineLinks</id><phase>prepare-package</phase><goals><goal>unpack</goal></goals>
-								<configuration>
-									<artifactItems>
-										<!-- Direct -->
-										<artifactItem>
-											<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><classifier>javadoc</classifier>
-											<includes>element-list, package-list</includes>
-											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-jilter-config</outputDirectory>
-										</artifactItem>
-										<artifactItem>
-											<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><classifier>javadoc</classifier>
-											<includes>element-list, package-list</includes>
-											<outputDirectory>${project.build.directory}/offlineLinks/commons-logging/commons-logging</outputDirectory>
-										</artifactItem>
-										<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
-										<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><classifier>javadoc</classifier> -->
-										<artifactItem>
-											<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><classifier>javadoc</classifier>
-											<includes>element-list, package-list</includes>
-											<outputDirectory>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</outputDirectory>
-										</artifactItem>
-									</artifactItems>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
-						<configuration>
-							<offlineLinks combine.children="append">
-								<!-- Direct -->
-								<offlineLink>
-									<url>https://aoindustries.com/aoserv/jilter/config/apidocs/</url>
-									<location>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-jilter-config</location>
-								</offlineLink>
-								<offlineLink>
-									<url>https://commons.apache.org/proper/commons-logging/apidocs/</url>
-									<location>${project.build.directory}/offlineLinks/commons-logging/commons-logging</location>
-								</offlineLink>
-								<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
-								<!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><classifier>javadoc</classifier> -->
-								<offlineLink>
-									<url>https://logging.apache.org/log4j/1.2/apidocs/</url>
-									<location>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</location>
-								</offlineLink>
-							</offlineLinks>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.felix</groupId><artifactId>maven-bundle-plugin</artifactId>
-						<configuration>
-							<instructions>
-								<!--
-									Releases use "Automatic-Module-Name" instead of "module-info.java"
-									since has direct dependencies that are not yet modularized.
-								-->
-								<Automatic-Module-Name>${module.name}</Automatic-Module-Name>
-								<Private-Package>!.</Private-Package>
-							</instructions>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+  <profiles>
+    <profile>
+      <id>offlineLinks</id><activation><file><exists>src/main/java</exists></file></activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>unpack.offlineLinks</id><phase>prepare-package</phase><goals><goal>unpack</goal></goals>
+                <configuration>
+                  <artifactItems>
+                    <!-- Direct -->
+                    <artifactItem>
+                      <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><classifier>javadoc</classifier>
+                      <includes>element-list, package-list</includes>
+                      <outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-jilter-config</outputDirectory>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><classifier>javadoc</classifier>
+                      <includes>element-list, package-list</includes>
+                      <outputDirectory>${project.build.directory}/offlineLinks/commons-logging/commons-logging</outputDirectory>
+                    </artifactItem>
+                    <!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
+                    <!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><classifier>javadoc</classifier> -->
+                    <artifactItem>
+                      <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><classifier>javadoc</classifier>
+                      <includes>element-list, package-list</includes>
+                      <outputDirectory>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</outputDirectory>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <offlineLinks combine.children="append">
+                <!-- Direct -->
+                <offlineLink>
+                  <url>https://aoindustries.com/aoserv/jilter/config/apidocs/</url>
+                  <location>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-jilter-config</location>
+                </offlineLink>
+                <offlineLink>
+                  <url>https://commons.apache.org/proper/commons-logging/apidocs/</url>
+                  <location>${project.build.directory}/offlineLinks/commons-logging/commons-logging</location>
+                </offlineLink>
+                <!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
+                <!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><classifier>javadoc</classifier> -->
+                <offlineLink>
+                  <url>https://logging.apache.org/log4j/1.2/apidocs/</url>
+                  <location>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</location>
+                </offlineLink>
+              </offlineLinks>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.felix</groupId><artifactId>maven-bundle-plugin</artifactId>
+            <configuration>
+              <instructions>
+                <!--
+                  Releases use "Automatic-Module-Name" instead of "module-info.java"
+                  since has direct dependencies that are not yet modularized.
+                -->
+                <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
+                <Private-Package>!.</Private-Package>
+              </instructions>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
-	<dependencyManagement>
-		<dependencies>
-			<!-- Direct -->
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.85.0${POST-SNAPSHOT}</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><version>1.6.2</version>
-			</dependency>
-			<dependency>
-				<!-- See http://sendmail-jilter.sourceforge.net/ -->
-				<!-- Installed with mvn install:install-file -Dfile=jilter-1.2.jar -DgroupId=com.sendmail -DartifactId=jilter -Dversion=1.2 -Dpackaging=jar -DlocalRepositoryPath=repository -->
-				<groupId>com.sendmail</groupId><artifactId>jilter</artifactId><version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.17.2</version>
-			</dependency>
-			<!-- Transitive -->
-			<dependency>
-				<groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.2.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.17.2</version>
-			</dependency>
-			<!-- Runtime Direct -->
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.17.2</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+  <dependencyManagement>
+    <dependencies>
+      <!-- Direct -->
+      <dependency>
+        <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.85.0${POST-SNAPSHOT}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><version>1.6.2</version>
+      </dependency>
+      <dependency>
+        <!-- See http://sendmail-jilter.sourceforge.net/ -->
+        <!-- Installed with mvn install:install-file -Dfile=jilter-1.2.jar -DgroupId=com.sendmail -DartifactId=jilter -Dversion=1.2 -Dpackaging=jar -DlocalRepositoryPath=repository -->
+        <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><version>1.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.17.2</version>
+      </dependency>
+      <!-- Transitive -->
+      <dependency>
+        <groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.2.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.17.2</version>
+      </dependency>
+      <!-- Runtime Direct -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.17.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-	<dependencies>
-		<!-- Direct -->
-		<dependency>
-			<groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
-		</dependency>
-		<dependency>
-			<!-- log4j 1.2 API is required by com.sendmail:jilter -->
-			<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId>
-		</dependency>
-		<!-- Runtime Direct -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-	</dependencies>
+  <dependencies>
+    <!-- Direct -->
+    <dependency>
+      <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
+    </dependency>
+    <dependency>
+      <!-- log4j 1.2 API is required by com.sendmail:jilter -->
+      <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId>
+    </dependency>
+    <!-- Runtime Direct -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
 </project>

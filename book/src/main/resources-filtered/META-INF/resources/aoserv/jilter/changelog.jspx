@@ -22,104 +22,104 @@ You should have received a copy of the GNU Lesser General Public License
 along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <jsp:root
-	xmlns:ao="https://oss.aoapps.com/taglib/"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:changelog="https://semanticcms.com/changelog/taglib/"
-	xmlns:core="https://semanticcms.com/core/taglib/"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:jsp="http://java.sun.com/JSP/Page"
-	version="2.1"
+  xmlns:ao="https://oss.aoapps.com/taglib/"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:changelog="https://semanticcms.com/changelog/taglib/"
+  xmlns:core="https://semanticcms.com/core/taglib/"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  version="2.1"
 >
-	<jsp:directive.page language="java" pageEncoding="UTF-8" />
-	<jsp:directive.page session="false" />
-	<core:page
-		title="@{documented.name} Changelog"
-		shortTitle="Changelog"
-		tocLevels="1"
-		datePublished="2020-04-13T12:04:48-05:00"
-		dateModified="2022-02-19T00:01:09-06:00"
-	>
-		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
-			<changelog:release
-				projectName="@{documented.name}"
-				version="@{project.version}"
-				groupId="@{project.groupId}"
-				artifactId="@{documented.artifactId}"
-				repository="@{nexusUrl}content/repositories/snapshots/"
-				scmUrl="@{project.scm.url}"
-			/>
-		</c:if>
+  <jsp:directive.page language="java" pageEncoding="UTF-8" />
+  <jsp:directive.page session="false" />
+  <core:page
+    title="@{documented.name} Changelog"
+    shortTitle="Changelog"
+    tocLevels="1"
+    datePublished="2020-04-13T12:04:48-05:00"
+    dateModified="2022-02-19T00:01:09-06:00"
+  >
+    <c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
+      <changelog:release
+        projectName="@{documented.name}"
+        version="@{project.version}"
+        groupId="@{project.groupId}"
+        artifactId="@{documented.artifactId}"
+        repository="@{nexusUrl}content/repositories/snapshots/"
+        scmUrl="@{project.scm.url}"
+      />
+    </c:if>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.89.0"
-			datePublished="2022-02-19T00:01:09-06:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Now properly restoring Thread interrupted state on <code>InterruptedException</code>.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.89.0"
+      datePublished="2022-02-19T00:01:09-06:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Now properly restoring Thread interrupted state on <code>InterruptedException</code>.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.85.0"
-			datePublished="2021-07-24T12:58:41-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Updated dependencies.</li>
-				<li>
-					Upgraded to <ao:a href="https://logging.apache.org/log4j/2.x/index.html">Apache Log4j 2</ao:a>
-					via the <ao:a href="https://logging.apache.org/log4j/2.x/log4j-1.2-api/">Log4j 1.2 Bridge</ao:a>.
-					We are using the bridge due to the <code>com.sendmail:jilter</code> dependency requiring the 1.2 API.
-				</li>
-				<li>
-					Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
-					*-SNAPSHOT versions include <code>module-info.class</code> while releases include the
-					<code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
-					modes, <code>module-info.java</code> does not perform any transitive requires.
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.85.0"
+      datePublished="2021-07-24T12:58:41-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Updated dependencies.</li>
+        <li>
+          Upgraded to <ao:a href="https://logging.apache.org/log4j/2.x/index.html">Apache Log4j 2</ao:a>
+          via the <ao:a href="https://logging.apache.org/log4j/2.x/log4j-1.2-api/">Log4j 1.2 Bridge</ao:a>.
+          We are using the bridge due to the <code>com.sendmail:jilter</code> dependency requiring the 1.2 API.
+        </li>
+        <li>
+          Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
+          *-SNAPSHOT versions include <code>module-info.class</code> while releases include the
+          <code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
+          modes, <code>module-info.java</code> does not perform any transitive requires.
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.84.13"
-			datePublished="2021-02-05T21:12:11-06:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Updated dependencies.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.84.13"
+      datePublished="2021-02-05T21:12:11-06:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Updated dependencies.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.84.2"
-			datePublished="2020-04-25T23:35:30-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Project moved to GitHub and Maven.</li>
-				<!-- Not using this version due to some as-yet undiagnosed reliability problem in production:
-				<li>
-					Updated for compatibility with <ao:a href="https://github.com/prakma/postfix-jilter/releases/tag/release_0.1">the prakma release</ao:a>
-					of <ao:a href="http://sendmail-jilter.sourceforge.net/">sendmail-jilter</ao:a>.
-					Thanks again to <ao:a href="https://github.com/prakma">prakma</ao:a>
-					for <ao:a href="https://github.com/prakma/postfix-jilter/issues/1">getting jilter into the central repository</ao:a>.
-				</li>
-				-->
-				<li>Updated to Java 8 coding standards.</li>
-			</ul>
-		</changelog:release>
-	</core:page>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.84.2"
+      datePublished="2020-04-25T23:35:30-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Project moved to GitHub and Maven.</li>
+        <!-- Not using this version due to some as-yet undiagnosed reliability problem in production:
+        <li>
+          Updated for compatibility with <ao:a href="https://github.com/prakma/postfix-jilter/releases/tag/release_0.1">the prakma release</ao:a>
+          of <ao:a href="http://sendmail-jilter.sourceforge.net/">sendmail-jilter</ao:a>.
+          Thanks again to <ao:a href="https://github.com/prakma">prakma</ao:a>
+          for <ao:a href="https://github.com/prakma/postfix-jilter/issues/1">getting jilter into the central repository</ao:a>.
+        </li>
+        -->
+        <li>Updated to Java 8 coding standards.</li>
+      </ul>
+    </changelog:release>
+  </core:page>
 </jsp:root>

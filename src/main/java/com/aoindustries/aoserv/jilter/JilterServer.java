@@ -41,64 +41,66 @@ import org.apache.log4j.Logger;
  */
 public final class JilterServer {
 
-	/** Make no instances. */
-	private JilterServer() {throw new AssertionError();}
+  /** Make no instances. */
+  private JilterServer() {
+    throw new AssertionError();
+  }
 
-	private static final Log log = LogFactory.getLog(JilterServer.class);
+  private static final Log log = LogFactory.getLog(JilterServer.class);
 
-	@SuppressWarnings({"TooBroadCatch", "UseSpecificCatch", "SleepWhileInLoop"})
-	public static void main(String[] args) {
-		// Initialize log4j
-		BasicConfigurator.configure();
-		//Logger.getRootLogger().addAppender(new WriterAppender(new SimpleLayout(), System.err));
-		Logger.getRootLogger().setLevel(Level.INFO);
-		//Category.getRoot().;
+  @SuppressWarnings({"TooBroadCatch", "UseSpecificCatch", "SleepWhileInLoop"})
+  public static void main(String[] args) {
+    // Initialize log4j
+    BasicConfigurator.configure();
+    //Logger.getRootLogger().addAppender(new WriterAppender(new SimpleLayout(), System.err));
+    Logger.getRootLogger().setLevel(Level.INFO);
+    //Category.getRoot().;
 
-		while(!Thread.currentThread().isInterrupted()) {
-			try {
-				start();
-				break;
-			} catch(ThreadDeath td) {
-				throw td;
-			} catch(Throwable t) {
-				log.error(null, t);
-				try {
-					Thread.sleep(10000);
-				} catch(InterruptedException e) {
-					log.warn(null, e);
-					// Restore the interrupted status
-					Thread.currentThread().interrupt();
-				}
-			}
-		}
-	}
+    while (!Thread.currentThread().isInterrupted()) {
+      try {
+        start();
+        break;
+      } catch (ThreadDeath td) {
+        throw td;
+      } catch (Throwable t) {
+        log.error(null, t);
+        try {
+          Thread.sleep(10000);
+        } catch (InterruptedException e) {
+          log.warn(null, e);
+          // Restore the interrupted status
+          Thread.currentThread().interrupt();
+        }
+      }
+    }
+  }
 
-	private static boolean started = false;
+  private static boolean started = false;
 
-	@SuppressWarnings("UseOfSystemOutOrSystemErr")
-	public static void start() throws IOException {
-		synchronized(System.out) {
-			if(!started) {
-				try {
-					System.out.print("Starting JilterServer: ");
-					JilterConfiguration config = JilterConfiguration.getJilterConfiguration();
-					String ipAddress = config.getListenIP();
-					new Thread(
-						new SimpleJilterServer(
-							new InetSocketAddress(
-								ipAddress,
-								config.getListenPort()
-							),
-							AOJilterHandler.class.getName()
-						),
-						"JilterServer listening on "+ipAddress
-					).start();
-					started = true;
-					System.out.println("Done");
-				} catch(ReflectiveOperationException e) {
-					throw new IOException(e);
-				}
-			}
-		}
-	}
+  @SuppressWarnings("UseOfSystemOutOrSystemErr")
+  public static void start() throws IOException {
+    synchronized (System.out) {
+      if (!started) {
+        try {
+          System.out.print("Starting JilterServer: ");
+          JilterConfiguration config = JilterConfiguration.getJilterConfiguration();
+          String ipAddress = config.getListenIP();
+          new Thread(
+            new SimpleJilterServer(
+              new InetSocketAddress(
+                ipAddress,
+                config.getListenPort()
+              ),
+              AOJilterHandler.class.getName()
+            ),
+            "JilterServer listening on "+ipAddress
+          ).start();
+          started = true;
+          System.out.println("Done");
+        } catch (ReflectiveOperationException e) {
+          throw new IOException(e);
+        }
+      }
+    }
+  }
 }
