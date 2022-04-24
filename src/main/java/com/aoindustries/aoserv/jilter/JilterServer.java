@@ -32,6 +32,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+
 // TODO: Convert to standard Java logging without log4j
 
 /**
@@ -86,14 +87,14 @@ public final class JilterServer {
           JilterConfiguration config = JilterConfiguration.getJilterConfiguration();
           String ipAddress = config.getListenIP();
           new Thread(
-            new SimpleJilterServer(
-              new InetSocketAddress(
-                ipAddress,
-                config.getListenPort()
+              new SimpleJilterServer(
+                  new InetSocketAddress(
+                      ipAddress,
+                      config.getListenPort()
+                  ),
+                  AOJilterHandler.class.getName()
               ),
-              AOJilterHandler.class.getName()
-            ),
-            "JilterServer listening on "+ipAddress
+              "JilterServer listening on " + ipAddress
           ).start();
           started = true;
           System.out.println("Done");

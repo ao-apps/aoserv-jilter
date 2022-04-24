@@ -59,10 +59,10 @@ public class AOJilterHandler implements JilterHandler {
    * This is to make sure notices from critical system processes are not blocked.
    */
   private static final String[] noLimitToAddresses = {
-    "aoserv@aoindustries.com",
-    "2054542556@tmomail.net",
-    //"2514584757@tmomail.net",
-    "support@aoindustries.com"
+      "aoserv@aoindustries.com",
+      "2054542556@tmomail.net",
+      //"2514584757@tmomail.net",
+      "support@aoindustries.com"
   };
 
   private static final Log log = LogFactory.getLog(AOJilterHandler.class);
@@ -142,7 +142,9 @@ public class AOJilterHandler implements JilterHandler {
     }
   }
 
-  private enum CounterMode { IN, OUT, RELAY }
+  private enum CounterMode {
+    IN, OUT, RELAY
+  }
 
   /**
    * Gets the counter for the provided mode and business or <code>null</code> if it is not limited.
@@ -152,7 +154,7 @@ public class AOJilterHandler implements JilterHandler {
       case IN : return getInCounter(configuration, accounting);
       case OUT : return getOutCounter(configuration, accounting);
       case RELAY : return getRelayCounter(configuration, accounting);
-      default : throw new IllegalArgumentException("Unexpected mode: "+mode);
+      default : throw new IllegalArgumentException("Unexpected mode: " + mode);
     }
   }
 
@@ -178,6 +180,7 @@ public class AOJilterHandler implements JilterHandler {
 //  private String message_id;
 //  private String mail_addr;
   private String mail_mailer;
+
 //  private String auth_type;
 
   public AOJilterHandler() throws IOException {
@@ -217,13 +220,13 @@ public class AOJilterHandler implements JilterHandler {
 
   private void trace(String message) {
     if (log.isTraceEnabled()) {
-      log.trace(System.identityHashCode(this)+ ": " + message);
+      log.trace(System.identityHashCode(this) + ": " + message);
     }
   }
 
   private void debug(String message) {
     if (log.isDebugEnabled()) {
-      log.debug(System.identityHashCode(this)+ ": " + message);
+      log.debug(System.identityHashCode(this) + ": " + message);
     }
   }
 
@@ -236,11 +239,11 @@ public class AOJilterHandler implements JilterHandler {
   public JilterStatus connect(String hostname, InetAddress hostaddr, Properties properties) {
     if (log.isTraceEnabled()) {
       trace("connect:");
-      trace("    hostname=\""+hostname+"\"");
-      trace("    hostaddr=\""+hostaddr.getHostAddress()+"\"");
+      trace("    hostname=\"" + hostname + "\"");
+      trace("    hostaddr=\"" + hostaddr.getHostAddress() + "\"");
       trace("    properties:");
       for (Object key : properties.keySet()) {
-        trace("        "+key+"=\"" + properties.get(key) + "\"");
+        trace("        " + key + "=\"" + properties.get(key) + "\"");
       }
     }
 //    this.hostname = hostname;
@@ -253,25 +256,25 @@ public class AOJilterHandler implements JilterHandler {
     // Look for deny block
     String hostIP = hostaddr.getHostAddress();
     if (configuration.isDenied(hostIP)) {
-      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"Mail from "+hostaddr.getHostAddress()+" denied."});
+      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"Mail from " + hostaddr.getHostAddress() + " denied."});
       if (log.isTraceEnabled()) {
-        trace("connect: returning "+status);
+        trace("connect: returning " + status);
       }
       return status;
     }
 
     // Look for deny_spam block
     if (configuration.isDeniedSpam(hostIP)) {
-      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"Your mailer ("+hostaddr.getHostAddress()+") has been reported as sending unsolicited email and has been blocked - please contact AO Industries via (205)454-2556 or postmaster@aoindustries.com"});
+      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"Your mailer (" + hostaddr.getHostAddress() + ") has been reported as sending unsolicited email and has been blocked - please contact AO Industries via (205)454-2556 or postmaster@aoindustries.com"});
       if (log.isTraceEnabled()) {
-        trace("connect: returning "+status);
+        trace("connect: returning " + status);
       }
       return status;
     }
 
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("connect: returning "+status);
+      trace("connect: returning " + status);
     }
     return status;
   }
@@ -283,16 +286,16 @@ public class AOJilterHandler implements JilterHandler {
   public JilterStatus helo(String helohost, Properties properties) {
     if (log.isTraceEnabled()) {
       trace("helo:");
-      trace("    helohost=\""+helohost+"\"");
+      trace("    helohost=\"" + helohost + "\"");
       trace("    properties:");
       for (Object key : properties.keySet()) {
-        trace("        "+key+"=\"" + properties.get(key) + "\"");
+        trace("        " + key + "=\"" + properties.get(key) + "\"");
       }
     }
     //this.helohost = helohost;
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("helo: returning "+status);
+      trace("helo: returning " + status);
     }
     return status;
   }
@@ -305,12 +308,12 @@ public class AOJilterHandler implements JilterHandler {
   public JilterStatus envfrom(String[] argv, Properties properties) {
     if (log.isTraceEnabled()) {
       trace("envfrom:");
-      for (int c=0;c<argv.length;c++) {
-        trace("    argv["+c+"]=\""+argv[c]+"\"");
+      for (int c = 0; c < argv.length; c++) {
+        trace("    argv[" + c + "]=\"" + argv[c] + "\"");
       }
       trace("    properties:");
       for (Object key : properties.keySet()) {
-        trace("        "+key+"=\"" + properties.get(key) + "\"");
+        trace("        " + key + "=\"" + properties.get(key) + "\"");
       }
     }
     this.from = argv[0];
@@ -324,7 +327,7 @@ public class AOJilterHandler implements JilterHandler {
 
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("envfrom: returning "+status);
+      trace("envfrom: returning " + status);
     }
     return status;
   }
@@ -383,12 +386,12 @@ public class AOJilterHandler implements JilterHandler {
   public JilterStatus envrcpt(String[] argv, Properties properties) {
     if (log.isTraceEnabled()) {
       trace("envrcpt:");
-      for (int c=0;c<argv.length;c++) {
-        trace("    argv["+c+"]=\""+argv[c]+"\"");
+      for (int c = 0; c < argv.length; c++) {
+        trace("    argv[" + c + "]=\"" + argv[c] + "\"");
       }
       trace("    properties:");
       for (Object key : properties.keySet()) {
-        trace("        "+key+"=\"" + properties.get(key) + "\"");
+        trace("        " + key + "=\"" + properties.get(key) + "\"");
       }
     }
 
@@ -425,25 +428,25 @@ public class AOJilterHandler implements JilterHandler {
       case "esmtp":
         // If is "esmtp" if not authenticated
         isFromLocal = false;
-        isFromAuth = auth_authen != null && auth_authen.length()>0;
+        isFromAuth = auth_authen != null && auth_authen.length() > 0;
         isFromEsmtp = !isFromAuth;
         break;
       default:
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: "+mail_mailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mail_mailer});
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
-          }
+          trace("envrcpt: returning " + status);
+        }
         return status;
     }
     boolean isToLocal = "local".equals(rcpt_mailer);
     boolean isToEsmtp = "esmtp".equals(rcpt_mailer);
 
     if (log.isTraceEnabled()) {
-      trace("envrcpt: isFromLocal="+isFromLocal);
-      trace("envrcpt: isFromAuth="+isFromAuth);
-      trace("envrcpt: isFromEsmtp="+isFromEsmtp);
-      trace("envrcpt: isToLocal="+isToLocal);
-      trace("envrcpt: isToEsmtp="+isToEsmtp);
+      trace("envrcpt: isFromLocal=" + isFromLocal);
+      trace("envrcpt: isFromAuth=" + isFromAuth);
+      trace("envrcpt: isFromEsmtp=" + isFromEsmtp);
+      trace("envrcpt: isToLocal=" + isToLocal);
+      trace("envrcpt: isToEsmtp=" + isToEsmtp);
     }
     if (isFromLocal) {
       if (isToEsmtp) {
@@ -452,8 +455,8 @@ public class AOJilterHandler implements JilterHandler {
 
         // Don't allow empty from address
         if (status == null) {
-          if (from == null || from.length()<2 || from.equals("<>")) {
-            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"local: Email not accepted with an empty from address."});
+          if (from == null || from.length() < 2 || from.equals("<>")) {
+            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"local: Email not accepted with an empty from address."});
           }
         }
 
@@ -467,10 +470,10 @@ public class AOJilterHandler implements JilterHandler {
         // Limit as outgoing mail (use noLimitToAddresses)
         if (status == null) {
           if (
-            !isNoLimitAddress(to)
-            && isLimited(CounterMode.OUT, from)
+              !isNoLimitAddress(to)
+                  && isLimited(CounterMode.OUT, from)
           ) {
-            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"local: Outgoing email limit reached, throttling additional emails"});
+            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"local: Outgoing email limit reached, throttling additional emails"});
           }
         }
 
@@ -479,7 +482,7 @@ public class AOJilterHandler implements JilterHandler {
           status = JilterStatus.SMFIS_CONTINUE;
         }
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       } else if (isToLocal) {
@@ -496,13 +499,13 @@ public class AOJilterHandler implements JilterHandler {
           status = JilterStatus.SMFIS_CONTINUE;
         }
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcpt_mailer});
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       }
@@ -515,22 +518,22 @@ public class AOJilterHandler implements JilterHandler {
         boolean isHostAddrLocal = isHostAddrLocal();
         boolean isHostAddrRelayingAllowed = isHostAddrRelayingAllowed();
         if (log.isTraceEnabled()) {
-          trace("envrcpt: isHostAddrLocal="+isHostAddrLocal);
-          trace("envrcpt: isHostAddrRelayingAllowed="+isHostAddrRelayingAllowed);
+          trace("envrcpt: isHostAddrLocal=" + isHostAddrLocal);
+          trace("envrcpt: isHostAddrRelayingAllowed=" + isHostAddrRelayingAllowed);
         }
         if (status == null) {
           if (
-            !isHostAddrLocal
-            && !isHostAddrRelayingAllowed
+              !isHostAddrLocal
+                  && !isHostAddrRelayingAllowed
           ) {
-            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"esmtp: Relaying from "+hostaddr.getHostAddress()+" denied. Proper authentication required."});
+            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"esmtp: Relaying from " + hostaddr.getHostAddress() + " denied. Proper authentication required."});
           }
         }
 
         // Don't allow empty from address
         if (status == null) {
-          if (from == null || from.length()<2 || from.equals("<>")) {
-            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"esmtp: Email not accepted with an empty from address."});
+          if (from == null || from.length() < 2 || from.equals("<>")) {
+            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"esmtp: Email not accepted with an empty from address."});
           }
         }
 
@@ -546,15 +549,15 @@ public class AOJilterHandler implements JilterHandler {
           if (isHostAddrLocal) {
             // Limit as outgoing (use noLimitToAddresses)
             if (
-              !isNoLimitAddress(to)
-              && isLimited(CounterMode.OUT, from)
+                !isNoLimitAddress(to)
+                    && isLimited(CounterMode.OUT, from)
             ) {
-              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Outgoing email limit reached, throttling additional emails"});
+              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"esmtp: Outgoing email limit reached, throttling additional emails"});
             }
           } else {
             // Limit as relay
             if (isLimited(CounterMode.RELAY, from)) {
-              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Relay email limit reached, throttling additional emails"});
+              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"esmtp: Relay email limit reached, throttling additional emails"});
             }
           }
         }
@@ -564,7 +567,7 @@ public class AOJilterHandler implements JilterHandler {
           status = JilterStatus.SMFIS_CONTINUE;
         }
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       } else if (isToLocal) {
@@ -579,7 +582,7 @@ public class AOJilterHandler implements JilterHandler {
         // Limit as incoming mail
         if (status == null) {
           if (isLimited(CounterMode.IN, to)) {
-            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Incoming email limit reached, throttling additional emails"});
+            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"esmtp: Incoming email limit reached, throttling additional emails"});
           }
         }
 
@@ -588,13 +591,13 @@ public class AOJilterHandler implements JilterHandler {
           status = JilterStatus.SMFIS_CONTINUE;
         }
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcpt_mailer});
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       }
@@ -606,14 +609,14 @@ public class AOJilterHandler implements JilterHandler {
         // Make sure authenticated
         if (status == null) {
           if (auth_authen == null || auth_authen.length() == 0) {
-            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"auth: Relaying from "+hostaddr.getHostAddress()+" denied. Proper authentication required."});
+            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"auth: Relaying from " + hostaddr.getHostAddress() + " denied. Proper authentication required."});
           }
         }
 
         // Don't allow empty from address
         if (status == null) {
-          if (from == null || from.length()<2 || from.equals("<>")) {
-            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"auth: Email not accepted with an empty from address."});
+          if (from == null || from.length() < 2 || from.equals("<>")) {
+            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"auth: Email not accepted with an empty from address."});
           }
         }
 
@@ -628,15 +631,15 @@ public class AOJilterHandler implements JilterHandler {
           if (isHostAddrLocal) {
             // Limit as outgoing (use noLimitToAddresses)
             if (
-              !isNoLimitAddress(to)
-              && isLimited(CounterMode.OUT, from)
+                !isNoLimitAddress(to)
+                    && isLimited(CounterMode.OUT, from)
             ) {
-              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Outgoing email limit reached, throttling additional emails"});
+              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"auth: Outgoing email limit reached, throttling additional emails"});
             }
           } else {
             // Limit as relay
             if (isLimited(CounterMode.RELAY, from)) {
-              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Relay email limit reached, throttling additional emails"});
+              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"auth: Relay email limit reached, throttling additional emails"});
             }
           }
         }
@@ -646,7 +649,7 @@ public class AOJilterHandler implements JilterHandler {
           status = JilterStatus.SMFIS_CONTINUE;
         }
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       } else if (isToLocal) {
@@ -661,7 +664,7 @@ public class AOJilterHandler implements JilterHandler {
         // Limit as incoming mail
         if (status == null) {
           if (isLimited(CounterMode.IN, to)) {
-            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Incoming email limit reached, throttling additional emails"});
+            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"auth: Incoming email limit reached, throttling additional emails"});
           }
         }
 
@@ -670,20 +673,20 @@ public class AOJilterHandler implements JilterHandler {
           status = JilterStatus.SMFIS_CONTINUE;
         }
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: "+rcpt_mailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcpt_mailer});
         if (log.isTraceEnabled()) {
-          trace("envrcpt: returning "+status);
+          trace("envrcpt: returning " + status);
         }
         return status;
       }
     } else {
-      JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: "+mail_mailer});
+      JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mail_mailer});
       if (log.isTraceEnabled()) {
-        trace("envrcpt: returning "+status);
+        trace("envrcpt: returning " + status);
       }
       return status;
     }
@@ -701,10 +704,10 @@ public class AOJilterHandler implements JilterHandler {
     if (atPos == -1) {
       return address;
     }
-    if (plusPos>atPos) {
+    if (plusPos > atPos) {
       return address;
     }
-    return address.substring(0, plusPos)+address.substring(atPos);
+    return address.substring(0, plusPos) + address.substring(atPos);
   }
 
   /**
@@ -717,11 +720,11 @@ public class AOJilterHandler implements JilterHandler {
 
     // Trim the < and > from the to address
     if (
-      parsedTo.length() >= 2
-      && parsedTo.charAt(0) == '<'
-      && parsedTo.charAt(parsedTo.length()-1) == '>'
+        parsedTo.length() >= 2
+            && parsedTo.charAt(0) == '<'
+            && parsedTo.charAt(parsedTo.length() - 1) == '>'
     ) {
-      parsedTo = parsedTo.substring(1, parsedTo.length()-1);
+      parsedTo = parsedTo.substring(1, parsedTo.length() - 1);
     }
 
     parsedTo = stripPlusAddress(parsedTo);
@@ -744,11 +747,11 @@ public class AOJilterHandler implements JilterHandler {
   private boolean isLimited(CounterMode mode, String address) {
     // Trim the < and > from the to address
     if (
-      address.length() >= 2
-      && address.charAt(0) == '<'
-      && address.charAt(address.length()-1) == '>'
+        address.length() >= 2
+            && address.charAt(0) == '<'
+            && address.charAt(address.length() - 1) == '>'
     ) {
-      address = address.substring(1, address.length()-1);
+      address = address.substring(1, address.length() - 1);
     }
 
     address = stripPlusAddress(address);
@@ -760,7 +763,7 @@ public class AOJilterHandler implements JilterHandler {
       return false;
     }
 
-    String domain = address.substring(atPos+1);
+    String domain = address.substring(atPos + 1);
     if (domain.length() == 0) {
       // Other filters should catch this, return false
       return false;
@@ -785,33 +788,33 @@ public class AOJilterHandler implements JilterHandler {
       // Decrement the counter based on the time since the last decrement
       long lastDecrementTime = counter.getLastDecrementTime();
       if (log.isTraceEnabled()) {
-        log.trace("lastDecrementTime="+lastDecrementTime);
-        log.trace("currentTimeMillis="+currentTimeMillis);
+        log.trace("lastDecrementTime=" + lastDecrementTime);
+        log.trace("currentTimeMillis=" + currentTimeMillis);
       }
-      if (lastDecrementTime>currentTimeMillis) {
+      if (lastDecrementTime > currentTimeMillis) {
         if ((lastDecrementTime - currentTimeMillis) > (5L * 60 * 1000)) {
           // System time changed, reset counter
           if (log.isWarnEnabled()) {
-            log.warn("lastDecrementTime>currentTime, system time reset? resetting accounting="+accounting);
+            log.warn("lastDecrementTime>currentTime, system time reset? resetting accounting=" + accounting);
           }
           counter.reset(currentTimeMillis);
         }
       } else {
-        long decrementCount = (long)(((currentTimeMillis-lastDecrementTime) * emailLimit.getRate()) / 1000L);
+        long decrementCount = (long) (((currentTimeMillis - lastDecrementTime) * emailLimit.getRate()) / 1000L);
         if (log.isTraceEnabled()) {
-          log.trace("lastDecrementTime <= currentTime, decrementCount="+decrementCount);
+          log.trace("lastDecrementTime <= currentTime, decrementCount=" + decrementCount);
         }
-        if (decrementCount>0) {
+        if (decrementCount > 0) {
           counter.decrement(decrementCount, currentTimeMillis);
         }
         if (log.isTraceEnabled()) {
-          log.trace("lastDecrementTime <= currentTime, counter.getEmailCount()="+counter.getEmailCount());
-          log.trace("lastDecrementTime <= currentTime, emailLimit.getBurst()="+emailLimit.getBurst());
+          log.trace("lastDecrementTime <= currentTime, counter.getEmailCount()=" + counter.getEmailCount());
+          log.trace("lastDecrementTime <= currentTime, emailLimit.getBurst()=" + emailLimit.getBurst());
         }
       }
 
       // Check if limit already reached
-      if (counter.getEmailCount()<emailLimit.getBurst()) {
+      if (counter.getEmailCount() < emailLimit.getBurst()) {
         // Increment the counter
         counter.increment();
         // Return not filtered
@@ -837,7 +840,7 @@ public class AOJilterHandler implements JilterHandler {
                 notifyDelayMinutes = 1;
               }
             } else {
-                if (timeSince >= (notifyDelayMinutes*60L*1000L)) {
+              if (timeSince >= (notifyDelayMinutes * 60L * 1000L)) {
                 notifyNow = true;
                 // Increment the notify delay
                 switch (notifyDelayMinutes) {
@@ -859,20 +862,20 @@ public class AOJilterHandler implements JilterHandler {
           }
         }
         if (log.isTraceEnabled()) {
-          log.trace("counter="+counter);
-          log.trace("notifyNow="+notifyNow);
-          log.trace("notifyDelayMinutes="+notifyDelayMinutes);
-          log.trace("lastNotifyTime="+lastNotifyTime);
+          log.trace("counter=" + counter);
+          log.trace("notifyNow=" + notifyNow);
+          log.trace("notifyDelayMinutes=" + notifyDelayMinutes);
+          log.trace("lastNotifyTime=" + lastNotifyTime);
         }
         if (notifyNow) {
           // Build summary message
           StringBuilder message = new StringBuilder();
           message.append("email ").append(mode.name().toLowerCase(Locale.ENGLISH)).append(" limit reached\n"
-                 + "    address....: ").append(address).append("\n"
-                 + "    accounting.: ").append(accounting).append("\n"
-                 + "    burst......: ").append(emailLimit.getBurst()).append(" emails\n"
-                 + "    rate.......: ").append(emailLimit.getRate()).append(" emails/second\n"
-                 + "    next notice: ").append(notifyDelayMinutes).append(notifyDelayMinutes == 1 ? " minute\n":" minutes\n");
+              + "    address....: ").append(address).append("\n"
+              + "    accounting.: ").append(accounting).append("\n"
+              + "    burst......: ").append(emailLimit.getBurst()).append(" emails\n"
+              + "    rate.......: ").append(emailLimit.getRate()).append(" emails/second\n"
+              + "    next notice: ").append(notifyDelayMinutes).append(notifyDelayMinutes == 1 ? " minute\n" : " minutes\n");
           String messageString = message.toString();
           if (log.isInfoEnabled()) {
             log.info(messageString);
@@ -880,20 +883,20 @@ public class AOJilterHandler implements JilterHandler {
 
           // Enqueue message
           Notifier.enqueueNotice(
-            new Notice(
-              currentTimeMillis,
-              configuration.getSmtpServer(),
-              configuration.getEmailSummaryFrom(),
-              configuration.getEmailSummaryTo(),
-              "email " + mode.name().toLowerCase(Locale.ENGLISH) + " limit reached for "+accounting,
-              messageString
-            )
+              new Notice(
+                  currentTimeMillis,
+                  configuration.getSmtpServer(),
+                  configuration.getEmailSummaryFrom(),
+                  configuration.getEmailSummaryTo(),
+                  "email " + mode.name().toLowerCase(Locale.ENGLISH) + " limit reached for " + accounting,
+                  messageString
+              )
           );
         }
 
         // Return that it is limited
         if (log.isInfoEnabled()) {
-          log.info("email limit exceeded: accounting="+accounting);
+          log.info("email limit exceeded: accounting=" + accounting);
         }
         return !NOTIFY_ONLY_MODE;
       }
@@ -910,12 +913,12 @@ public class AOJilterHandler implements JilterHandler {
   public JilterStatus header(String headerf, String headerv) {
     if (log.isTraceEnabled()) {
       trace("header:");
-      trace("    headerf=\""+headerf+"\"");
-      trace("    headerv=\""+headerv+"\"");
+      trace("    headerf=\"" + headerf + "\"");
+      trace("    headerv=\"" + headerv + "\"");
     }
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("header: returning "+status);
+      trace("header: returning " + status);
     }
     return status;
   }
@@ -927,7 +930,7 @@ public class AOJilterHandler implements JilterHandler {
     }
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("eoh: returning "+status);
+      trace("eoh: returning " + status);
     }
     return status;
   }
@@ -944,7 +947,7 @@ public class AOJilterHandler implements JilterHandler {
     }
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("body: returning "+status);
+      trace("body: returning " + status);
     }
     return status;
   }
@@ -956,7 +959,7 @@ public class AOJilterHandler implements JilterHandler {
     }
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("eom: returning "+status);
+      trace("eom: returning " + status);
     }
     return status;
   }
@@ -968,7 +971,7 @@ public class AOJilterHandler implements JilterHandler {
     }
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("abort: returning "+status);
+      trace("abort: returning " + status);
     }
     return status;
   }
@@ -987,7 +990,7 @@ public class AOJilterHandler implements JilterHandler {
     }
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
-      trace("close: returning "+status);
+      trace("close: returning " + status);
     }
     return status;
   }
@@ -1033,11 +1036,11 @@ public class AOJilterHandler implements JilterHandler {
 
     // Trim the < and > from the from address
     if (
-      parsedFrom.length() >= 2
-      && parsedFrom.charAt(0) == '<'
-      && parsedFrom.charAt(parsedFrom.length()-1) == '>'
+        parsedFrom.length() >= 2
+            && parsedFrom.charAt(0) == '<'
+            && parsedFrom.charAt(parsedFrom.length() - 1) == '>'
     ) {
-      parsedFrom = parsedFrom.substring(1, parsedFrom.length()-1);
+      parsedFrom = parsedFrom.substring(1, parsedFrom.length() - 1);
     }
 
     parsedFrom = stripPlusAddress(parsedFrom);
@@ -1045,26 +1048,26 @@ public class AOJilterHandler implements JilterHandler {
     // Find the last @ in the address
     int atPos = parsedFrom.lastIndexOf('@');
     if (atPos == -1) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address "+from+" must contain both address and domain in the form address@domain, the symbol @ was not found."});
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
     }
 
-    String domain = parsedFrom.substring(atPos+1);
+    String domain = parsedFrom.substring(atPos + 1);
     if (domain.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[] {"The from address "+from+" must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
+      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
     }
 
     String address = parsedFrom.substring(0, atPos);
     if (address.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address "+from+" must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
     }
 
     Set<String> addresses = configuration.getAddresses(domain);
     if (addresses == null) {
-      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[] {"The from address "+from+" is not allowed. This server does not receive email for "+domain});
+      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from + " is not allowed. This server does not receive email for " + domain});
     }
 
     if (!addresses.contains(address.toLowerCase(Locale.ENGLISH))) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address "+from+" does not exist on this server."});
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from + " does not exist on this server."});
     }
 
     return null;
@@ -1080,11 +1083,11 @@ public class AOJilterHandler implements JilterHandler {
 
     // Trim the < and > from the to address
     if (
-      parsedTo.length() >= 2
-      && parsedTo.charAt(0) == '<'
-      && parsedTo.charAt(parsedTo.length()-1) == '>'
+        parsedTo.length() >= 2
+            && parsedTo.charAt(0) == '<'
+            && parsedTo.charAt(parsedTo.length() - 1) == '>'
     ) {
-      parsedTo = parsedTo.substring(1, parsedTo.length()-1);
+      parsedTo = parsedTo.substring(1, parsedTo.length() - 1);
     }
 
     parsedTo = stripPlusAddress(parsedTo);
@@ -1092,30 +1095,30 @@ public class AOJilterHandler implements JilterHandler {
     // Find the last @ in the address
     int atPos = parsedTo.lastIndexOf('@');
     if (atPos == -1) {
-      return JilterStatus.makeCustomStatus("550", "5.1.3", new String[] {"The recipient address "+to+" must contain both address and domain in the form address@domain, the symbol @ was not found."});
+      return JilterStatus.makeCustomStatus("550", "5.1.3", new String[]{"The recipient address " + to + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
     }
 
-    String domain = parsedTo.substring(atPos+1);
+    String domain = parsedTo.substring(atPos + 1);
     if (domain.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[] {"The recipient address "+to+" must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
+      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
     }
 
     String address = parsedTo.substring(0, atPos);
     if (address.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[] {"The recipient address "+to+" must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
+      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
     }
 
     Set<String> addresses = configuration.getAddresses(domain);
     if (addresses == null) {
-      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[] {"The recipient address "+to+" does not exist on this server. This server does not receive email for "+domain});
+      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to + " does not exist on this server. This server does not receive email for " + domain});
     }
 
     // These addresses are always deliverable
     if (
-      "abuse".equalsIgnoreCase(address)
-      || "devnull".equalsIgnoreCase(address)
-      || "mailer-daemon".equalsIgnoreCase(address)
-      || "postmaster".equalsIgnoreCase(address)
+        "abuse".equalsIgnoreCase(address)
+            || "devnull".equalsIgnoreCase(address)
+            || "mailer-daemon".equalsIgnoreCase(address)
+            || "postmaster".equalsIgnoreCase(address)
     ) {
       return null;
     }
@@ -1130,7 +1133,7 @@ public class AOJilterHandler implements JilterHandler {
 
     // If not found, return 5.1.1
     if (!found) {
-      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[] {"The recipient address "+to+" does not exist on this server."});
+      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to + " does not exist on this server."});
     }
 
     return null;

@@ -84,9 +84,9 @@ public final class EmailCounter {
       lastDecrementTime = currentTimeMillis;
       //reset(currentTimeMillis);
     } else {
-      emailCount-=decrementCount;
+      emailCount -= decrementCount;
       // Is this timed right?
-      lastDecrementTime += (long)((decrementCount * 1000L) / emailLimit.getRate());
+      lastDecrementTime += (long) ((decrementCount * 1000L) / emailLimit.getRate());
     }
   }
 

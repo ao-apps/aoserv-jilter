@@ -114,25 +114,25 @@ public final class Notifier implements Runnable {
   private static void sendNotice(Notice notice) {
     String smtpServer = notice.getSmtpServer();
     // Don't send email when null or empty
-    if (smtpServer != null && (smtpServer=smtpServer.trim()).length()>0) {
+    if (smtpServer != null && (smtpServer = smtpServer.trim()).length() > 0) {
       // Try to send to each recipient separately
       for (String to : notice.getTo().split(",")) {
         to = to.trim();
         if (!to.isEmpty()) {
           try {
             if (log.isDebugEnabled()) {
-              log.debug("smtpServer="+smtpServer);
-              log.debug("to="+notice.getTo());
-              log.debug("from="+notice.getFrom());
-              log.debug("subject="+notice.getSubject());
+              log.debug("smtpServer=" + smtpServer);
+              log.debug("to=" + notice.getTo());
+              log.debug("from=" + notice.getFrom());
+              log.debug("subject=" + notice.getSubject());
             }
-            Properties props=new Properties();
+            Properties props = new Properties();
             props.put("mail.smtp.host", smtpServer);
-            Session session=Session.getDefaultInstance(props, null);
+            Session session = Session.getDefaultInstance(props, null);
             if (log.isDebugEnabled()) {
               log.debug("Got Session");
             }
-            Message msg=new MimeMessage(session);
+            Message msg = new MimeMessage(session);
             msg.setSubject(notice.getSubject());
             msg.setFrom(new InternetAddress(notice.getFrom(), true));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to, true));
