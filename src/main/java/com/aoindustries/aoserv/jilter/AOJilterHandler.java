@@ -455,7 +455,7 @@ public class AOJilterHandler implements JilterHandler {
 
         // Don't allow empty from address
         if (status == null) {
-          if (from == null || from.length() < 2 || from.equals("<>")) {
+          if (from == null || from.length() < 2 || "<>".equals(from)) {
             status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"local: Email not accepted with an empty from address."});
           }
         }
@@ -532,7 +532,7 @@ public class AOJilterHandler implements JilterHandler {
 
         // Don't allow empty from address
         if (status == null) {
-          if (from == null || from.length() < 2 || from.equals("<>")) {
+          if (from == null || from.length() < 2 || "<>".equals(from)) {
             status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"esmtp: Email not accepted with an empty from address."});
           }
         }
@@ -615,7 +615,7 @@ public class AOJilterHandler implements JilterHandler {
 
         // Don't allow empty from address
         if (status == null) {
-          if (from == null || from.length() < 2 || from.equals("<>")) {
+          if (from == null || from.length() < 2 || "<>".equals(from)) {
             status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"auth: Email not accepted with an empty from address."});
           }
         }

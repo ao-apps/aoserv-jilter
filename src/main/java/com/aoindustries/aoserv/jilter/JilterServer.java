@@ -76,7 +76,7 @@ public final class JilterServer {
     }
   }
 
-  private static boolean started = false;
+  private static boolean started;
 
   @SuppressWarnings("UseOfSystemOutOrSystemErr")
   public static void start() throws IOException {
