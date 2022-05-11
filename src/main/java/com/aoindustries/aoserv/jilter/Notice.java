@@ -37,6 +37,9 @@ public class Notice {
   private final String subject;
   private final String message;
 
+  /**
+   * Creates a new notice.
+   */
   public Notice(long noticeTimeMillis, String smtpServer, String from, String to, String subject, String message) {
     this.noticeTimeMillis = noticeTimeMillis;
     this.smtpServer = smtpServer;

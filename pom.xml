@@ -29,7 +29,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     <relativePath>../../oss/parent/pom.xml</relativePath>
   </parent>
 
-  <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.89.0-POST-SNAPSHOT</version>
+  <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter</artifactId><version>1.90.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
   <properties>
@@ -187,13 +187,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <!-- TODO: Clean-up Checkstyle -->
-          <failOnViolation>false</failOnViolation>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
         <configuration>
           <!-- TODO: Clean-up SpotBugs -->
@@ -289,7 +282,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     <dependencies>
       <!-- Direct -->
       <dependency>
-        <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.85.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.90.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>

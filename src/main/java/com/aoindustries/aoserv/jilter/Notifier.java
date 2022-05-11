@@ -53,6 +53,9 @@ public final class Notifier implements Runnable {
 
   private static Thread queueThread;
 
+  /**
+   * Adds a notice to the queue.
+   */
   public static void enqueueNotice(Notice notice) {
     // Add to queue
     synchronized (noticeQueue) {
@@ -108,7 +111,7 @@ public final class Notifier implements Runnable {
   }
 
   /**
-   * Send email for notification
+   * Send email for notification.
    */
   @SuppressWarnings("AssignmentToForLoopParameter")
   private static void sendNotice(Notice notice) {

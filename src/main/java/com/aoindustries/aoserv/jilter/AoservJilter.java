@@ -40,15 +40,18 @@ import org.apache.log4j.Logger;
  *
  * @author  AO Industries, Inc.
  */
-public final class JilterServer {
+public final class AoservJilter {
 
   /** Make no instances. */
-  private JilterServer() {
+  private AoservJilter() {
     throw new AssertionError();
   }
 
-  private static final Log log = LogFactory.getLog(JilterServer.class);
+  private static final Log log = LogFactory.getLog(AoservJilter.class);
 
+  /**
+   * Runs the Jilter server.
+   */
   @SuppressWarnings({"TooBroadCatch", "UseSpecificCatch", "SleepWhileInLoop"})
   public static void main(String[] args) {
     // Initialize log4j
@@ -78,23 +81,26 @@ public final class JilterServer {
 
   private static boolean started;
 
+  /**
+   * Starts the Jilter server.
+   */
   @SuppressWarnings("UseOfSystemOutOrSystemErr")
   public static void start() throws IOException {
     synchronized (System.out) {
       if (!started) {
         try {
-          System.out.print("Starting JilterServer: ");
+          System.out.print("Starting AoservJilter: ");
           JilterConfiguration config = JilterConfiguration.getJilterConfiguration();
-          String ipAddress = config.getListenIP();
+          String ipAddress = config.getListenIp();
           new Thread(
               new SimpleJilterServer(
                   new InetSocketAddress(
                       ipAddress,
                       config.getListenPort()
                   ),
-                  AOJilterHandler.class.getName()
+                  AoservJilterHandler.class.getName()
               ),
-              "JilterServer listening on " + ipAddress
+              "AoservJilter listening on " + ipAddress
           ).start();
           started = true;
           System.out.println("Done");

@@ -40,6 +40,9 @@ public final class EmailCounter {
   private int notifyDelayMinutes;
   private long lastNotifyTime;
 
+  /**
+   * Creates a new email counter.
+   */
   public EmailCounter(String accounting, EmailLimit emailLimit) {
     this.accounting = accounting;
     this.emailLimit = emailLimit;

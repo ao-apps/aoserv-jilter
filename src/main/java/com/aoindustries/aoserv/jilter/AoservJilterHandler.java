@@ -42,12 +42,13 @@ import org.apache.commons.logging.LogFactory;
 /**
  * What does a forwarding look like?  It appears that a forwarding is accepted like any other address as local.  Then sendmail performs
  * the forwarding without a milter check on the way out.
- *
+ * <p>
  * TODO: EmailAttachmentType filters - go into .zip, .tar, .tgz, .tar.gz, ..., too.
+ * </p>
  *
  * @author  AO Industries, Inc.
  */
-public class AOJilterHandler implements JilterHandler {
+public class AoservJilterHandler implements JilterHandler {
 
   /**
    * When <code>true</code>, notices will be sent but emails will not be stopped.
@@ -65,10 +66,10 @@ public class AOJilterHandler implements JilterHandler {
       "support@aoindustries.com"
   };
 
-  private static final Log log = LogFactory.getLog(AOJilterHandler.class);
+  private static final Log log = LogFactory.getLog(AoservJilterHandler.class);
 
   /**
-   * Keeps a cache of the inbound email counters on a per-business basis
+   * Keeps a cache of the inbound email counters on a per-business basis.
    */
   private static final Map<String, EmailCounter> counterInCache = new HashMap<>();
 
@@ -93,7 +94,7 @@ public class AOJilterHandler implements JilterHandler {
   }
 
   /**
-   * Keeps a cache of the outbound email counters on a per-business basis
+   * Keeps a cache of the outbound email counters on a per-business basis.
    */
   private static final Map<String, EmailCounter> counterOutCache = new HashMap<>();
 
@@ -118,7 +119,7 @@ public class AOJilterHandler implements JilterHandler {
   }
 
   /**
-   * Keeps a cache of the relay email counters on a per-business basis
+   * Keeps a cache of the relay email counters on a per-business basis.
    */
   private static final Map<String, EmailCounter> counterRelayCache = new HashMap<>();
 
@@ -151,10 +152,14 @@ public class AOJilterHandler implements JilterHandler {
    */
   static EmailCounter getCounter(JilterConfiguration configuration, String accounting, CounterMode mode) {
     switch (mode) {
-      case IN : return getInCounter(configuration, accounting);
-      case OUT : return getOutCounter(configuration, accounting);
-      case RELAY : return getRelayCounter(configuration, accounting);
-      default : throw new IllegalArgumentException("Unexpected mode: " + mode);
+      case IN:
+        return getInCounter(configuration, accounting);
+      case OUT:
+        return getOutCounter(configuration, accounting);
+      case RELAY:
+        return getRelayCounter(configuration, accounting);
+      default:
+        throw new IllegalArgumentException("Unexpected mode: " + mode);
     }
   }
 
@@ -162,28 +167,28 @@ public class AOJilterHandler implements JilterHandler {
   JilterConfiguration configuration;
 
   // connect
-//  private String hostname;
+  //private String hostname;
   private InetAddress hostaddr;
-//  private String if_addr;
-//  private String server_name;
-//  private String if_name;
-//  private String daemon_name;
+  //private String ifAddr;
+  //private String serverName;
+  //private String ifName;
+  //private String daemonName;
 
   // helo
   //private String helohost;
 
   // envfrom
   private String from;
-  private String auth_authen;
-//  private String mail_host;
-//  private String auth_ssf;
-//  private String message_id;
-//  private String mail_addr;
-  private String mail_mailer;
+  private String authAuthen;
+  //private String mailHost;
+  //private String authSsf;
+  //private String messageId;
+  //private String mailAddr;
+  private String mailMailer;
 
-//  private String auth_type;
+  //private String authType;
 
-  public AOJilterHandler() throws IOException {
+  public AoservJilterHandler() throws IOException {
     init();
   }
 
@@ -192,25 +197,25 @@ public class AOJilterHandler implements JilterHandler {
     configuration = JilterConfiguration.getJilterConfiguration();
 
     // connect
-//    hostname = null;
+    //hostname = null;
     hostaddr = null;
-//    if_addr = null;
-//    server_name = null;
-//    if_name = null;
-//    daemon_name = null;
+    //ifAddr = null;
+    //serverName = null;
+    //ifName = null;
+    //daemonName = null;
 
     // helo
     //helohost = null;
 
     // envfrom
     from = null;
-    auth_authen = null;
-//    mail_host = null;
-//    auth_ssf = null;
-//    message_id = null;
-//    mail_addr = null;
-    mail_mailer = null;
-//    auth_type = null;
+    authAuthen = null;
+    //mailHost = null;
+    //authSsf = null;
+    //messageId = null;
+    //mailAddr = null;
+    mailMailer = null;
+    //authType = null;
   }
 
   @Override
@@ -232,8 +237,9 @@ public class AOJilterHandler implements JilterHandler {
 
   /**
    * Compare to email_smtp_relays table, looking for deny or deny_spam.
-   *
+   * <p>
    * TODO: Verify against realtime blacklists.
+   * </p>
    */
   @Override
   public JilterStatus connect(String hostname, InetAddress hostaddr, Properties properties) {
@@ -246,16 +252,16 @@ public class AOJilterHandler implements JilterHandler {
         trace("        " + key + "=\"" + properties.get(key) + "\"");
       }
     }
-//    this.hostname = hostname;
+    //this.hostname = hostname;
     this.hostaddr = hostaddr;
-//    this.if_addr = properties.getProperty("{if_name}");
-//    this.server_name = properties.getProperty("j");
-//    this.if_name = properties.getProperty("{if_name}");
-//    this.daemon_name = properties.getProperty("{daemon_name}");
+    //this.ifAddr = properties.getProperty("{if_name}"); // Should be "if_addr"?
+    //this.serverName = properties.getProperty("j");
+    //this.ifName = properties.getProperty("{if_name}");
+    //this.daemonName = properties.getProperty("{daemon_name}");
 
     // Look for deny block
-    String hostIP = hostaddr.getHostAddress();
-    if (configuration.isDenied(hostIP)) {
+    String hostIp = hostaddr.getHostAddress();
+    if (configuration.isDenied(hostIp)) {
       JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"Mail from " + hostaddr.getHostAddress() + " denied."});
       if (log.isTraceEnabled()) {
         trace("connect: returning " + status);
@@ -264,8 +270,9 @@ public class AOJilterHandler implements JilterHandler {
     }
 
     // Look for deny_spam block
-    if (configuration.isDeniedSpam(hostIP)) {
-      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"Your mailer (" + hostaddr.getHostAddress() + ") has been reported as sending unsolicited email and has been blocked - please contact AO Industries via (205)454-2556 or postmaster@aoindustries.com"});
+    if (configuration.isDeniedSpam(hostIp)) {
+      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"Your mailer ("
+          + hostaddr.getHostAddress() + ") has been reported as sending unsolicited email and has been blocked - please contact AO Industries via (205)454-2556 or postmaster@aoindustries.com"});
       if (log.isTraceEnabled()) {
         trace("connect: returning " + status);
       }
@@ -317,13 +324,13 @@ public class AOJilterHandler implements JilterHandler {
       }
     }
     this.from = argv[0];
-    this.auth_authen = properties.getProperty("{auth_authen}");
-//    this.mail_host = properties.getProperty("{mail_host}");
-//    this.auth_ssf = properties.getProperty("{auth_ssf}");
-//    this.message_id = properties.getProperty("i");
-//    this.mail_addr = properties.getProperty("{mail_addr}");
-    this.mail_mailer = properties.getProperty("{mail_mailer}");
-//    this.auth_type = properties.getProperty("{auth_type}");
+    this.authAuthen = properties.getProperty("{auth_authen}");
+    //this.mailHost = properties.getProperty("{mail_host}");
+    //this.authSsf = properties.getProperty("{auth_ssf}");
+    //this.messageId = properties.getProperty("i");
+    //this.mailAddr = properties.getProperty("{mail_addr}");
+    this.mailMailer = properties.getProperty("{mail_mailer}");
+    //this.authType = properties.getProperty("{auth_type}");
 
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
@@ -333,54 +340,55 @@ public class AOJilterHandler implements JilterHandler {
   }
 
   /**
-   * <OL>
-   *   <LI>If mail going from local to esmtp, then:
-   *     <OL type="a">
-   *       <LI>Don't allow empty from address</LI>
-   *       <LI>If this ao_server has "restrict_outbound_email" set to true: Make sure from address is a valid address on this machine</LI>
-   *       <LI>Limit as outgoing mail (use noLimitToAddresses)</LI>
-   *     </OL>
-   *   </LI>
-   *   <LI>If mail going from local to local, then:
-   *     <OL type="a">
-   *       <LI>Make sure recipient is a valid email address on this machine</LI>
-   *       <LI>Do not limit the email</LI>
-   *     </OL>
-   *   </LI>
-   *   <LI>If mail going from esmtp to esmtp, then:
-   *     <OL type="a">
-   *       <LI>Make sure hostaddr is one of IP addresses of this machine OR relaying has been allowed from that IP</LI>
-   *       <LI>Don't allow empty from address</LI>
-   *       <LI>Make sure from address is a valid address on this machine</LI>
-   *       <LI>Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP</LI>
-   *     </OL>
-   *   </LI>
-   *   <LI>If mail going from esmtp to local, then:
-   *     <OL type="a">
-   *       <LI>Make sure recipient is a valid email address on this machine</LI>
-   *       <LI>Limit as incoming mail</LI>
-   *     </OL>
-   *   </LI>
-   *   <LI>If mail going from auth to esmtp, then:
-   *     <OL type="a">
-   *       <LI>Make sure authenticated</LI>
-   *       <LI>Don't allow empty from address</LI>
-   *       <LI>Make sure from address is a valid address on this machine</LI>
-   *       <LI>Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP</LI>
-   *     </OL>
-   *   </LI>
-   *   <LI>If mail going from auth to local, then:
-   *     <OL type="a">
-   *       <LI>Make sure recipient is a valid email address on this machine</LI>
-   *       <LI>Limit as incoming mail</LI>
-   *     </OL>
-   *   </LI>
-   *   <LI>If any other pattern, then:
-   *     <OL type="a">
-   *       <LI>Return failure code and description</LI>
-   *     </OL>
-   *   </LI>
-   * </OL>
+   * {@inheritDoc}
+   * <ol>
+   *   <li>If mail going from local to esmtp, then:
+   *     <ol type="a">
+   *       <li>Don't allow empty from address</li>
+   *       <li>If this ao_server has "restrict_outbound_email" set to true: Make sure from address is a valid address on this machine</li>
+   *       <li>Limit as outgoing mail (use noLimitToAddresses)</li>
+   *     </ol>
+   *   </li>
+   *   <li>If mail going from local to local, then:
+   *     <ol type="a">
+   *       <li>Make sure recipient is a valid email address on this machine</li>
+   *       <li>Do not limit the email</li>
+   *     </ol>
+   *   </li>
+   *   <li>If mail going from esmtp to esmtp, then:
+   *     <ol type="a">
+   *       <li>Make sure hostaddr is one of IP addresses of this machine OR relaying has been allowed from that IP</li>
+   *       <li>Don't allow empty from address</li>
+   *       <li>Make sure from address is a valid address on this machine</li>
+   *       <li>Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP</li>
+   *     </ol>
+   *   </li>
+   *   <li>If mail going from esmtp to local, then:
+   *     <ol type="a">
+   *       <li>Make sure recipient is a valid email address on this machine</li>
+   *       <li>Limit as incoming mail</li>
+   *     </ol>
+   *   </li>
+   *   <li>If mail going from auth to esmtp, then:
+   *     <ol type="a">
+   *       <li>Make sure authenticated</li>
+   *       <li>Don't allow empty from address</li>
+   *       <li>Make sure from address is a valid address on this machine</li>
+   *       <li>Limit as outgoing (use noLimitToAddresses) if hostaddr is on this machine OR limit as relay if from an outside IP</li>
+   *     </ol>
+   *   </li>
+   *   <li>If mail going from auth to local, then:
+   *     <ol type="a">
+   *       <li>Make sure recipient is a valid email address on this machine</li>
+   *       <li>Limit as incoming mail</li>
+   *     </ol>
+   *   </li>
+   *   <li>If any other pattern, then:
+   *     <ol type="a">
+   *       <li>Return failure code and description</li>
+   *     </ol>
+   *   </li>
+   * </ol>
    */
   @Override
   public JilterStatus envrcpt(String[] argv, Properties properties) {
@@ -396,19 +404,19 @@ public class AOJilterHandler implements JilterHandler {
     }
 
     String to = argv[0];
-    String rcpt_host = properties.getProperty("{rcpt_host}");
-    String rcpt_mailer = properties.getProperty("{rcpt_mailer}");
-    String rcpt_addr = properties.getProperty("{rcpt_addr}");
+    String rcptHost = properties.getProperty("{rcpt_host}");
+    String rcptMailer = properties.getProperty("{rcpt_mailer}");
+    String rcptAddr = properties.getProperty("{rcpt_addr}");
 
     boolean isFromLocal;
     boolean isFromAuth;
     boolean isFromEsmtp;
-    switch (mail_mailer) {
-      case "local":
+    switch (mailMailer) {
+      case "local": {
         // It is "local" if the hostaddr is one of the IP addresses of this machine
         // It is "auth" if the hostaddr is not one of the IP addresses of this machine - whether they are actually logged in is checked below
-        boolean isLocalIP = isHostAddrLocal();
-        if (isLocalIP) {
+        boolean isLocalIp = isHostAddrLocal();
+        if (isLocalIp) {
           isFromLocal = true;
           isFromAuth = false;
           isFromEsmtp = false;
@@ -425,21 +433,24 @@ public class AOJilterHandler implements JilterHandler {
           }
         }
         break;
-      case "esmtp":
+      }
+      case "esmtp": {
         // If is "esmtp" if not authenticated
         isFromLocal = false;
-        isFromAuth = auth_authen != null && auth_authen.length() > 0;
+        isFromAuth = authAuthen != null && authAuthen.length() > 0;
         isFromEsmtp = !isFromAuth;
         break;
-      default:
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mail_mailer});
+      }
+      default: {
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mailMailer});
         if (log.isTraceEnabled()) {
           trace("envrcpt: returning " + status);
         }
         return status;
+      }
     }
-    boolean isToLocal = "local".equals(rcpt_mailer);
-    boolean isToEsmtp = "esmtp".equals(rcpt_mailer);
+    boolean isToLocal = "local".equals(rcptMailer);
+    boolean isToEsmtp = "esmtp".equals(rcptMailer);
 
     if (log.isTraceEnabled()) {
       trace("envrcpt: isFromLocal=" + isFromLocal);
@@ -503,7 +514,7 @@ public class AOJilterHandler implements JilterHandler {
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcpt_mailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcptMailer});
         if (log.isTraceEnabled()) {
           trace("envrcpt: returning " + status);
         }
@@ -526,7 +537,8 @@ public class AOJilterHandler implements JilterHandler {
               !isHostAddrLocal
                   && !isHostAddrRelayingAllowed
           ) {
-            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"esmtp: Relaying from " + hostaddr.getHostAddress() + " denied. Proper authentication required."});
+            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"esmtp: Relaying from "
+                + hostaddr.getHostAddress() + " denied. Proper authentication required."});
           }
         }
 
@@ -595,7 +607,7 @@ public class AOJilterHandler implements JilterHandler {
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcpt_mailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcptMailer});
         if (log.isTraceEnabled()) {
           trace("envrcpt: returning " + status);
         }
@@ -608,8 +620,9 @@ public class AOJilterHandler implements JilterHandler {
 
         // Make sure authenticated
         if (status == null) {
-          if (auth_authen == null || auth_authen.length() == 0) {
-            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"auth: Relaying from " + hostaddr.getHostAddress() + " denied. Proper authentication required."});
+          if (authAuthen == null || authAuthen.length() == 0) {
+            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"auth: Relaying from "
+                + hostaddr.getHostAddress() + " denied. Proper authentication required."});
           }
         }
 
@@ -677,14 +690,14 @@ public class AOJilterHandler implements JilterHandler {
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcpt_mailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcptMailer});
         if (log.isTraceEnabled()) {
           trace("envrcpt: returning " + status);
         }
         return status;
       }
     } else {
-      JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mail_mailer});
+      JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mailMailer});
       if (log.isTraceEnabled()) {
         trace("envrcpt: returning " + status);
       }
@@ -844,14 +857,29 @@ public class AOJilterHandler implements JilterHandler {
                 notifyNow = true;
                 // Increment the notify delay
                 switch (notifyDelayMinutes) {
-                  case 1: notifyDelayMinutes = 2; break;
-                  case 2: notifyDelayMinutes = 5; break;
-                  case 5: notifyDelayMinutes = 10; break;
-                  case 10: notifyDelayMinutes = 15; break;
-                  case 15: notifyDelayMinutes = 30; break;
-                  case 30: notifyDelayMinutes = 45; break;
-                  case 45: notifyDelayMinutes = 60; break;
-                  default: notifyDelayMinutes = 60;
+                  case 1:
+                    notifyDelayMinutes = 2;
+                    break;
+                  case 2:
+                    notifyDelayMinutes = 5;
+                    break;
+                  case 5:
+                    notifyDelayMinutes = 10;
+                    break;
+                  case 10:
+                    notifyDelayMinutes = 15;
+                    break;
+                  case 15:
+                    notifyDelayMinutes = 30;
+                    break;
+                  case 30:
+                    notifyDelayMinutes = 45;
+                    break;
+                  case 45:
+                    notifyDelayMinutes = 60;
+                    break;
+                  default:
+                    notifyDelayMinutes = 60;
                 }
               }
             }
@@ -1014,16 +1042,16 @@ public class AOJilterHandler implements JilterHandler {
    * Determines if the current hostaddr is local.
    */
   protected boolean isHostAddrLocal() {
-    String hostIP = hostaddr.getHostAddress();
-    return configuration.isLocalIPAddress(hostIP);
+    String hostIp = hostaddr.getHostAddress();
+    return configuration.isLocalIpAddress(hostIp);
   }
 
   /**
-   * Checks if relaying has been allowed from hostaddr
+   * Checks if relaying has been allowed from hostaddr.
    */
   protected boolean isHostAddrRelayingAllowed() {
-    String hostIP = hostaddr.getHostAddress();
-    return configuration.isAllowRelay(hostIP);
+    String hostIp = hostaddr.getHostAddress();
+    return configuration.isAllowRelay(hostIp);
   }
 
   /**
@@ -1048,26 +1076,31 @@ public class AOJilterHandler implements JilterHandler {
     // Find the last @ in the address
     int atPos = parsedFrom.lastIndexOf('@');
     if (atPos == -1) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
+          + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
     }
 
     String domain = parsedFrom.substring(atPos + 1);
     if (domain.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
+      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from
+          + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
     }
 
     String address = parsedFrom.substring(0, atPos);
     if (address.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
+          + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
     }
 
     Set<String> addresses = configuration.getAddresses(domain);
     if (addresses == null) {
-      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from + " is not allowed. This server does not receive email for " + domain});
+      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from
+          + " is not allowed. This server does not receive email for " + domain});
     }
 
     if (!addresses.contains(address.toLowerCase(Locale.ENGLISH))) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from + " does not exist on this server."});
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
+          + " does not exist on this server."});
     }
 
     return null;
@@ -1095,22 +1128,26 @@ public class AOJilterHandler implements JilterHandler {
     // Find the last @ in the address
     int atPos = parsedTo.lastIndexOf('@');
     if (atPos == -1) {
-      return JilterStatus.makeCustomStatus("550", "5.1.3", new String[]{"The recipient address " + to + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
+      return JilterStatus.makeCustomStatus("550", "5.1.3", new String[]{"The recipient address " + to
+          + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
     }
 
     String domain = parsedTo.substring(atPos + 1);
     if (domain.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
+      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to
+          + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
     }
 
     String address = parsedTo.substring(0, atPos);
     if (address.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
+      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to
+          + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
     }
 
     Set<String> addresses = configuration.getAddresses(domain);
     if (addresses == null) {
-      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to + " does not exist on this server. This server does not receive email for " + domain});
+      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to
+          + " does not exist on this server. This server does not receive email for " + domain});
     }
 
     // These addresses are always deliverable
@@ -1133,7 +1170,8 @@ public class AOJilterHandler implements JilterHandler {
 
     // If not found, return 5.1.1
     if (!found) {
-      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to + " does not exist on this server."});
+      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to
+          + " does not exist on this server."});
     }
 
     return null;
