@@ -28,4 +28,4 @@ module com.aoindustries.aoserv.jilter {
   requires java.mail; // <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
   requires jilter; // <groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
   requires org.apache.log4j; // <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId>
-} // TODO: Avoiding rewrite-maven-plugin-4.22.2 truncation
+}
