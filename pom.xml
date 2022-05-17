@@ -25,7 +25,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.18.0-POST-SNAPSHOT</version>
+    <groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.18.0<!-- -POST-SNAPSHOT --></version>
     <relativePath>../../oss/parent/pom.xml</relativePath>
   </parent>
 
@@ -282,7 +282,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     <dependencies>
       <!-- Direct -->
       <dependency>
-        <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.90.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+        <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-config</artifactId><version>1.90.0<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
@@ -303,10 +303,10 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.2.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.2.0<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.17.2</version>
