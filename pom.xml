@@ -296,7 +296,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><version>1.2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.17.2</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.18.0</version>
       </dependency>
       <!-- Transitive -->
       <dependency>
@@ -309,11 +309,11 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.2.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.17.2</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.18.0</version>
       </dependency>
       <!-- Runtime Direct -->
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.17.2</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.18.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
