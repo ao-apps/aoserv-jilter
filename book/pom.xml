@@ -50,8 +50,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
     <!-- SonarQube -->
     <sonar.projectKey>com.aoapps.platform:aoapps-jilter-book<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
-    <sonar.organization>ao-apps</sonar.organization>
-    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
 
   <name>AOServ Jilter Book</name>
