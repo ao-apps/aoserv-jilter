@@ -21,7 +21,7 @@ Mail filter for the [AOServ Platform](https://aoindustries.com/aoserv/).
 * [Project Home](https://aoindustries.com/aoserv/jilter/)
 * [Changelog](https://aoindustries.com/aoserv/jilter/changelog)
 * [API Docs](https://aoindustries.com/aoserv/jilter/apidocs/)
-* [Maven Central Repository](https://central.sonatype.com/search?namespace=com.aoindustries&q=a%3Aaoserv-jilter)
+* [Maven Central Repository](https://central.sonatype.com/artifact/com.aoindustries/aoserv-jilter)
 * [GitHub](https://github.com/ao-apps/aoserv-jilter)
 
 ## Modules
