@@ -30,7 +30,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
   </parent>
 
   <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-book</artifactId><version>1.90.0-POST-SNAPSHOT</version>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
 
   <properties>
     <module.name>com.aoindustries.aoserv.jilter.book</module.name>
@@ -158,6 +158,14 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
                 <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
                 <Private-Package>!.</Private-Package>
               </instructions>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>**/module-info.class</exclude>
+              </excludes>
             </configuration>
           </plugin>
         </plugins>
