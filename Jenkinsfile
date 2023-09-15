@@ -26,6 +26,12 @@
 def upstreamProjects = [
   // Parent
   '../oss/parent', // <groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId>
+  // Parent Plugin Dependencies (Avoid cyclic dependency)
+  '../oss/pgp-keys-map', // <groupId>com.aoapps</groupId><artifactId>pgp-keys-map</artifactId>
+  '../oss/javadoc-offline', // <groupId>com.aoapps</groupId><artifactId>ao-javadoc-offline</artifactId>
+  '../oss/javadoc-resources', // <groupId>com.aoapps</groupId><artifactId>ao-javadoc-resources</artifactId>
+  '../oss/ant-tasks', // <groupId>com.aoapps</groupId><artifactId>ao-ant-tasks</artifactId>
+  '../oss/checkstyle-config', // <groupId>com.aoapps</groupId><artifactId>ao-checkstyle-config</artifactId>
 
   // Direct
   'jilter-config', // <groupId>com.aoindustries</groupId><artifactId>jilter-config</artifactId>

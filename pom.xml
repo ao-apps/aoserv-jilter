@@ -172,10 +172,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
         <configuration>
-          <usedDependencies>
-            <!-- Runtime Direct -->
-            <dependency>org.apache.logging.log4j:log4j-jul</dependency>
-          </usedDependencies>
           <ignoredDependencies>
             <!-- No "module-info.java" in some release builds -->
             <dependency>com.aoapps:ao-collections</dependency>
