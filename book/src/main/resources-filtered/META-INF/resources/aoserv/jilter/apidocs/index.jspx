@@ -39,5 +39,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="API Docs"
     datePublished="2020-04-13T12:04:48-05:00"
     dateModified="${ao:getLastModified('index.html')}"
+    allowRobots="false"
   />
 </jsp:root>
