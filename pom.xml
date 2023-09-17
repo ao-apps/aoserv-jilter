@@ -270,7 +270,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 
           Workaround by using old version of maven-javadoc-plugin also used by reactor builds.
         -->
-        <maven-javadoc-plugin.version>${maven-javadoc-plugin.version.reactor}</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>${org.apache.maven.plugins.maven-javadoc-plugin.version.reactor}</maven-javadoc-plugin.version>
         <copy-element-list-to-package-list-before-javadoc.phase>prepare-package</copy-element-list-to-package-list-before-javadoc.phase>
       </properties>
       <build>
