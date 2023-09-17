@@ -33,6 +33,8 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
   <packaging>jar</packaging>
 
   <properties>
+    <!-- Must be set to ${git.commit.time} for snapshots or ISO 8601 timestamp for releases. -->
+    <project.build.outputTimestamp>${git.commit.time}</project.build.outputTimestamp>
     <module.name>com.aoindustries.aoserv.jilter</module.name>
     <!-- TODO: Java 11 once CentOS 5 is gone -->
     <!-- Java 1.8 -->
