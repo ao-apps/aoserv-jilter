@@ -44,13 +44,14 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 
     <javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ</a>
 / <a target="${javadoc.target}" href="${project.url}">Jilter</a>]]></javadoc.breadcrumbs>
-    <description.html><![CDATA[Mail filter for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
     <javadoc.modules><![CDATA[<div>
       <h2>Modules</h2>
       <ul>
         <li><a target="${javadoc.target}" href="https://aoindustries.com/aoserv/jilter/config/">AOServ Jilter Config</a></li>
       </ul>
     </div>]]></javadoc.modules>
+        
+    <description.html><![CDATA[Mail filter for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
     <!-- TODO: Remove once moved to platform.aoapps.com -->
     <google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
     <!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
