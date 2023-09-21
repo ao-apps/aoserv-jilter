@@ -50,7 +50,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <li><a target="${javadoc.target}" href="https://aoindustries.com/aoserv/jilter/config/">AOServ Jilter Config</a></li>
       </ul>
     </div>]]></javadoc.modules>
-        
+
     <description.html><![CDATA[Mail filter for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
     <!-- TODO: Remove once moved to platform.aoapps.com -->
     <google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
