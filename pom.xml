@@ -52,8 +52,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     </div>]]></javadoc.modules>
 
     <description.html><![CDATA[Mail filter for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
-    <!-- TODO: Remove once moved to platform.aoapps.com -->
-    <google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
     <!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
     <!-- SonarQube -->
