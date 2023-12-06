@@ -29,7 +29,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     <relativePath>../../../oss/parent/pom.xml</relativePath>
   </parent>
 
-  <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-book</artifactId><version>1.90.0-POST-SNAPSHOT</version>
+  <groupId>com.aoindustries</groupId><artifactId>aoserv-jilter-book</artifactId><version>1.92.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <properties>
