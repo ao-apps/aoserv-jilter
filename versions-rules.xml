@@ -28,9 +28,9 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
   xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 https://www.mojohaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd"
 >
   <rules>
-    <rule groupId="org.apache.logging.log4" comparisonMethod="maven">
+    <rule groupId="org.apache.logging.log4j" comparisonMethod="maven">
       <ignoreVersions>
-        <ignoreVersion type="regex">.*-alpha[0-9]*</ignoreVersion>
+        <ignoreVersion type="regex">.*-(alpha|beta)[0-9]*</ignoreVersion>
       </ignoreVersions>
     </rule>
   </rules>
