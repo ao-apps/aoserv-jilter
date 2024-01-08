@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2023, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -57,14 +57,14 @@ def upstreamProjects = [
  * Variables that may be defined above this block:                                        *
  *                                                                                        *
  * deployJdk            The version of JDK that will be used for the deploy stage.        *
- *                      Defaults to '20'                                                  *
+ *                      Defaults to '21'                                                  *
  *                                                                                        *
  * buildJdks            The array of JDK versions that will build.                        *
- *                      Defaults to ['11', '17', '20']                                    *
+ *                      Defaults to ['11', '17', '21']                                    *
  *                      Changes must be copied to matrix axes!                            *
  *                                                                                        *
  * testJdks             The array of JDK versions that will test against every build JDK. *
- *                      Defaults to ['11', '17', '20']                                    *
+ *                      Defaults to ['11', '17', '21']                                    *
  *                      Changes must be copied to matrix axes!                            *
  *                                                                                        *
  * upstreamProjects     The array of relative paths to upstream projects.                 *
@@ -150,18 +150,18 @@ def upstreamProjects = [
 
 // JDK versions
 if (!binding.hasVariable('deployJdk')) {
-  binding.setVariable('deployJdk', '20')
+  binding.setVariable('deployJdk', '21')
 }
 if (!binding.hasVariable('buildJdks')) {
   binding.setVariable(
     'buildJdks',
-    ['11', '17', '20'] // Changes must be copied to matrix axes!
+    ['11', '17', '21'] // Changes must be copied to matrix axes!
   )
 }
 if (!binding.hasVariable('testJdks')) {
   binding.setVariable(
     'testJdks',
-    ['11', '17', '20'] // Changes must be copied to matrix axes!
+    ['11', '17', '21'] // Changes must be copied to matrix axes!
   )
 }
 if (!binding.hasVariable('upstreamProjects')) {
@@ -791,7 +791,7 @@ or any build that adds or removes build artifacts."""
         axes {
           axis {
             name 'jdk'
-            values '11', '17', '20' // buildJdks
+            values '11', '17', '21' // buildJdks
           }
         }
         stages {
@@ -837,11 +837,11 @@ or any build that adds or removes build artifacts."""
         axes {
           axis {
             name 'jdk'
-            values '11', '17', '20' // buildJdks
+            values '11', '17', '21' // buildJdks
           }
           axis {
             name 'testJdk'
-            values '11', '17', '20' // testJdks
+            values '11', '17', '21' // testJdks
           }
         }
         stages {
