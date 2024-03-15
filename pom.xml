@@ -216,7 +216,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
                     <!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><classifier>javadoc</classifier> -->
                     <artifactItem>
                       <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><classifier>javadoc</classifier>
-                      <!-- TODO: log4j-1.2-api-2.22.1 does not include javadocs secondary artifact -->
+                      <!-- TODO: log4j-1.2-api-2.23.1 does not include javadocs secondary artifact -->
                       <version>2.19.0</version>
                       <includes>element-list, package-list</includes>
                       <outputDirectory>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</outputDirectory>
@@ -318,7 +318,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><version>1.2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.22.1</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.23.1</version>
       </dependency>
       <!-- Transitive -->
       <dependency>
@@ -331,11 +331,11 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.6.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.22.1</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.23.1</version>
       </dependency>
       <!-- Runtime Direct -->
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.22.1</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.23.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
