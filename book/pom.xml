@@ -47,6 +47,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 
     <description.html><![CDATA[Documentation for <a target="${javadoc.target}" href="${project.url}">${documented.name}</a> in <a target="${javadoc.target}" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
     <!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
+    <nexusServerId>ossrh-aoindustries</nexusServerId>
     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
     <!-- SonarQube -->
     <sonar.projectKey>com.aoapps.platform:aoapps-jilter-book<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
