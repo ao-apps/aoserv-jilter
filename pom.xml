@@ -141,15 +141,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
-        <configuration>
-          <usedDependencies>
-            <!-- TODO: Workaround Issue #2929 https://github.com/apache/logging-log4j2/issues/2929 in log4j-1.2-api-2.24.0 -->
-            <dependency>org.jspecify:jspecify</dependency>
-          </usedDependencies>
-        </configuration>
-      </plugin>
       <!-- Java 1.8: see https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId>
@@ -183,6 +174,10 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
         <configuration>
+          <usedDependencies>
+            <!-- TODO: Workaround Issue #2929 https://github.com/apache/logging-log4j2/issues/2929 in log4j-1.2-api-2.24.0 -->
+            <dependency>org.jspecify:jspecify</dependency>
+          </usedDependencies>
           <ignoredDependencies>
             <!-- No "module-info.java" in some release builds -->
             <dependency>com.aoapps:ao-collections</dependency>
