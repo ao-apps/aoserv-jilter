@@ -174,10 +174,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
         <configuration>
-          <usedDependencies>
-            <!-- TODO: Workaround Issue #2929 https://github.com/apache/logging-log4j2/issues/2929 in log4j-1.2-api-2.24.0 -->
-            <dependency>org.jspecify:jspecify</dependency>
-          </usedDependencies>
           <ignoredDependencies>
             <!-- No "module-info.java" in some release builds -->
             <dependency>com.aoapps:ao-collections</dependency>
@@ -221,7 +217,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
                     <!-- ao-javadoc-offline: <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><classifier>javadoc</classifier> -->
                     <artifactItem>
                       <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><classifier>javadoc</classifier>
-                      <!-- TODO: log4j-1.2-api-2.24.0 does not include javadocs secondary artifact -->
+                      <!-- TODO: log4j-1.2-api-2.24.1 does not include javadocs secondary artifact -->
                       <version>2.19.0</version>
                       <includes>element-list, package-list</includes>
                       <outputDirectory>${project.build.directory}/offlineLinks/org.apache.logging.log4j/log4j-1.2-api</outputDirectory>
@@ -323,11 +319,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.sendmail</groupId><artifactId>jilter</artifactId><version>1.2</version>
       </dependency>
       <dependency>
-        <!-- TODO: Workaround Issue #2929 https://github.com/apache/logging-log4j2/issues/2929 in log4j-1.2-api-2.24.0 -->
-        <groupId>org.jspecify</groupId><artifactId>jspecify</artifactId><version>1.0.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.24.0</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.24.1</version>
       </dependency>
       <!-- Transitive -->
       <dependency>
@@ -340,14 +332,14 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.6.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.24.0</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.24.1</version>
       </dependency>
       <!-- Runtime Direct -->
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.24.0</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.24.1</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.24.0</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId><version>2.24.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -365,11 +357,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     </dependency>
     <dependency>
       <groupId>com.sendmail</groupId><artifactId>jilter</artifactId>
-    </dependency>
-    <dependency>
-      <!-- TODO: Workaround Issue #2929 https://github.com/apache/logging-log4j2/issues/2929 in log4j-1.2-api-2.24.0 -->
-      <groupId>org.jspecify</groupId><artifactId>jspecify</artifactId>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <!-- log4j 1.2 API is required by com.sendmail:jilter -->
