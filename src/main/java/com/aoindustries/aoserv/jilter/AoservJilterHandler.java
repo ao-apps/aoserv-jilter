@@ -42,9 +42,8 @@ import org.apache.commons.logging.LogFactory;
 /**
  * What does a forwarding look like?  It appears that a forwarding is accepted like any other address as local.  Then sendmail performs
  * the forwarding without a milter check on the way out.
- * <p>
- * TODO: EmailAttachmentType filters - go into .zip, .tar, .tgz, .tar.gz, ..., too.
- * </p>
+ *
+ * <p>TODO: EmailAttachmentType filters - go into .zip, .tar, .tgz, .tar.gz, ..., too.</p>
  *
  * @author  AO Industries, Inc.
  */
@@ -240,9 +239,8 @@ public class AoservJilterHandler implements JilterHandler {
 
   /**
    * Compare to email_smtp_relays table, looking for deny or deny_spam.
-   * <p>
-   * TODO: Verify against realtime blacklists.
-   * </p>
+   *
+   * <p>TODO: Verify against realtime blacklists.</p>
    */
   @Override
   public JilterStatus connect(String hostname, InetAddress hostaddr, Properties properties) {
@@ -415,42 +413,45 @@ public class AoservJilterHandler implements JilterHandler {
     boolean isFromAuth;
     boolean isFromEsmtp;
     switch (mailMailer) {
-      case "local": {
-        // It is "local" if the hostaddr is one of the IP addresses of this machine
-        // It is "auth" if the hostaddr is not one of the IP addresses of this machine - whether they are actually logged in is checked below
-        boolean isLocalIp = isHostAddrLocal();
-        if (isLocalIp) {
-          isFromLocal = true;
-          isFromAuth = false;
-          isFromEsmtp = false;
-        } else {
-          boolean isRelayAllowed = isHostAddrRelayingAllowed();
-          if (isRelayAllowed) {
-            isFromLocal = false;
+      case "local":
+        {
+          // It is "local" if the hostaddr is one of the IP addresses of this machine
+          // It is "auth" if the hostaddr is not one of the IP addresses of this machine - whether they are actually logged in is checked below
+          boolean isLocalIp = isHostAddrLocal();
+          if (isLocalIp) {
+            isFromLocal = true;
             isFromAuth = false;
-            isFromEsmtp = true;
-          } else {
-            isFromLocal = false;
-            isFromAuth = true;
             isFromEsmtp = false;
+          } else {
+            boolean isRelayAllowed = isHostAddrRelayingAllowed();
+            if (isRelayAllowed) {
+              isFromLocal = false;
+              isFromAuth = false;
+              isFromEsmtp = true;
+            } else {
+              isFromLocal = false;
+              isFromAuth = true;
+              isFromEsmtp = false;
+            }
           }
+          break;
         }
-        break;
-      }
-      case "esmtp": {
-        // If is "esmtp" if not authenticated
-        isFromLocal = false;
-        isFromAuth = authAuthen != null && authAuthen.length() > 0;
-        isFromEsmtp = !isFromAuth;
-        break;
-      }
-      default: {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mailMailer});
-        if (log.isTraceEnabled()) {
-          trace("envrcpt: returning " + status);
+      case "esmtp":
+        {
+          // If is "esmtp" if not authenticated
+          isFromLocal = false;
+          isFromAuth = authAuthen != null && authAuthen.length() > 0;
+          isFromEsmtp = !isFromAuth;
+          break;
         }
-        return status;
-      }
+      default:
+        {
+          JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mailMailer});
+          if (log.isTraceEnabled()) {
+            trace("envrcpt: returning " + status);
+          }
+          return status;
+        }
     }
     boolean isToLocal = "local".equals(rcptMailer);
     boolean isToEsmtp = "esmtp".equals(rcptMailer);
