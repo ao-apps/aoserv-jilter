@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoserv-jilter - Mail filter for the AOServ Platform.
-Copyright (C) 2020, 2021, 2022, 2023  AO Industries, Inc.
+Copyright (C) 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -35,7 +35,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     <ao:redirect page="index.html" statusCode="301" addLastModified="false" />
   </c:if>
   <core:page
-    title="@{documented.name} ${ao:getProjectVersion('./', 'com.aoindustries', 'aoserv-jilter', '¿@{project.version}?')} API Docs"
+    title="@{documented.name} ${ao:getProjectVersion('./', '@{project.groupId}', '@{documented.artifactId}', '¿@{project.version}?')} API Docs"
     shortTitle="API Docs"
     datePublished="2020-04-13T12:04:48-05:00"
     dateModified="${ao:getLastModified('index.html')}"
