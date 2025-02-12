@@ -36,11 +36,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
     <!-- Must be set to ${git.commit.time} for snapshots or ISO 8601 timestamp for releases. -->
     <project.build.outputTimestamp>${git.commit.time}</project.build.outputTimestamp>
     <module.name>com.aoindustries.aoserv.jilter</module.name>
-    <!-- TODO: Java 11 once CentOS 5 is gone -->
-    <!-- Java 1.8 -->
-    <javase.version>1.8</javase.version>
-    <javase.release>8</javase.release>
-    <javadoc.link.javase>${javadoc.link.javase.8}</javadoc.link.javase>
 
     <javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ</a>
 / <a target="${javadoc.target}" href="${project.url}">Jilter</a>]]></javadoc.breadcrumbs>
@@ -141,36 +136,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 
   <build>
     <plugins>
-      <!-- Java 1.8: see https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId>
-        <executions>
-          <!-- compile everything to ensure module-info contains right entries -->
-          <execution>
-            <id>default-compile</id>
-            <configuration>
-              <release>9</release>
-            </configuration>
-          </execution>
-          <!-- recompile everything for target VM except the module-info.java -->
-          <execution>
-            <id>base-compile</id><goals><goal>compile</goal></goals>
-            <configuration>
-              <excludes>
-                <exclude>module-info.java</exclude>
-              </excludes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <!-- Java 1.8: generate future-proof modular javadocs -->
-          <source>11</source>
-          <release>11</release>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
         <configuration>
@@ -326,7 +291,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>4.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.7.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
