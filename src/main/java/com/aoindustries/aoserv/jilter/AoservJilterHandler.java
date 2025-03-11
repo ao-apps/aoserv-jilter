@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2013, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -58,6 +58,7 @@ public class AoservJilterHandler implements JilterHandler {
    * Outbound emails to these addresses are never limited and are never added to counters.
    * This is to make sure notices from critical system processes are not blocked.
    */
+  // TODO: This should not be hard-coded
   private static final String[] noLimitToAddresses = {
       "aoserv@aoindustries.com",
       "2054542556@tmomail.net",
