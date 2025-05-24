@@ -274,7 +274,7 @@ public class AoservJilterHandler implements JilterHandler {
     // Look for deny_spam block
     if (configuration.isDeniedSpam(hostIp)) {
       JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"Your mailer ("
-          + hostaddr.getHostAddress() + ") has been reported as sending unsolicited email and has been blocked - please contact AO Industries via (205)454-2556 or postmaster@aoindustries.com"});
+            + hostaddr.getHostAddress() + ") has been reported as sending unsolicited email and has been blocked - please contact AO Industries via (205)454-2556 or postmaster@aoindustries.com"});
       if (log.isTraceEnabled()) {
         trace("connect: returning " + status);
       }
@@ -543,7 +543,7 @@ public class AoservJilterHandler implements JilterHandler {
                   && !isHostAddrRelayingAllowed
           ) {
             status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"esmtp: Relaying from "
-                + hostaddr.getHostAddress() + " denied. Proper authentication required."});
+                  + hostaddr.getHostAddress() + " denied. Proper authentication required."});
           }
         }
 
@@ -627,7 +627,7 @@ public class AoservJilterHandler implements JilterHandler {
         if (status == null) {
           if (authAuthen == null || authAuthen.length() == 0) {
             status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"auth: Relaying from "
-                + hostaddr.getHostAddress() + " denied. Proper authentication required."});
+                  + hostaddr.getHostAddress() + " denied. Proper authentication required."});
           }
         }
 
@@ -1082,30 +1082,30 @@ public class AoservJilterHandler implements JilterHandler {
     int atPos = parsedFrom.lastIndexOf('@');
     if (atPos == -1) {
       return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
-          + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
+            + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
     }
 
     String domain = parsedFrom.substring(atPos + 1);
     if (domain.length() == 0) {
       return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from
-          + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
+            + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
     }
 
     String address = parsedFrom.substring(0, atPos);
     if (address.length() == 0) {
       return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
-          + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
+            + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
     }
 
     Set<String> addresses = configuration.getAddresses(domain);
     if (addresses == null) {
       return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from
-          + " is not allowed. This server does not receive email for " + domain});
+            + " is not allowed. This server does not receive email for " + domain});
     }
 
     if (!addresses.contains(address.toLowerCase(Locale.ENGLISH))) {
       return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
-          + " does not exist on this server."});
+            + " does not exist on this server."});
     }
 
     return null;
@@ -1134,25 +1134,25 @@ public class AoservJilterHandler implements JilterHandler {
     int atPos = parsedTo.lastIndexOf('@');
     if (atPos == -1) {
       return JilterStatus.makeCustomStatus("550", "5.1.3", new String[]{"The recipient address " + to
-          + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
+            + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
     }
 
     String domain = parsedTo.substring(atPos + 1);
     if (domain.length() == 0) {
       return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to
-          + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
+            + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
     }
 
     String address = parsedTo.substring(0, atPos);
     if (address.length() == 0) {
       return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to
-          + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
+            + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
     }
 
     Set<String> addresses = configuration.getAddresses(domain);
     if (addresses == null) {
       return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to
-          + " does not exist on this server. This server does not receive email for " + domain});
+            + " does not exist on this server. This server does not receive email for " + domain});
     }
 
     // These addresses are always deliverable
@@ -1176,7 +1176,7 @@ public class AoservJilterHandler implements JilterHandler {
     // If not found, return 5.1.1
     if (!found) {
       return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to
-          + " does not exist on this server."});
+            + " does not exist on this server."});
     }
 
     return null;
