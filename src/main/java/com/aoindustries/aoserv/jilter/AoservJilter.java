@@ -56,9 +56,9 @@ public final class AoservJilter {
   public static void main(String[] args) {
     // Initialize log4j
     BasicConfigurator.configure();
-    //Logger.getRootLogger().addAppender(new WriterAppender(new SimpleLayout(), System.err));
+    // Logger.getRootLogger().addAppender(new WriterAppender(new SimpleLayout(), System.err));
     Logger.getRootLogger().setLevel(Level.INFO);
-    //Category.getRoot().;
+    // Category.getRoot().;
 
     while (!Thread.currentThread().isInterrupted()) {
       try {

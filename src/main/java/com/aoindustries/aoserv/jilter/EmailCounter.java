@@ -85,7 +85,7 @@ public final class EmailCounter {
     if (decrementCount > emailCount) {
       emailCount = 0;
       lastDecrementTime = currentTimeMillis;
-      //reset(currentTimeMillis);
+      // reset(currentTimeMillis);
     } else {
       emailCount -= decrementCount;
       // Is this timed right?

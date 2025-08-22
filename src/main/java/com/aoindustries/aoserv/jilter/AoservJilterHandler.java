@@ -62,7 +62,7 @@ public class AoservJilterHandler implements JilterHandler {
   private static final String[] noLimitToAddresses = {
       "aoserv@aoindustries.com",
       "2054542556@tmomail.net",
-      //"2514584757@tmomail.net",
+      // "2514584757@tmomail.net",
       "support@aoindustries.com"
   };
 
@@ -167,26 +167,26 @@ public class AoservJilterHandler implements JilterHandler {
   JilterConfiguration configuration;
 
   // connect
-  //private String hostname;
+  // private String hostname;
   private InetAddress hostaddr;
-  //private String ifAddr;
-  //private String serverName;
-  //private String ifName;
-  //private String daemonName;
+  // private String ifAddr;
+  // private String serverName;
+  // private String ifName;
+  // private String daemonName;
 
   // helo
-  //private String helohost;
+  // private String helohost;
 
   // envfrom
   private String from;
   private String authAuthen;
-  //private String mailHost;
-  //private String authSsf;
-  //private String messageId;
-  //private String mailAddr;
+  // private String mailHost;
+  // private String authSsf;
+  // private String messageId;
+  // private String mailAddr;
   private String mailMailer;
 
-  //private String authType;
+  // private String authType;
 
   /**
    * Creates a new {@link AoservJilterHandler}.
@@ -200,25 +200,25 @@ public class AoservJilterHandler implements JilterHandler {
     configuration = JilterConfiguration.getJilterConfiguration();
 
     // connect
-    //hostname = null;
+    // hostname = null;
     hostaddr = null;
-    //ifAddr = null;
-    //serverName = null;
-    //ifName = null;
-    //daemonName = null;
+    // ifAddr = null;
+    // serverName = null;
+    // ifName = null;
+    // daemonName = null;
 
     // helo
-    //helohost = null;
+    // helohost = null;
 
     // envfrom
     from = null;
     authAuthen = null;
-    //mailHost = null;
-    //authSsf = null;
-    //messageId = null;
-    //mailAddr = null;
+    // mailHost = null;
+    // authSsf = null;
+    // messageId = null;
+    // mailAddr = null;
     mailMailer = null;
-    //authType = null;
+    // authType = null;
   }
 
   @Override
@@ -254,12 +254,12 @@ public class AoservJilterHandler implements JilterHandler {
         trace("        " + key + "=\"" + properties.get(key) + "\"");
       }
     }
-    //this.hostname = hostname;
+    // this.hostname = hostname;
     this.hostaddr = hostaddr;
-    //this.ifAddr = properties.getProperty("{if_name}"); // Should be "if_addr"?
-    //this.serverName = properties.getProperty("j");
-    //this.ifName = properties.getProperty("{if_name}");
-    //this.daemonName = properties.getProperty("{daemon_name}");
+    // this.ifAddr = properties.getProperty("{if_name}"); // Should be "if_addr"?
+    // this.serverName = properties.getProperty("j");
+    // this.ifName = properties.getProperty("{if_name}");
+    // this.daemonName = properties.getProperty("{daemon_name}");
 
     // Look for deny block
     String hostIp = hostaddr.getHostAddress();
@@ -301,7 +301,7 @@ public class AoservJilterHandler implements JilterHandler {
         trace("        " + key + "=\"" + properties.get(key) + "\"");
       }
     }
-    //this.helohost = helohost;
+    // this.helohost = helohost;
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
       trace("helo: returning " + status);
@@ -327,12 +327,12 @@ public class AoservJilterHandler implements JilterHandler {
     }
     this.from = argv[0];
     this.authAuthen = properties.getProperty("{auth_authen}");
-    //this.mailHost = properties.getProperty("{mail_host}");
-    //this.authSsf = properties.getProperty("{auth_ssf}");
-    //this.messageId = properties.getProperty("i");
-    //this.mailAddr = properties.getProperty("{mail_addr}");
+    // this.mailHost = properties.getProperty("{mail_host}");
+    // this.authSsf = properties.getProperty("{auth_ssf}");
+    // this.messageId = properties.getProperty("i");
+    // this.mailAddr = properties.getProperty("{mail_addr}");
     this.mailMailer = properties.getProperty("{mail_mailer}");
-    //this.authType = properties.getProperty("{auth_type}");
+    // this.authType = properties.getProperty("{auth_type}");
 
     JilterStatus status = JilterStatus.SMFIS_CONTINUE;
     if (log.isTraceEnabled()) {
