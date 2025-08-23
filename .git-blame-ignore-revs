@@ -25,3 +25,12 @@ f65f206c889fe328781b086848dab02215ff0490
 
 # Performed manual checkstyle clean-up
 9391edae9ab86fcd823b0dfe815cda8c0cf7e1d6
+
+# Removed unnecessary whitespace
+32c79e6d0334b61f371e563a31ba091c024c6f41
+
+# checkstyle-10.24.0 compatibility
+d4c58adbba0eb2a55e0c8e9c85beb32bff615c88
+
+# checkstyle-11.0.0 compatibility
+813dae925301e6c7863fe122c1fac86d67a1187f
