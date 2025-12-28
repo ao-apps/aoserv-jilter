@@ -154,6 +154,30 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
 
   <profiles>
     <profile>
+      <id>audit-dependencies</id>
+      <activation>
+        <property><name>ossindex.skip</name><value>!true</value></property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.sonatype.ossindex.maven</groupId><artifactId>ossindex-maven-plugin</artifactId>
+            <configuration>
+              <excludeVulnerabilityIds>
+                <!--
+                  This appears to be a false positive.  CVE-2025-68161 is reported to be fixed in 2.25.3, which we are
+                  already on.
+                  https://ossindex.sonatype.org/component/pkg:maven/org.apache.logging.log4j/log4j-core@2.25.3
+                  https://ossindex.sonatype.org/vulnerability/CVE-2025-68161?component-type=maven&component-name=org.apache.logging.log4j%2Flog4j-core
+                -->
+                <exclude>CVE-2025-68161</exclude>
+              </excludeVulnerabilityIds>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>offlineLinks</id><activation><file><exists>src/main/java</exists></file></activation>
       <build>
         <plugins>
