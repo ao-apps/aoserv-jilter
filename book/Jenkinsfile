@@ -34,19 +34,23 @@ def upstreamProjects = [
   '../oss/checkstyle-config', // <groupId>com.aoapps</groupId><artifactId>ao-checkstyle-config</artifactId>
 
   // Direct
-  '../oss/badges-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-badges</artifactId>
-  '../oss/taglib-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId>
-  '../semanticcms-1.x/changelog-taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-changelog-taglib</artifactId>
-  '../semanticcms-1.x/core/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
-  '../semanticcms-1.x/section/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-section-taglib</artifactId>
-  // No Jenkins: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId>
+  '../oss/badges', // <groupId>com.aoapps</groupId><artifactId>ao-badges</artifactId>
+  '../oss/taglib', // <groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId>
+  '../semanticcms-2.x/changelog-taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-changelog-taglib</artifactId>
+  '../semanticcms-2.x/core/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
+  '../semanticcms-2.x/section/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-section-taglib</artifactId>
+  // No Jenkins: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 
   // Runtime Direct
-  // No Jenkins: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>
+  // No Jenkins: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId>
 
   // BOM
-  '../oss/javaee-web-api-bom', // <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId>
+  '../oss/jakartaee-web-profile-bom', // <groupId>com.aoapps</groupId><artifactId>jakartaee-web-profile-bom</artifactId>
 ]
+
+// Java 17
+def buildJdks = ['17', '21'] // Changes must be copied to matrix axes!
+def testJdks = ['17', '21'] // Changes must be copied to matrix axes!
 
 /******************************************************************************************
  *                                                                                        *
@@ -858,7 +862,7 @@ or any build that adds or removes build artifacts."""
         axes {
           axis {
             name 'jdk'
-            values '11', '17', '21' // buildJdks
+            values '17', '21' // buildJdks
           }
         }
         stages {
@@ -918,11 +922,11 @@ or any build that adds or removes build artifacts."""
         axes {
           axis {
             name 'jdk'
-            values '11', '17', '21' // buildJdks
+            values '17', '21' // buildJdks
           }
           axis {
             name 'testJdk'
-            values '11', '17', '21' // testJdks
+            values '17', '21' // testJdks
           }
         }
         stages {
