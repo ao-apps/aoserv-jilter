@@ -134,15 +134,6 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
-        <configuration>
-          <ignoredDependencies>
-            <!-- No "module-info.java" in some release builds -->
-            <dependency>com.aoapps:ao-collections</dependency>
-          </ignoredDependencies>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
         <configuration>
           <!-- TODO: Clean-up SpotBugs -->
