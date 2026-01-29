@@ -731,7 +731,7 @@ public class AoservJilterHandler implements JilterHandler {
   /**
    * Determines if the provided to address is one that should not be limited.
    *
-   * @see  #noLimitToAddresses
+   * @see  AoservJilterHandler#noLimitToAddresses
    */
   private boolean isNoLimitAddress(String to) {
     String parsedTo = to;
