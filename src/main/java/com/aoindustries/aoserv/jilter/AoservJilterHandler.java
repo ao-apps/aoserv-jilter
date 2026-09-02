@@ -1,6 +1,6 @@
 /*
  * aoserv-jilter - Mail filter for the AOServ Platform.
- * Copyright (C) 2007-2013, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2020, 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -264,7 +264,7 @@ public class AoservJilterHandler implements JilterHandler {
     // Look for deny block
     String hostIp = hostaddr.getHostAddress();
     if (configuration.isDenied(hostIp)) {
-      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"Mail from " + hostaddr.getHostAddress() + " denied."});
+      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"Mail from " + hostaddr.getHostAddress() + " denied."});
       if (log.isTraceEnabled()) {
         trace("connect: returning " + status);
       }
@@ -273,7 +273,7 @@ public class AoservJilterHandler implements JilterHandler {
 
     // Look for deny_spam block
     if (configuration.isDeniedSpam(hostIp)) {
-      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"Your mailer ("
+      JilterStatus status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"Your mailer ("
             + hostaddr.getHostAddress() + ") has been reported as sending unsolicited email and has been blocked - please contact AO Industries via (205)454-2556 or postmaster@aoindustries.com"});
       if (log.isTraceEnabled()) {
         trace("connect: returning " + status);
@@ -447,7 +447,7 @@ public class AoservJilterHandler implements JilterHandler {
         }
       default:
         {
-          JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mailMailer});
+          JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: " + mailMailer});
           if (log.isTraceEnabled()) {
             trace("envrcpt: returning " + status);
           }
@@ -472,7 +472,7 @@ public class AoservJilterHandler implements JilterHandler {
         // Don't allow empty from address
         if (status == null) {
           if (from == null || from.length() < 2 || "<>".equals(from)) {
-            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"local: Email not accepted with an empty from address."});
+            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"local: Email not accepted with an empty from address."});
           }
         }
 
@@ -489,7 +489,7 @@ public class AoservJilterHandler implements JilterHandler {
               !isNoLimitAddress(to)
                   && isLimited(CounterMode.OUT, from)
           ) {
-            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"local: Outgoing email limit reached, throttling additional emails"});
+            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"local: Outgoing email limit reached, throttling additional emails"});
           }
         }
 
@@ -519,7 +519,7 @@ public class AoservJilterHandler implements JilterHandler {
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcptMailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: " + rcptMailer});
         if (log.isTraceEnabled()) {
           trace("envrcpt: returning " + status);
         }
@@ -542,7 +542,7 @@ public class AoservJilterHandler implements JilterHandler {
               !isHostAddrLocal
                   && !isHostAddrRelayingAllowed
           ) {
-            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"esmtp: Relaying from "
+            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"esmtp: Relaying from "
                   + hostaddr.getHostAddress() + " denied. Proper authentication required."});
           }
         }
@@ -550,7 +550,7 @@ public class AoservJilterHandler implements JilterHandler {
         // Don't allow empty from address
         if (status == null) {
           if (from == null || from.length() < 2 || "<>".equals(from)) {
-            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"esmtp: Email not accepted with an empty from address."});
+            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"esmtp: Email not accepted with an empty from address."});
           }
         }
 
@@ -569,12 +569,12 @@ public class AoservJilterHandler implements JilterHandler {
                 !isNoLimitAddress(to)
                     && isLimited(CounterMode.OUT, from)
             ) {
-              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"esmtp: Outgoing email limit reached, throttling additional emails"});
+              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Outgoing email limit reached, throttling additional emails"});
             }
           } else {
             // Limit as relay
             if (isLimited(CounterMode.RELAY, from)) {
-              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"esmtp: Relay email limit reached, throttling additional emails"});
+              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Relay email limit reached, throttling additional emails"});
             }
           }
         }
@@ -599,7 +599,7 @@ public class AoservJilterHandler implements JilterHandler {
         // Limit as incoming mail
         if (status == null) {
           if (isLimited(CounterMode.IN, to)) {
-            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"esmtp: Incoming email limit reached, throttling additional emails"});
+            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"esmtp: Incoming email limit reached, throttling additional emails"});
           }
         }
 
@@ -612,7 +612,7 @@ public class AoservJilterHandler implements JilterHandler {
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcptMailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: " + rcptMailer});
         if (log.isTraceEnabled()) {
           trace("envrcpt: returning " + status);
         }
@@ -626,7 +626,7 @@ public class AoservJilterHandler implements JilterHandler {
         // Make sure authenticated
         if (status == null) {
           if (authAuthen == null || authAuthen.length() == 0) {
-            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[]{"auth: Relaying from "
+            status = JilterStatus.makeCustomStatus("550", "5.7.1", new String[] {"auth: Relaying from "
                   + hostaddr.getHostAddress() + " denied. Proper authentication required."});
           }
         }
@@ -634,7 +634,7 @@ public class AoservJilterHandler implements JilterHandler {
         // Don't allow empty from address
         if (status == null) {
           if (from == null || from.length() < 2 || "<>".equals(from)) {
-            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"auth: Email not accepted with an empty from address."});
+            status = JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"auth: Email not accepted with an empty from address."});
           }
         }
 
@@ -652,12 +652,12 @@ public class AoservJilterHandler implements JilterHandler {
                 !isNoLimitAddress(to)
                     && isLimited(CounterMode.OUT, from)
             ) {
-              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"auth: Outgoing email limit reached, throttling additional emails"});
+              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Outgoing email limit reached, throttling additional emails"});
             }
           } else {
             // Limit as relay
             if (isLimited(CounterMode.RELAY, from)) {
-              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"auth: Relay email limit reached, throttling additional emails"});
+              status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Relay email limit reached, throttling additional emails"});
             }
           }
         }
@@ -682,7 +682,7 @@ public class AoservJilterHandler implements JilterHandler {
         // Limit as incoming mail
         if (status == null) {
           if (isLimited(CounterMode.IN, to)) {
-            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[]{"auth: Incoming email limit reached, throttling additional emails"});
+            status = JilterStatus.makeCustomStatus("450", "4.3.2", new String[] {"auth: Incoming email limit reached, throttling additional emails"});
           }
         }
 
@@ -695,14 +695,14 @@ public class AoservJilterHandler implements JilterHandler {
         }
         return status;
       } else {
-        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected rcpt_mailer: " + rcptMailer});
+        JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected rcpt_mailer: " + rcptMailer});
         if (log.isTraceEnabled()) {
           trace("envrcpt: returning " + status);
         }
         return status;
       }
     } else {
-      JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[]{"Unexpected mail_mailer: " + mailMailer});
+      JilterStatus status = JilterStatus.makeCustomStatus("451", "4.3.0", new String[] {"Unexpected mail_mailer: " + mailMailer});
       if (log.isTraceEnabled()) {
         trace("envrcpt: returning " + status);
       }
@@ -1081,30 +1081,30 @@ public class AoservJilterHandler implements JilterHandler {
     // Find the last @ in the address
     int atPos = parsedFrom.lastIndexOf('@');
     if (atPos == -1) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address " + from
             + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
     }
 
     String domain = parsedFrom.substring(atPos + 1);
     if (domain.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from
+      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[] {"The from address " + from
             + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
     }
 
     String address = parsedFrom.substring(0, atPos);
     if (address.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address " + from
             + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
     }
 
     Set<String> addresses = configuration.getAddresses(domain);
     if (addresses == null) {
-      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[]{"The from address " + from
+      return JilterStatus.makeCustomStatus("550", "5.1.8", new String[] {"The from address " + from
             + " is not allowed. This server does not receive email for " + domain});
     }
 
     if (!addresses.contains(address.toLowerCase(Locale.ENGLISH))) {
-      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[]{"The from address " + from
+      return JilterStatus.makeCustomStatus("550", "5.1.7", new String[] {"The from address " + from
             + " does not exist on this server."});
     }
 
@@ -1133,25 +1133,25 @@ public class AoservJilterHandler implements JilterHandler {
     // Find the last @ in the address
     int atPos = parsedTo.lastIndexOf('@');
     if (atPos == -1) {
-      return JilterStatus.makeCustomStatus("550", "5.1.3", new String[]{"The recipient address " + to
+      return JilterStatus.makeCustomStatus("550", "5.1.3", new String[] {"The recipient address " + to
             + " must contain both address and domain in the form address@domain, the symbol @ was not found."});
     }
 
     String domain = parsedTo.substring(atPos + 1);
     if (domain.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to
+      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[] {"The recipient address " + to
             + " must contain both address and domain in the form address@domain, nothing was provided after the @ symbol."});
     }
 
     String address = parsedTo.substring(0, atPos);
     if (address.length() == 0) {
-      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to
+      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[] {"The recipient address " + to
             + " must contain both address and domain in the form address@domain, nothing was provided before the @ symbol."});
     }
 
     Set<String> addresses = configuration.getAddresses(domain);
     if (addresses == null) {
-      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[]{"The recipient address " + to
+      return JilterStatus.makeCustomStatus("550", "5.1.2", new String[] {"The recipient address " + to
             + " does not exist on this server. This server does not receive email for " + domain});
     }
 
@@ -1175,7 +1175,7 @@ public class AoservJilterHandler implements JilterHandler {
 
     // If not found, return 5.1.1
     if (!found) {
-      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[]{"The recipient address " + to
+      return JilterStatus.makeCustomStatus("550", "5.1.1", new String[] {"The recipient address " + to
             + " does not exist on this server."});
     }
 
