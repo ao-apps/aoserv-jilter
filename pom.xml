@@ -238,6 +238,7 @@ along with aoserv-jilter.  If not, see <https://www.gnu.org/licenses/>.
                   jilter-1.2.jar
                 -->
                 <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
+                <Include-Resource>{maven-resources}</Include-Resource>
                 <Private-Package>!.</Private-Package>
               </instructions>
             </configuration>
