@@ -44,6 +44,11 @@ binding.setVariable('upstreamProjects', [
   // No Jenkins: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-jul</artifactId>
 ])
 
+// This project is packaged and deployed via RPM / Debian packages.
+// Also audit per-platform release branches on each build.
+// Note: matches docs-ao/**/dists.jspf:aoservJilterDists
+binding.setVariable('scmAdditionalAuditBranches', ['el7', 'el9'])
+
 /******************************************************************************************
  *                                                                                        *
  * Everything below this line is identical for all projects, except the copied matrix     *
